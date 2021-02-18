@@ -16,8 +16,14 @@ src
             ├── RefuelingBlimp.java
             └── SkyScraper.java
 test
-└── Tester.java
+├── Tester.java
+└── org
+    └── csc133
+        └── a1
+            ├── BirdTest.java
+            ├── RefuelingBlimpTest.java
+            └── SkyScraperTest.java
 
-3 directories, 11 files
+6 directories, 14 files
 ```
 
