@@ -1,7 +1,12 @@
 package org.csc133.a1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameWorld
 {
+    private final List<GameObject> world = new ArrayList<GameObject>();
+
     public void init()
     {
         // TODO create the initial game objects / setup
