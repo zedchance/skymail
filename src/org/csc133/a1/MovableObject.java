@@ -5,7 +5,7 @@ public abstract class MovableObject extends GameObject
     private int heading;
     private int speed;
 
-    public MovableObject(int size, float x, float y, int color, int heading, int speed)
+    public MovableObject(int size, double x, double y, int color, int heading, int speed)
     {
         super(size, x, y, color);
         this.heading = heading;

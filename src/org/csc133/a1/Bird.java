@@ -8,7 +8,7 @@ public class Bird extends MovableObject
         this(10, 0, 0, 30, 45, 3);
     }
 
-    public Bird(int size, float x, float y, int color, int heading, int speed)
+    public Bird(int size, double x, double y, int color, int heading, int speed)
     {
         super(size, x, y, color, heading, speed);
     }

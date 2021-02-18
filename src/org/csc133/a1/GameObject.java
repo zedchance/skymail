@@ -3,11 +3,11 @@ package org.csc133.a1;
 public abstract class GameObject
 {
     private int size;
-    private float x;
-    private float y;
+    private double x;
+    private double y;
     private int color;
 
-    public GameObject(int size, float x, float y, int color)
+    public GameObject(int size, double x, double y, int color)
     {
         this.size = size;
         this.x = x;
@@ -25,12 +25,12 @@ public abstract class GameObject
         this.size = size;
     }
 
-    public float getX()
+    public double getX()
     {
         return x;
     }
 
-    public float getY()
+    public double getY()
     {
         return y;
     }
@@ -39,10 +39,10 @@ public abstract class GameObject
      * Sets the location of the object in a (x, y) fashion.
      * The game board is restricted to 1024.0 x 768.0
      *
-     * @param x coordinate as float
-     * @param y coordinate as float
+     * @param x coordinate as double
+     * @param y coordinate as double
      */
-    public void setLocation(float x, float y)
+    public void setLocation(double x, double y)
     {
         if (x > 1024.0)
         {

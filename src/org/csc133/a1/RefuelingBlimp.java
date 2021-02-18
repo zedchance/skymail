@@ -10,7 +10,7 @@ public class RefuelingBlimp extends GameObject
         this(20, 0, 0, 200, 100);
     }
 
-    public RefuelingBlimp(int size, float x, float y, int color, int capacity)
+    public RefuelingBlimp(int size, double x, double y, int color, int capacity)
     {
         super(size, x, y, color);
         this.capacity = capacity;
