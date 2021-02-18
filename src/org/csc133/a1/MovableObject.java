@@ -12,7 +12,10 @@ public abstract class MovableObject extends GameObject
         this.speed = speed;
     }
 
-    // TODO move(), figure out new position based on speed and heading
+    public void move()
+    {
+        // TODO figure out new position based on speed and heading (compass)
+    }
 
     @Override
     public String toString()

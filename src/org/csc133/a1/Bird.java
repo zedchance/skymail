@@ -4,6 +4,7 @@ public class Bird extends MovableObject
 {
     public Bird()
     {
+        // TODO birds should start in random locations with random headings
         this(10, 0, 0, 30, 45, 3);
     }
 

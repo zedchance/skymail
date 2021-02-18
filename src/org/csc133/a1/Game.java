@@ -83,10 +83,10 @@ public class Game extends Form
                         break;
                     case 'x':
                         System.out.println("Exit?");
-                        // ask y/N
+                        // TODO ask y/N
                         gw.exit();
                         break;
-                    // numbers 1-9
+                    // TODO numbers 1-9
                 }
             }
         });

@@ -11,6 +11,7 @@ public class Helicopter extends MovableObject implements ISteerable
 
     public Helicopter()
     {
+        // TODO setup default params to follow doc
         this(25, 0, 0, 150, 45, 0, 45, 10, 100, 5, 0, 0);
     }
 
@@ -28,7 +29,7 @@ public class Helicopter extends MovableObject implements ISteerable
     @Override
     public void changeDirection(int degrees)
     {
-        // TODO
+        // TODO change heading based on stickAngle and degrees
     }
 
     @Override

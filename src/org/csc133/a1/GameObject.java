@@ -20,14 +20,38 @@ public abstract class GameObject
         return size;
     }
 
-    public float[] getLocation()
+    public void setSize(int size)
     {
-        float[] ret = {x, y};
-        return ret;
+        this.size = size;
     }
 
+    public float getX()
+    {
+        return x;
+    }
+
+    public float getY()
+    {
+        return y;
+    }
+
+    /**
+     * Sets the location of the object in a (x, y) fashion.
+     * The game board is restricted to 1024.0 x 768.0
+     *
+     * @param x coordinate as float
+     * @param y coordinate as float
+     */
     public void setLocation(float x, float y)
     {
+        if (x > 1024.0)
+        {
+            x = 1024.0f;
+        }
+        if (y > 768.0)
+        {
+            y = 768.0f;
+        }
         this.x = x;
         this.y = y;
     }

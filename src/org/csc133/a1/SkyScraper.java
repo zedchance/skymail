@@ -15,6 +15,16 @@ public class SkyScraper extends GameObject
         this.sequenceNumber = sequenceNumber;
     }
 
+    public int getSequenceNumber()
+    {
+        return sequenceNumber;
+    }
+
+    public void setSequenceNumber(int sequenceNumber)
+    {
+        this.sequenceNumber = sequenceNumber;
+    }
+
     @Override
     public String toString()
     {

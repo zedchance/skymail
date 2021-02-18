@@ -16,6 +16,9 @@ public class Tester
 
         RefuelingBlimp testBlimp = new RefuelingBlimp();
         System.out.println(testBlimp);
+        testBlimp.setLocation(50, 50);
+        testBlimp.setColor(400);
+        System.out.println(testBlimp);
 
         Helicopter testHeli = new Helicopter();
         testHeli.setLocation(10, 5);

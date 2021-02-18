@@ -6,6 +6,7 @@ public class RefuelingBlimp extends GameObject
 
     public RefuelingBlimp()
     {
+        // TODO capacity should be proportional to size, fix constructors to make this easy
         this(20, 0, 0, 200, 100);
     }
 
@@ -15,9 +16,20 @@ public class RefuelingBlimp extends GameObject
         this.capacity = capacity;
     }
 
-    public void withdrawFuel()
+    public int getCapacity()
     {
-        // TODO
+        return capacity;
+    }
+
+    public void withdrawFuel(int amount)
+    {
+        capacity = capacity - amount;
+        // TODO maybe return amount of fuel withdrawn?
+    }
+
+    public boolean isEmpty()
+    {
+        return capacity == 0;
     }
 
     @Override
