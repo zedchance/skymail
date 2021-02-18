@@ -26,10 +26,10 @@ public abstract class GameObject
         return ret;
     }
 
-    public void setLocation(float[] location)
+    public void setLocation(float x, float y)
     {
-        x = location[0];
-        y = location[1];
+        this.x = x;
+        this.y = y;
     }
 
     public int getColor()
@@ -40,5 +40,16 @@ public abstract class GameObject
     public void setColor(int color)
     {
         this.color = color;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "GameObject{" +
+                "size=" + size +
+                ", x=" + x +
+                ", y=" + y +
+                ", color=" + color +
+                '}';
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GameWorld
 {
-    private final List<GameObject> world = new ArrayList<GameObject>();
+    private final List<GameObject> world = new ArrayList<>();
 
     public void init()
     {

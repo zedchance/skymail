@@ -11,4 +11,15 @@ public abstract class MovableObject extends GameObject
         this.heading = heading;
         this.speed = speed;
     }
+
+    // TODO move(), figure out new position based on speed and heading
+
+    @Override
+    public String toString()
+    {
+        return "MovableObject{" +
+                "heading=" + heading +
+                ", speed=" + speed +
+                "} " + super.toString();
+    }
 }
