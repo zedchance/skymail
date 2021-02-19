@@ -49,6 +49,16 @@ public class GameWorld
         player.decelerate();
     }
 
+    public void left()
+    {
+        player.changeDirection(5);
+    }
+
+    public void right()
+    {
+        player.changeDirection(-5);
+    }
+
     /**
      * Advance game clock by 1 tick, moving any movable objects to
      * their new location.

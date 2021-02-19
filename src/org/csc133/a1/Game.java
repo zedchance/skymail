@@ -53,10 +53,12 @@ public class Game extends Form
                     case 'L':
                     case 'l':
                         System.out.println("Turning left");
+                        gw.left();
                         break;
                     case 'R':
                     case 'r':
                         System.out.println("Turning right");
+                        gw.right();
                         break;
                     case 'C':
                     case 'c':
@@ -88,7 +90,7 @@ public class Game extends Form
                         // TODO ask y/N
                         gw.exit();
                         break;
-                    // TODO numbers 1-9
+                    // TODO numbers 1-9 will pretend that the helicopter has collided with skyscraper x
                 }
             }
         });

@@ -22,7 +22,7 @@ public class Helicopter extends MovableObject implements ISteerable
      */
     public Helicopter()
     {
-        this(0, 10, 100, 5, 0, 0);
+        this(0, 50, 100, 5, 0, 0);
         setSpeed(0);
         setSize(10);
     }
@@ -103,21 +103,34 @@ public class Helicopter extends MovableObject implements ISteerable
      */
     public void consumeFuel()
     {
-        // TODO should be proportional to current speed
+        // TODO consumption should be proportional to current speed
         fuelLevel = fuelLevel - fuelConsumptionRate;
     }
 
     @Override
     public void move()
     {
-        super.move();
+        // helicopters can only turn 5 degrees each tick
+        if (stickAngle > getHeading())
+        {
+            setHeading(getHeading() + 5);
+        }
+        else if (stickAngle < getHeading())
+        {
+            setHeading(getHeading() - 5);
+        }
+
+        if (!isFuelEmpty() && !isDestroyed())
+        {
+            super.move();
+        }
         consumeFuel();
     }
 
     @Override
     public void changeDirection(int degrees)
     {
-        // TODO change heading based on stickAngle and degrees
+        stickAngle = stickAngle + degrees;
     }
 
     @Override
