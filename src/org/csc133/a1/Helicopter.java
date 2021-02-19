@@ -4,26 +4,114 @@ public class Helicopter extends MovableObject implements ISteerable
 {
     private int stickAngle;
     private int maximumSpeed;
-    private int fuelLevel;
+    private double fuelLevel;
     private double fuelConsumptionRate;
     private int damageLevel;
     private int lastSkyscraperReached;
 
+    /**
+     * By default, Helicopters have these properties:
+     * stickAngle is 0,
+     * maximumSpeed is 10,
+     * fuelLevel is 100,
+     * fuelConsumptionRate is 5,
+     * damageLevel is 0,
+     * lastSkyScraperReached is 0,
+     * speed is 0,
+     * size is 10.
+     */
     public Helicopter()
     {
-        // TODO setup default params to follow doc
-        this(25, 0, 0, 150, 45, 0, 45, 10, 100, 5, 0, 0);
+        this(0, 10, 100, 5, 0, 0);
+        setSpeed(0);
+        setSize(10);
     }
 
-    public Helicopter(int size, double x, double y, int color, int heading, int speed, int stickAngle, int maximumSpeed, int fuelLevel, double fuelConsumptionRate, int damageLevel, int lastSkyscraperReached)
+    public Helicopter(int x, int y)
     {
-        super(size, x, y, color, heading, speed);
+        this();
+        setLocation(x, y);
+    }
+
+    private Helicopter(int stickAngle, int maximumSpeed, double fuelLevel, double fuelConsumptionRate, int damageLevel, int lastSkyscraperReached)
+    {
+        super();
         this.stickAngle = stickAngle;
         this.maximumSpeed = maximumSpeed;
         this.fuelLevel = fuelLevel;
         this.fuelConsumptionRate = fuelConsumptionRate;
         this.damageLevel = damageLevel;
         this.lastSkyscraperReached = lastSkyscraperReached;
+    }
+
+    /**
+     * Helicopters can accelerate by a specific amount
+     * up to the maximumSpeed
+     */
+    public void accelerate()
+    {
+        int accelerationSpeed = 10;
+        if (getSpeed() >= maximumSpeed)
+        {
+            setSpeed(maximumSpeed);
+        }
+        else
+        {
+            setSpeed(getSpeed() + accelerationSpeed);
+        }
+    }
+
+    /**
+     * Helicopters can decelerate by a specific amount,
+     * down to 0, where they hover.
+     */
+    public void decelerate()
+    {
+        int decelerationSpeed = 10;
+        if (getSpeed() <= 0)
+        {
+            setSpeed(0);
+        }
+        else
+        {
+            setSpeed(getSpeed() - decelerationSpeed);
+        }
+    }
+
+    /**
+     * Helicopters are destroyed when their damageLevel is 100
+     *
+     * @return true if destroyed
+     */
+    public boolean isDestroyed()
+    {
+        return damageLevel == 100;
+    }
+
+    /**
+     * Helicopters are empty when their fuelLevel has reached 0
+     *
+     * @return true if fuel is empty
+     */
+    public boolean isFuelEmpty()
+    {
+        return fuelLevel == 0;
+    }
+
+    /**
+     * Helicopters use fuel each time they move
+     */
+    public void consumeFuel()
+    {
+        // TODO should be proportional to current speed
+        fuelLevel = fuelLevel - fuelConsumptionRate;
+    }
+
+    @Override
+    public void move()
+    {
+        super.move();
+        consumeFuel();
     }
 
     @Override

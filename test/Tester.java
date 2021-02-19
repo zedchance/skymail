@@ -23,5 +23,8 @@ public class Tester
         Helicopter testHeli = new Helicopter();
         testHeli.setLocation(10, 5);
         System.out.println(testHeli);
+        testHeli.setSpeed(2);
+        testHeli.move();
+        System.out.println(testHeli);
     }
 }

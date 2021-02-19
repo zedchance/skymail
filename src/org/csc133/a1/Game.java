@@ -5,7 +5,6 @@ import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
-import org.w3c.dom.Text;
 
 public class Game extends Form
 {
@@ -44,10 +43,12 @@ public class Game extends Form
                     case 'A':
                     case 'a':
                         System.out.println("Accelerating");
+                        gw.accelerate();
                         break;
                     case 'B':
                     case 'b':
                         System.out.println("Braking");
+                        gw.brake();
                         break;
                     case 'L':
                     case 'l':
@@ -71,7 +72,7 @@ public class Game extends Form
                         break;
                     case 'T':
                     case 't':
-                        System.out.println("Advancing tick");
+                        System.out.println("Advancing tick to " + gw.tick());
                         break;
                     case 'D':
                     case 'd':
@@ -80,6 +81,7 @@ public class Game extends Form
                     case 'M':
                     case 'm':
                         System.out.println("Showing map");
+                        gw.map();
                         break;
                     case 'x':
                         System.out.println("Exit?");

@@ -4,15 +4,19 @@ public class RefuelingBlimp extends GameObject
 {
     private int capacity;
 
+    /**
+     * By default, RefuelingBlimp's have these properties:
+     * capacity is proportional to size of blimp.
+     */
     public RefuelingBlimp()
     {
         // TODO capacity should be proportional to size, fix constructors to make this easy
-        this(20, 0, 0, 200, 100);
+        this(100);
     }
 
-    public RefuelingBlimp(int size, double x, double y, int color, int capacity)
+    public RefuelingBlimp(int capacity)
     {
-        super(size, x, y, color);
+        super();
         this.capacity = capacity;
     }
 

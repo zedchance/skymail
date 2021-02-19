@@ -10,7 +10,7 @@ class RefuelingBlimpTest
     void testCapacity()
     {
         RefuelingBlimp blimp = new RefuelingBlimp();
-        System.out.println(blimp);
+        // TODO flush this test out
     }
 
     @Test

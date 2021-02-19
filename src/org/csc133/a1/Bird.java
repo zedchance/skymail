@@ -2,15 +2,16 @@ package org.csc133.a1;
 
 public class Bird extends MovableObject
 {
+    /**
+     * By default, Bird's have these properties:
+     * a random start location,
+     * a random speed,
+     * a random heading.
+     */
     public Bird()
     {
-        // TODO birds should start in random locations with random headings
-        this(10, 0, 0, 30, 45, 3);
-    }
-
-    public Bird(int size, double x, double y, int color, int heading, int speed)
-    {
-        super(size, x, y, color, heading, speed);
+        super();
+        // TODO birds should have a random start location, random speed, random heading
     }
 
     @Override

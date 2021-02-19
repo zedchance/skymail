@@ -7,6 +7,25 @@ public abstract class GameObject
     private double y;
     private int color;
 
+    /**
+     * By default, GameObject's have these properties:
+     * size is 10,
+     * located at (0,0),
+     * color value is 0.
+     */
+    public GameObject()
+    {
+        this(10, 0, 0, 0);
+    }
+
+    /**
+     * Create a new GameObject with set parameters
+     *
+     * @param size  how big the object is
+     * @param x     horizontal position
+     * @param y     vertical position
+     * @param color what color the object is
+     */
     public GameObject(int size, double x, double y, int color)
     {
         this.size = size;
@@ -46,11 +65,11 @@ public abstract class GameObject
     {
         if (x > 1024.0)
         {
-            x = 1024.0f;
+            x = 1024.0;
         }
         if (y > 768.0)
         {
-            y = 768.0f;
+            y = 768.0;
         }
         this.x = x;
         this.y = y;

@@ -4,15 +4,30 @@ public class SkyScraper extends GameObject
 {
     private int sequenceNumber;
 
+    /**
+     * By default, SkyScraper's have these properties:
+     * sequenceNumber is 1.
+     */
     public SkyScraper()
     {
-        this(30, 0, 0, 100, 1);
+        this(1);
     }
 
-    public SkyScraper(int size, float x, float y, int color, int sequenceNumber)
+    /**
+     * Create a SkyScraper with a specific sequence number.
+     *
+     * @param sequenceNumber the number in which this skyScraper should be visited
+     */
+    public SkyScraper(int sequenceNumber)
     {
-        super(size, x, y, color);
+        super();
         this.sequenceNumber = sequenceNumber;
+    }
+
+    public SkyScraper(double x, double y, int sequenceNumber)
+    {
+        this(sequenceNumber);
+        setLocation(x, y);
     }
 
     public int getSequenceNumber()
