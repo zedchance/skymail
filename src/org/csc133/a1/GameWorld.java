@@ -49,11 +49,19 @@ public class GameWorld
         player.decelerate();
     }
 
+    /**
+     * The player can turn left 5 degrees at a time,
+     * issue multiple commands for more
+     */
     public void left()
     {
         player.changeDirection(5);
     }
 
+    /**
+     * The player can turn right 5 degrees at a time,
+     * issue multiple commands for more
+     */
     public void right()
     {
         player.changeDirection(-5);

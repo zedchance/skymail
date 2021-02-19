@@ -27,12 +27,28 @@ public class Helicopter extends MovableObject implements ISteerable
         setSize(10);
     }
 
+    /**
+     * Create a helicopter at a specific position
+     *
+     * @param x horizontal coordinate
+     * @param y vertical coordinate
+     */
     public Helicopter(int x, int y)
     {
         this();
         setLocation(x, y);
     }
 
+    /**
+     * Create a helicopter with specific parameters
+     *
+     * @param stickAngle            the direction that the helicopter wants to fly
+     * @param maximumSpeed          the fastest the helicopter can fly
+     * @param fuelLevel             the amount of fuel, empty at 0
+     * @param fuelConsumptionRate   amount of fuel used per tick
+     * @param damageLevel           amount of damage taken, up to 100
+     * @param lastSkyscraperReached last SkyScraper checkpoint reached
+     */
     private Helicopter(int stickAngle, int maximumSpeed, double fuelLevel, double fuelConsumptionRate, int damageLevel, int lastSkyscraperReached)
     {
         super();
@@ -99,7 +115,8 @@ public class Helicopter extends MovableObject implements ISteerable
     }
 
     /**
-     * Helicopters use fuel each time they move
+     * Helicopters use fuel each time they move, proportional
+     * to current speed
      */
     public void consumeFuel()
     {
