@@ -77,8 +77,7 @@ public class GameWorld
      */
     public void helicopterCollision()
     {
-        //TODO take in another Helicopter as parameter, use their speed as a factor to damage taken
-        player.takeDamage();
+        player.collide();
         if (player.isDestroyed())
         {
             lives--;
@@ -94,6 +93,11 @@ public class GameWorld
     {
         // TODO take in an amount from a blimp
         player.fuelUp(100);
+    }
+
+    public void birdCollision()
+    {
+        player.collideWithBird();
     }
 
     /**

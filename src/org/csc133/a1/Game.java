@@ -76,6 +76,7 @@ public class Game extends Form
                     case 'G':
                     case 'g':
                         System.out.println("Simulating bird collision");
+                        gw.birdCollision();
                         break;
                     case 'T':
                     case 't':

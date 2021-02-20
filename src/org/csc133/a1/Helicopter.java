@@ -120,27 +120,43 @@ public class Helicopter extends MovableObject implements ISteerable
         return damageLevel >= 100;
     }
 
-    /**
-     * Helicopters take damage when colliding with other objects
-     * equal to their current speed + 1
-     */
-    public void takeDamage()
+    private void takeDamage(int amount)
     {
-        int damageToTake = getSpeed();
-        if (damageLevel + damageToTake >= 100)
+        // TODO change color when damage is taken
+        if (damageLevel + amount >= 100)
         {
             damageLevel = 100;
         }
         else
         {
-            damageLevel = damageLevel + damageToTake + 1;
+            damageLevel = damageLevel + amount + 1;
         }
+    }
+
+    /**
+     * Helicopters take damage when colliding with other objects
+     * equal to their current speed + 1
+     */
+    public void collide()
+    {
+        // TODO take in another Helicopter as parameter, use their speed as a factor to damage taken
+        takeDamage(getSpeed() + 1);
+    }
+
+    /**
+     * Helicopters take damage equal to 1/5 of current speed + 1
+     * when colliding with a Bird
+     */
+    public void collideWithBird()
+    {
+        takeDamage(getSpeed() / 5 + 1);
     }
 
     public void resetAfterCollision()
     {
         setSpeed(0);
         damageLevel = 0;
+        // TODO reset color
     }
 
     /**
