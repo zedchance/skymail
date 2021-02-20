@@ -63,13 +63,22 @@ public abstract class GameObject
      */
     public void setLocation(double x, double y)
     {
+        // TODO can the player wrap around? astroids style? (modulo)
         if (x > 1024.0)
         {
             x = 1024.0;
         }
+        else if (x < 0)
+        {
+            x = 0;
+        }
         if (y > 768.0)
         {
             y = 768.0;
+        }
+        else if (y < 0)
+        {
+            y = 0;
         }
         this.x = x;
         this.y = y;
@@ -90,7 +99,7 @@ public abstract class GameObject
     {
         return "GameObject{" +
                 "size=" + size +
-                ", x=" + x +
+                ", x=" + x +  // TODO pretty print
                 ", y=" + y +
                 ", color=" + color +
                 '}';

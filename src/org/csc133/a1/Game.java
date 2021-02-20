@@ -6,6 +6,9 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 
+/**
+ * Sky Mail 3000
+ */
 public class Game extends Form
 {
     private GameWorld gw;
@@ -78,11 +81,12 @@ public class Game extends Form
                         break;
                     case 'D':
                     case 'd':
-                        System.out.println("Generating display");
+                        System.out.println("Display");
+                        gw.display();
                         break;
                     case 'M':
                     case 'm':
-                        System.out.println("Showing map");
+                        System.out.println("Map");
                         gw.map();
                         break;
                     case 'x':

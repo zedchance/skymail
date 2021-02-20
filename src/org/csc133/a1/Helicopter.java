@@ -12,7 +12,7 @@ public class Helicopter extends MovableObject implements ISteerable
     /**
      * By default, Helicopters have these properties:
      * stickAngle is 0,
-     * maximumSpeed is 10,
+     * maximumSpeed is 50,
      * fuelLevel is 100,
      * fuelConsumptionRate is 5,
      * damageLevel is 0,
@@ -58,6 +58,21 @@ public class Helicopter extends MovableObject implements ISteerable
         this.fuelConsumptionRate = fuelConsumptionRate;
         this.damageLevel = damageLevel;
         this.lastSkyscraperReached = lastSkyscraperReached;
+    }
+
+    public double getFuelLevel()
+    {
+        return fuelLevel;
+    }
+
+    public int getDamageLevel()
+    {
+        return damageLevel;
+    }
+
+    public int getLastSkyscraperReached()
+    {
+        return lastSkyscraperReached;
     }
 
     /**
@@ -122,6 +137,11 @@ public class Helicopter extends MovableObject implements ISteerable
     {
         // TODO consumption should be proportional to current speed
         fuelLevel = fuelLevel - fuelConsumptionRate;
+    }
+
+    public void fuelUp(int amount)
+    {
+        // TODO add fuel, up to max?
     }
 
     @Override

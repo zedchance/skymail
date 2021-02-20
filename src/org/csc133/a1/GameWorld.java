@@ -28,6 +28,7 @@ public class GameWorld
     {
         // TODO print game over message, displaying whether the player won or not, and how many clock ticks
         System.out.println("Exiting after " + clock + " ticks");
+        System.exit(0);
     }
 
     // TODO commands for interacting with the game world
@@ -84,6 +85,18 @@ public class GameWorld
             }
         }
         return ++clock;
+    }
+
+    /**
+     * Generate a basic text HUD
+     */
+    public void display()
+    {
+        System.out.printf("You are at (%.1f, %.1f)\n", player.getX(), player.getY());
+        System.out.printf("Speed: %5d    Heading: %5d\n", player.getSpeed(), player.getHeading());
+        System.out.printf("Fuel: %6.0f    Damage: %6d\n", player.getFuelLevel(), player.getDamageLevel());
+        System.out.printf("Lives: %5d    Clock: %7d\n", lives, clock);
+        System.out.printf("Highest SkyScraper reached: %2d\n", player.getLastSkyscraperReached());
     }
 
     /**
