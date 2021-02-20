@@ -81,6 +81,7 @@ public class Helicopter extends MovableObject implements ISteerable
      */
     public void accelerate()
     {
+        // TODO acceleration should be proportional to current fuel, damage, and max speed
         int accelerationSpeed = 10;
         if (getSpeed() >= maximumSpeed)
         {
@@ -116,7 +117,7 @@ public class Helicopter extends MovableObject implements ISteerable
      */
     public boolean isDestroyed()
     {
-        return damageLevel == 100;
+        return damageLevel >= 100;
     }
 
     /**
@@ -126,7 +127,7 @@ public class Helicopter extends MovableObject implements ISteerable
      */
     public boolean isFuelEmpty()
     {
-        return fuelLevel == 0;
+        return fuelLevel <= 0;
     }
 
     /**
@@ -160,8 +161,13 @@ public class Helicopter extends MovableObject implements ISteerable
         if (!isFuelEmpty() && !isDestroyed())
         {
             super.move();
+            consumeFuel();
         }
-        consumeFuel();
+        else
+        {
+            // crashed due to fuel starvation
+            setSpeed(0);
+        }
     }
 
     @Override
