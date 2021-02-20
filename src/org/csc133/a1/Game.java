@@ -66,10 +66,12 @@ public class Game extends Form
                     case 'C':
                     case 'c':
                         System.out.println("Simulating helicopter collision");
+                        gw.helicopterCollision();
                         break;
                     case 'E':
                     case 'e':
                         System.out.println("Simulating refuel");
+                        gw.refuel();
                         break;
                     case 'G':
                     case 'g':
@@ -95,6 +97,10 @@ public class Game extends Form
                         gw.exit();
                         break;
                     // TODO numbers 1-9 will pretend that the helicopter has collided with skyscraper x
+                }
+                if (gw.isGameOver())
+                {
+                    gw.exit();
                 }
             }
         });

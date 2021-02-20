@@ -121,6 +121,29 @@ public class Helicopter extends MovableObject implements ISteerable
     }
 
     /**
+     * Helicopters take damage when colliding with other objects
+     * equal to their current speed + 1
+     */
+    public void takeDamage()
+    {
+        int damageToTake = getSpeed();
+        if (damageLevel + damageToTake >= 100)
+        {
+            damageLevel = 100;
+        }
+        else
+        {
+            damageLevel = damageLevel + damageToTake + 1;
+        }
+    }
+
+    public void resetAfterCollision()
+    {
+        setSpeed(0);
+        damageLevel = 0;
+    }
+
+    /**
      * Helicopters are empty when their fuelLevel has reached 0
      *
      * @return true if fuel is empty
@@ -140,15 +163,33 @@ public class Helicopter extends MovableObject implements ISteerable
         fuelLevel = fuelLevel - fuelConsumptionRate;
     }
 
+    /**
+     * Helicopters can hold 100 units of fuel
+     *
+     * @param amount how much fuel to add to tank
+     */
     public void fuelUp(int amount)
     {
-        // TODO add fuel, up to max?
+        if (fuelLevel + amount >= 100)
+        {
+            fuelLevel = 100;
+        }
+        else
+        {
+            fuelLevel = fuelLevel + amount;
+        }
     }
 
+    /**
+     * Helicopters are both steerable and use fuel.
+     * Each tick a Helicopter can turn 5 degrees toward
+     * the stickAngle.
+     * If the Helicopter crashes due to fuel starvation
+     * the speed is set to 0.
+     */
     @Override
     public void move()
     {
-        // helicopters can only turn 5 degrees each tick
         if (stickAngle > getHeading())
         {
             setHeading(getHeading() + 5);
@@ -165,7 +206,6 @@ public class Helicopter extends MovableObject implements ISteerable
         }
         else
         {
-            // crashed due to fuel starvation
             setSpeed(0);
         }
     }

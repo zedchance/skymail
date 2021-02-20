@@ -28,6 +28,10 @@ public class GameWorld
     {
         // TODO print game over message, displaying whether the player won or not, and how many clock ticks
         System.out.println("Exiting after " + clock + " ticks");
+        if (lives == 0)
+        {
+            System.out.println("You have run out of lives!");
+        }
         System.exit(0);
     }
 
@@ -66,6 +70,30 @@ public class GameWorld
     public void right()
     {
         player.changeDirection(-5);
+    }
+
+    /**
+     * Simulate a collision with another Helicopter
+     */
+    public void helicopterCollision()
+    {
+        //TODO take in another Helicopter as parameter, use their speed as a factor to damage taken
+        player.takeDamage();
+        if (player.isDestroyed())
+        {
+            lives--;
+            player.resetAfterCollision();
+            System.out.printf("You crashed!\nRemaining lives: %3d\n", lives);
+        }
+    }
+
+    /**
+     * Refuel the player's Helicopter
+     */
+    public void refuel()
+    {
+        // TODO take in an amount from a blimp
+        player.fuelUp(100);
     }
 
     /**
@@ -108,5 +136,15 @@ public class GameWorld
         {
             System.out.println(item);
         }
+    }
+
+    /**
+     * The game is over when the player runs out of lives
+     *
+     * @return true if game is over
+     */
+    public boolean isGameOver()
+    {
+        return lives == 0;
     }
 }
