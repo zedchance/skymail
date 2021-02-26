@@ -43,15 +43,4 @@ class SkyScraperTest
         assertEquals(135, sky.getColor());
         // TODO test for the CN1 color util conversion from int
     }
-
-    @Test
-    void testToString()
-    {
-        SkyScraper sky = new SkyScraper();
-        sky.setSize(30);
-        sky.setLocation(5, 5);
-        sky.setColor(200);
-        String expected = "SkyScraper{sequenceNumber=1} GameObject{size=30, x=5.0, y=5.0, color=200}";
-        assertEquals(expected, sky.toString());
-    }
 }
