@@ -63,18 +63,21 @@ public abstract class GameObject
      */
     public void setLocation(double x, double y)
     {
+        final double X_BOUNDARY = 1024.0;
+        final double Y_BOUNDARY = 768.0;
+
         // TODO can the player wrap around? astroids style? (modulo)
-        if (x > 1024.0)
+        if (x > X_BOUNDARY)
         {
-            x = 1024.0;
+            x = X_BOUNDARY;
         }
         else if (x < 0)
         {
             x = 0;
         }
-        if (y > 768.0)
+        if (y > Y_BOUNDARY)
         {
-            y = 768.0;
+            y = Y_BOUNDARY;
         }
         else if (y < 0)
         {

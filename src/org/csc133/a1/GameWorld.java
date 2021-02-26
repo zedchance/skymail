@@ -60,7 +60,7 @@ public class GameWorld
      */
     public void left()
     {
-        player.changeDirection(5);
+        player.changeDirection(-5);
     }
 
     /**
@@ -69,7 +69,7 @@ public class GameWorld
      */
     public void right()
     {
-        player.changeDirection(-5);
+        player.changeDirection(5);
     }
 
     /**
