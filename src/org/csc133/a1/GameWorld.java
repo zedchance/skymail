@@ -9,19 +9,38 @@ public class GameWorld
     private Helicopter player;
     private int clock, lives;
 
+    // this initial level design is has hard coded values for all objects
     public void init()
     {
-        // Setup
+        // setup
         clock = 0;
         lives = 3;
         int startX = 100;
         int startY = 100;
-        player = new Helicopter(startX, startY);
 
-        // TODO skyscrapers, birds, blimps
-        // Game objects
+        // player starts at first SkyScraper
+        player = new Helicopter(startX, startY);
+        SkyScraper sky1 = new SkyScraper(startX, startY, 1);
+
+        // the rest of the checkpoints to reach
+        SkyScraper sky2 = new SkyScraper(100, 200, 2);
+        SkyScraper sky3 = new SkyScraper(100, 300, 3);
+        SkyScraper sky4 = new SkyScraper(250, 500, 4);
+        SkyScraper sky5 = new SkyScraper(800, 500, 5);
+
+        // refuel blimps
+        RefuelingBlimp blimp1 = new RefuelingBlimp(250, 350);
+        RefuelingBlimp blimp2 = new RefuelingBlimp(600, 400);
+
+        // add game objects to world
         world.add(player);
-        world.add(new SkyScraper(startX, startY, 0));
+        world.add(sky1);
+        world.add(sky2);
+        world.add(sky3);
+        world.add(sky4);
+        world.add(sky5);
+        world.add(blimp1);
+        world.add(blimp2);
     }
 
     public void exit()
@@ -34,8 +53,6 @@ public class GameWorld
         }
         System.exit(0);
     }
-
-    // TODO commands for interacting with the game world
 
     /**
      * Accelerate the player's helicopter, up to the maximum

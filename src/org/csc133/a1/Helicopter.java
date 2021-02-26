@@ -173,7 +173,7 @@ public class Helicopter extends MovableObject implements ISteerable
      * Helicopters use fuel each time they move, proportional
      * to current speed
      */
-    public void consumeFuel()
+    private void consumeFuel()
     {
         // TODO consumption should be proportional to current speed
         fuelLevel = fuelLevel - fuelConsumptionRate;
@@ -235,13 +235,13 @@ public class Helicopter extends MovableObject implements ISteerable
     @Override
     public String toString()
     {
-        return "Helicopter{" +
-                "stickAngle=" + stickAngle +
-                ", maximumSpeed=" + maximumSpeed +
-                ", fuelLevel=" + fuelLevel +
-                ", fuelConsumptionRate=" + fuelConsumptionRate +
-                ", damageLevel=" + damageLevel +
-                ", lastSkyscraperReached=" + lastSkyscraperReached +
-                "} " + super.toString();
+        return "Helicopter\t\t" +
+                "location=(" + getX() + "," + getY() + ")" +
+                " lastSkyscraperReached=" + lastSkyscraperReached +
+                " stickAngle=" + stickAngle +
+                " maximumSpeed=" + maximumSpeed +
+                " fuelLevel=" + fuelLevel +
+                " fuelConsumptionRate=" + fuelConsumptionRate +
+                " damageLevel=" + damageLevel;
     }
 }

@@ -20,6 +20,12 @@ public class RefuelingBlimp extends GameObject
         this.capacity = capacity;
     }
 
+    public RefuelingBlimp(int x, int y)
+    {
+        super();
+        setLocation(x, y);
+    }
+
     public int getCapacity()
     {
         return capacity;
@@ -39,8 +45,8 @@ public class RefuelingBlimp extends GameObject
     @Override
     public String toString()
     {
-        return "RefuelingBlimp{" +
-                "capacity=" + capacity +
-                "} " + super.toString();
+        return "RefuelingBlimp\t" +
+                "location=(" + getX() + "," + getY() + ")" +
+                " capacity=" + capacity;
     }
 }

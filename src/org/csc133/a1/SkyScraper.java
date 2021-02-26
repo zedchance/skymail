@@ -43,8 +43,7 @@ public class SkyScraper extends GameObject
     @Override
     public String toString()
     {
-        return "SkyScraper{" +
-                "sequenceNumber=" + sequenceNumber +
-                "} " + super.toString();
+        return "SkyScraper " + sequenceNumber + "\t" +
+                "location=(" + getX() + "," + getY() + ")";
     }
 }
