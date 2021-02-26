@@ -32,6 +32,10 @@ public class GameWorld
         RefuelingBlimp blimp1 = new RefuelingBlimp(250, 350);
         RefuelingBlimp blimp2 = new RefuelingBlimp(600, 400);
 
+        // 2 birds
+        Bird bird1 = new Bird();
+        Bird bird2 = new Bird();
+
         // add game objects to world
         world.add(player);
         world.add(sky1);
@@ -41,6 +45,8 @@ public class GameWorld
         world.add(sky5);
         world.add(blimp1);
         world.add(blimp2);
+        world.add(bird1);
+        world.add(bird2);
     }
 
     public void exit()
