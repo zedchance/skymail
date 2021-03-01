@@ -12,6 +12,7 @@ import com.codename1.ui.events.ActionListener;
 public class Game extends Form
 {
     private GameWorld gw;
+    private boolean isUserExiting = false;
 
     public Game()
     {
@@ -93,9 +94,20 @@ public class Game extends Form
                         gw.map();
                         break;
                     case 'x':
-                        System.out.println("Exit?");
-                        // TODO ask y/N
-                        gw.exit();
+                        System.out.println("Exit? y/N");
+                        isUserExiting = true;
+                        break;
+                    case 'Y':
+                    case 'y':
+                        if (isUserExiting) gw.exit();
+                        break;
+                    case 'N':
+                    case 'n':
+                        if (isUserExiting)
+                        {
+                            System.out.println("Okay, we'll keep playing");
+                            isUserExiting = false;
+                        }
                         break;
                     // TODO numbers 1-9 will pretend that the helicopter has collided with skyscraper x
                 }
