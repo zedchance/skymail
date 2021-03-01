@@ -197,6 +197,24 @@ public class Helicopter extends MovableObject implements ISteerable
     }
 
     /**
+     * Attempts to land the Helicopter at a specific
+     * SkyScraper. Helicopters can only land in order,
+     * and cannot skip the SkyScraper checkpoints.
+     *
+     * @param n SkyScraper number to request landing
+     * @return true if landing was successful, false if not
+     */
+    public boolean landAtSkyScraper(int n)
+    {
+        if (lastSkyscraperReached == (n - 1))
+        {
+            lastSkyscraperReached++;
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Helicopters are both steerable and use fuel.
      * Each tick a Helicopter can turn 5 degrees toward
      * the stickAngle.

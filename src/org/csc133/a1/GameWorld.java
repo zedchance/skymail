@@ -109,6 +109,19 @@ public class GameWorld
         }
     }
 
+    public void landOnSkyScraperCheckpoint(int n)
+    {
+        System.out.printf("Attempting to land on SkyScraper %d\n", n);
+        if (player.landAtSkyScraper(n))
+        {
+            System.out.printf("Landing successful, you have reached SkyScraper %d\n", n);
+        }
+        else
+        {
+            System.out.println("You cannot land here, you must reach the SkyScrapers in order.");
+        }
+    }
+
     /**
      * Refuel the player's Helicopter
      */

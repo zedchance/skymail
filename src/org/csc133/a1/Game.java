@@ -109,7 +109,13 @@ public class Game extends Form
                             isUserExiting = false;
                         }
                         break;
-                    // TODO numbers 1-9 will pretend that the helicopter has collided with skyscraper x
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                        gw.landOnSkyScraperCheckpoint(Integer.parseInt(sCommand));
+                        break;
                 }
                 if (gw.isGameOver())
                 {
