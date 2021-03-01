@@ -236,7 +236,7 @@ public class Helicopter extends MovableObject implements ISteerable
     public String toString()
     {
         return "Helicopter\t\t" +
-                "location=(" + getX() + "," + getY() + ")" +
+                String.format("location=(%5.1f, %5.1f)", getX(), getY()) +
                 " lastSkyscraperReached=" + lastSkyscraperReached +
                 " stickAngle=" + stickAngle +
                 " maximumSpeed=" + maximumSpeed +

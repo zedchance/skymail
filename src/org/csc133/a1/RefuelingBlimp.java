@@ -46,7 +46,7 @@ public class RefuelingBlimp extends GameObject
     public String toString()
     {
         return "RefuelingBlimp\t" +
-                "location=(" + getX() + "," + getY() + ")" +
+                String.format("location=(%5.1f, %5.1f)", getX(), getY()) +
                 " capacity=" + capacity;
     }
 }

@@ -9,7 +9,7 @@ public class GameWorld
     private Helicopter player;
     private int clock, lives;
 
-    // this initial level design is has hard coded values for all objects
+    // this initial level design has hard coded values for all objects
     public void init()
     {
         // setup

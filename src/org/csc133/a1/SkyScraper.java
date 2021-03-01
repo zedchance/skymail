@@ -44,6 +44,6 @@ public class SkyScraper extends GameObject
     public String toString()
     {
         return "SkyScraper " + sequenceNumber + "\t" +
-                "location=(" + getX() + "," + getY() + ")";
+                String.format("location=(%5.1f, %5.1f)", getX(), getY());
     }
 }
