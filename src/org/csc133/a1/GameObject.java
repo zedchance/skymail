@@ -2,6 +2,9 @@ package org.csc133.a1;
 
 import com.codename1.charts.util.ColorUtil;
 
+/**
+ * All objects in game inherit from GameObject
+ */
 public abstract class GameObject
 {
     private int size;

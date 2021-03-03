@@ -3,6 +3,9 @@ package org.csc133.a1;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The GameWorld has all game objects, and commands to interact with the objects
+ */
 public class GameWorld
 {
     private final List<GameObject> world = new ArrayList<>();
