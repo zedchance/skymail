@@ -34,6 +34,25 @@ class HelicopterTest
     {
     }
 
+    //    @Test
+    void testMove()
+    {
+        Helicopter helo = new Helicopter();
+        helo.setLocation(0, 0);
+        helo.setHeading(0);
+        helo.setSpeed(10);
+        assertEquals(0, helo.getX(), 0.001);
+        assertEquals(0, helo.getY(), 0.001);
+        helo.move();
+        assertEquals(0, helo.getX(), 0.001);
+        assertEquals(10, helo.getY(), 0.001);
+        helo.setHeading(90);
+        helo.move();
+//        assertEquals(10, helo.getX(), 0.1);
+//        assertEquals(10, helo.getY(), 0.1);
+        // FIXME
+    }
+
     @Test
     void changeDirection()
     {
