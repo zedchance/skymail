@@ -1,5 +1,7 @@
 package org.csc133.a1;
 
+import com.codename1.charts.util.ColorUtil;
+
 public abstract class GameObject
 {
     private int size;
@@ -31,7 +33,7 @@ public abstract class GameObject
         this.size = size;
         this.x = x;
         this.y = y;
-        this.color = color;
+        this.color = ColorUtil.rgb(0, color, 0);
     }
 
     public int getSize()

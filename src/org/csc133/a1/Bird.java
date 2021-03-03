@@ -1,11 +1,14 @@
 package org.csc133.a1;
 
+import com.codename1.charts.util.ColorUtil;
+
 import java.util.Random;
 
 public class Bird extends MovableObject
 {
     /**
      * By default, Bird's have these properties:
+     * color is yellow,
      * a random start location,
      * a random speed,
      * a random heading.
@@ -19,6 +22,13 @@ public class Bird extends MovableObject
         setLocation(startX, startY);
         setSpeed(rand.nextInt(11));
         setHeading(rand.nextInt(360));
+        setColor(ColorUtil.rgb(100, 100, 0));
+    }
+
+    @Override
+    public void setColor(int color)
+    {
+        System.out.println("Birds cannot change color.");
     }
 
     /**

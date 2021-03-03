@@ -1,5 +1,7 @@
 package org.csc133.a1;
 
+import com.codename1.charts.util.ColorUtil;
+
 public class Helicopter extends MovableObject implements ISteerable
 {
     private int stickAngle;
@@ -17,6 +19,7 @@ public class Helicopter extends MovableObject implements ISteerable
      * fuelConsumptionRate is 5,
      * damageLevel is 0,
      * lastSkyScraperReached is 0,
+     * color is red,
      * speed is 0,
      * size is 10.
      */
@@ -58,6 +61,7 @@ public class Helicopter extends MovableObject implements ISteerable
         this.fuelConsumptionRate = fuelConsumptionRate;
         this.damageLevel = damageLevel;
         this.lastSkyscraperReached = lastSkyscraperReached;
+        setColor(ColorUtil.red(100));
     }
 
     public double getFuelLevel()
@@ -120,9 +124,15 @@ public class Helicopter extends MovableObject implements ISteerable
         return damageLevel >= 100;
     }
 
+    /**
+     * Helicopters can take damage up until they are destroyed.
+     * Helicopters start as being red and fade with the amount
+     * of damage taken.
+     *
+     * @param amount damage to be applied
+     */
     private void takeDamage(int amount)
     {
-        // TODO change color when damage is taken
         if (damageLevel + amount >= 100)
         {
             damageLevel = 100;
@@ -130,6 +140,7 @@ public class Helicopter extends MovableObject implements ISteerable
         else
         {
             damageLevel = damageLevel + amount + 1;
+            setColor(ColorUtil.red(100 - damageLevel));
         }
     }
 

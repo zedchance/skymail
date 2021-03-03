@@ -1,11 +1,14 @@
 package org.csc133.a1;
 
+import com.codename1.charts.util.ColorUtil;
+
 public class SkyScraper extends GameObject
 {
     private int sequenceNumber;
 
     /**
      * By default, SkyScraper's have these properties:
+     * color is green,
      * sequenceNumber is 1.
      */
     public SkyScraper()
@@ -22,6 +25,7 @@ public class SkyScraper extends GameObject
     {
         super();
         this.sequenceNumber = sequenceNumber;
+        setColor(ColorUtil.green(100));
     }
 
     public SkyScraper(double x, double y, int sequenceNumber)

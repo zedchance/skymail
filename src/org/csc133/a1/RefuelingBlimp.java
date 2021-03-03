@@ -1,23 +1,25 @@
 package org.csc133.a1;
 
+import com.codename1.charts.util.ColorUtil;
+
+import java.util.Random;
+
 public class RefuelingBlimp extends GameObject
 {
     private int capacity;
 
     /**
      * By default, RefuelingBlimp's have these properties:
-     * capacity is proportional to size of blimp.
+     * size is random between 10 and 20,
+     * blimps are blue,
+     * capacity is 10 times the size of the blimp.
      */
     public RefuelingBlimp()
     {
-        // TODO capacity should be proportional to size, fix constructors to make this easy
-        this(100);
-    }
-
-    public RefuelingBlimp(int capacity)
-    {
-        super();
-        this.capacity = capacity;
+        Random rand = new Random();
+        setSize(rand.nextInt(10) + 10);
+        this.capacity = capacity * getSize();
+        this.setColor(ColorUtil.blue(100));
     }
 
     public RefuelingBlimp(int x, int y)
