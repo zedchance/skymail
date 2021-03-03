@@ -146,9 +146,9 @@ public class GameWorld
     {
         for (int i = 0; i < world.size(); i++)
         {
-            if (world.get(i) instanceof MovableObject)
+            if (world.get(i) instanceof Movable)
             {
-                MovableObject mObj = (MovableObject) world.get(i);
+                Movable mObj = (Movable) world.get(i);
                 mObj.move();
             }
         }

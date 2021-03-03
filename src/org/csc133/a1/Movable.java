@@ -1,27 +1,30 @@
 package org.csc133.a1;
 
-public abstract class MovableObject extends GameObject
+/**
+ * Objects in game that have a movable position
+ */
+public abstract class Movable extends GameObject
 {
     private int heading;
     private int speed;
 
     /**
-     * By default, MovableObject's have these properties:
+     * By default, Movable's have these properties:
      * heading is 0,
      * speed is 0.
      */
-    public MovableObject()
+    public Movable()
     {
         this(0, 0);
     }
 
     /**
-     * Create a MovableObject with a specific heading and speed.
+     * Create a Movable with a specific heading and speed.
      *
      * @param heading the direction of travel
      * @param speed   the object's travel speed
      */
-    public MovableObject(int heading, int speed)
+    public Movable(int heading, int speed)
     {
         super();
         this.heading = heading;
@@ -62,7 +65,7 @@ public abstract class MovableObject extends GameObject
     @Override
     public String toString()
     {
-        return "MovableObject{" +
+        return "Movable{" +
                 "heading=" + heading +
                 ", speed=" + speed +
                 "} " + super.toString();

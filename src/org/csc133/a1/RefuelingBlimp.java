@@ -4,7 +4,10 @@ import com.codename1.charts.util.ColorUtil;
 
 import java.util.Random;
 
-public class RefuelingBlimp extends GameObject
+/**
+ * RefuelingBlimps allow the player to refuel the Helicopter
+ */
+public class RefuelingBlimp extends Fixed
 {
     private int capacity;
 

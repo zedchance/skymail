@@ -4,7 +4,10 @@ import com.codename1.charts.util.ColorUtil;
 
 import java.util.Random;
 
-public class Bird extends MovableObject
+/**
+ * Birds fly randomly, and can collide with the player
+ */
+public class Bird extends Movable
 {
     /**
      * By default, Bird's have these properties:

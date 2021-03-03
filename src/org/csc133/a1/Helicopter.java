@@ -2,7 +2,10 @@ package org.csc133.a1;
 
 import com.codename1.charts.util.ColorUtil;
 
-public class Helicopter extends MovableObject implements ISteerable
+/**
+ * The player controls the Helicopter
+ */
+public class Helicopter extends Movable implements ISteerable
 {
     private int stickAngle;
     private int maximumSpeed;

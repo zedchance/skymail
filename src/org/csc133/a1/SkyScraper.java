@@ -2,7 +2,10 @@ package org.csc133.a1;
 
 import com.codename1.charts.util.ColorUtil;
 
-public class SkyScraper extends GameObject
+/**
+ * SkyScrapers act as checkpoints for the player's flight path
+ */
+public class SkyScraper extends Fixed
 {
     private int sequenceNumber;
 
