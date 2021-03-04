@@ -28,7 +28,7 @@ public class SkyScraper extends Fixed
     {
         super();
         this.sequenceNumber = sequenceNumber;
-        setColor(ColorUtil.green(100));
+        super.setColor(ColorUtil.green(100));
     }
 
     public SkyScraper(double x, double y, int sequenceNumber)
@@ -45,6 +45,12 @@ public class SkyScraper extends Fixed
     public void setSequenceNumber(int sequenceNumber)
     {
         this.sequenceNumber = sequenceNumber;
+    }
+
+    @Override
+    public void setColor(int color)
+    {
+        System.out.println("SkyScrapers cannot change color once created.");
     }
 
     @Override
