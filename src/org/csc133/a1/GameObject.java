@@ -2,6 +2,8 @@ package org.csc133.a1;
 
 import com.codename1.charts.util.ColorUtil;
 
+import java.util.Random;
+
 /**
  * All objects in game inherit from GameObject
  */
@@ -14,26 +16,26 @@ public abstract class GameObject
 
     /**
      * By default, GameObject's have these properties:
-     * size is 10,
+     * size is randomly selected (between 5 and 25),
      * located at (0,0),
      * color value is 0.
      */
     public GameObject()
     {
-        this(10, 0, 0, 0);
+        this(0, 0, 0);
     }
 
     /**
      * Create a new GameObject with set parameters
      *
-     * @param size  how big the object is
      * @param x     horizontal position
      * @param y     vertical position
      * @param color what color the object is
      */
-    public GameObject(int size, double x, double y, int color)
+    public GameObject(double x, double y, int color)
     {
-        this.size = size;
+        Random rand = new Random();
+        this.size = rand.nextInt(20) + 5;
         this.x = x;
         this.y = y;
         this.color = ColorUtil.rgb(0, color, 0);
@@ -71,7 +73,6 @@ public abstract class GameObject
         final double X_BOUNDARY = 1024.0;
         final double Y_BOUNDARY = 768.0;
 
-        // TODO can the player wrap around? astroids style? (modulo)
         if (x > X_BOUNDARY)
         {
             x = X_BOUNDARY;
@@ -107,7 +108,7 @@ public abstract class GameObject
     {
         return "GameObject{" +
                 "size=" + size +
-                ", x=" + x +  // TODO pretty print
+                ", x=" + x +
                 ", y=" + y +
                 ", color=" + color +
                 '}';
