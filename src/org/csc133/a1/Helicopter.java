@@ -85,22 +85,20 @@ public class Helicopter extends Movable implements ISteerable
         return lastSkyscraperReached;
     }
 
+    public int getMaximumSpeed()
+    {
+        return maximumSpeed;
+    }
+
     /**
      * Helicopters can accelerate by a specific amount
      * up to the maximumSpeed
      */
     public void accelerate()
     {
-        // TODO acceleration should be proportional to current fuel, damage, and max speed
         int accelerationSpeed = 10;
-        if (getSpeed() >= maximumSpeed)
-        {
-            setSpeed(maximumSpeed);
-        }
-        else
-        {
-            setSpeed(getSpeed() + accelerationSpeed);
-        }
+        setSpeed(getSpeed() + accelerationSpeed);
+        checkSpeed();
     }
 
     /**
@@ -121,6 +119,25 @@ public class Helicopter extends Movable implements ISteerable
     }
 
     /**
+     * Check to make sure the helicopter is not travelling faster
+     * than the maximum speed
+     */
+    private void checkSpeed()
+    {
+        // helicopters travel faster the lighter they are
+        double fuelFactor = (1 - (fuelLevel * 0.01));
+
+        // helicopters travel faster the less damaged they are
+        double damageFactor = damageLevel * 0.01;
+        // TODO acceleration should be proportional to current fuel, damage, and max speed
+
+        if (getSpeed() > maximumSpeed)
+        {
+            setSpeed(maximumSpeed);
+        }
+    }
+
+    /**
      * Helicopters are destroyed when their damageLevel is 100
      *
      * @return true if destroyed
@@ -133,7 +150,7 @@ public class Helicopter extends Movable implements ISteerable
     /**
      * Helicopters can take damage up until they are destroyed.
      * Helicopters start as being red and fade with the amount
-     * of damage taken.
+     * of damage taken. Maximum speed is limited when damage is taken.
      *
      * @param amount damage to be applied
      */
@@ -147,6 +164,7 @@ public class Helicopter extends Movable implements ISteerable
         {
             damageLevel = damageLevel + amount + 1;
             setColor(ColorUtil.red(100 - damageLevel));
+            maximumSpeed = maximumSpeed - (amount / 2);
         }
     }
 
@@ -173,7 +191,7 @@ public class Helicopter extends Movable implements ISteerable
     {
         setSpeed(0);
         damageLevel = 0;
-        // TODO reset color
+        setColor(ColorUtil.red(100));
     }
 
     /**
@@ -252,6 +270,7 @@ public class Helicopter extends Movable implements ISteerable
 
         if (!isFuelEmpty() && !isDestroyed())
         {
+            checkSpeed();
             super.move();
             consumeFuel();
         }
@@ -261,10 +280,20 @@ public class Helicopter extends Movable implements ISteerable
         }
     }
 
+    /**
+     * Helicopters can turn a maximum of a 40 degree
+     * difference on the stick angle compared to the
+     * current heading
+     *
+     * @param degrees amount of requested direction change
+     */
     @Override
     public void changeDirection(int degrees)
     {
-        stickAngle = stickAngle + degrees;
+        if (Math.abs(stickAngle - getHeading()) <= 35)
+        {
+            stickAngle = stickAngle + degrees;
+        }
     }
 
     @Override

@@ -46,9 +46,15 @@ public abstract class Movable extends GameObject
         this.speed = speed;
     }
 
+    /**
+     * The heading is limited between 0 and 359, and acts
+     * the same way as a compass heading (0 is north).
+     *
+     * @param heading compass heading to set
+     */
     public void setHeading(int heading)
     {
-        this.heading = heading;
+        this.heading = Math.floorMod(heading, 360);
     }
 
     /**
