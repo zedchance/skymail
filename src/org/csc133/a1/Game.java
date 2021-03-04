@@ -120,6 +120,9 @@ public class Game extends Form
                     case '9':
                         gw.landOnSkyScraperCheckpoint(Integer.parseInt(sCommand));
                         break;
+                    default:
+                        System.out.println("I don't understand '" + sCommand + "'");
+                        break;
                 }
                 if (gw.isGameOver())
                 {
