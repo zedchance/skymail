@@ -25,7 +25,7 @@ public class Bird extends Movable
         setLocation(startX, startY);
         setSpeed(rand.nextInt(11));
         setHeading(rand.nextInt(360));
-        setColor(ColorUtil.rgb(100, 100, 0));
+        super.setColor(ColorUtil.rgb(100, 100, 0));
     }
 
     @Override
