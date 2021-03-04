@@ -15,20 +15,18 @@ public class RefuelingBlimp extends Fixed
      * By default, RefuelingBlimp's have these properties:
      * size is random between 10 and 20,
      * blimps are blue,
+     * blimps start in a random location (at least 50 away from the edge),
      * capacity is 10 times the size of the blimp.
      */
     public RefuelingBlimp()
     {
         Random rand = new Random();
         setSize(rand.nextInt(10) + 10);
-        this.capacity = capacity * getSize();
-        this.setColor(ColorUtil.blue(100));
-    }
-
-    public RefuelingBlimp(int x, int y)
-    {
-        super();
-        setLocation(x, y);
+        this.capacity = 10 * getSize();
+        this.setColor(ColorUtil.blue(this.capacity));
+        double startX = (double) rand.nextInt(925) + 50;
+        double startY = (double) rand.nextInt(668) + 50;
+        setLocation(startX, startY);
     }
 
     public int getCapacity()
@@ -36,10 +34,19 @@ public class RefuelingBlimp extends Fixed
         return capacity;
     }
 
+    /**
+     * Withdraw a specific amount from the blimp, when fuel
+     * is withdrawn the color of the blimp fades.
+     *
+     * @param amount how much fuel to withdraw
+     */
     public void withdrawFuel(int amount)
     {
-        capacity = capacity - amount;
-        // TODO maybe return amount of fuel withdrawn?
+        if (!isEmpty())
+        {
+            capacity = capacity - amount;
+            this.setColor(capacity);
+        }
     }
 
     public boolean isEmpty()
