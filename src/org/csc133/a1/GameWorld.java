@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class GameWorld
 {
+    private final int TOTAL_CHECKPOINTS = 5;
+
     private final List<GameObject> world = new ArrayList<>();
     private Helicopter player;
     private int clock = 0;
@@ -51,11 +53,14 @@ public class GameWorld
             System.out.printf("You have run out of fuel!\nRemaining lives: %3d\n", --lives);
             init();
         }
+        else if (player.getLastSkyscraperReached() == TOTAL_CHECKPOINTS)
+        {
+            exit();
+        }
     }
 
     public void exit()
     {
-        int TOTAL_CHECKPOINTS = 5;
         if (lives == 0)
         {
             System.out.println("You have run out of lives!");
@@ -108,7 +113,6 @@ public class GameWorld
      */
     public void helicopterCollision()
     {
-        // TODO collision methods should check that the other object exists
         player.collide();
 
     }
