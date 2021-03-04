@@ -7,24 +7,17 @@ src
         └── a1
             ├── AppMain.java
             ├── Bird.java
+            ├── Fixed.java
             ├── Game.java
             ├── GameObject.java
             ├── GameWorld.java
             ├── Helicopter.java
             ├── ISteerable.java
-            ├── MovableObject.java
+            ├── Movable.java
             ├── RefuelingBlimp.java
-            └── SkyScraper.java
-test
-├── Tester.java
-└── org
-    └── csc133
-        └── a1
-            ├── BirdTest.java
-            ├── HelicopterTest.java
-            ├── RefuelingBlimpTest.java
-            └── SkyScraperTest.java
+            ├── SkyScraper.java
+            └── Tester.java
 
-6 directories, 15 files
+3 directories, 12 files
 ```
 
