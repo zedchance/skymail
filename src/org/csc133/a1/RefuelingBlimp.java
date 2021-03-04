@@ -16,13 +16,13 @@ public class RefuelingBlimp extends Fixed
      * size is random between 10 and 20,
      * blimps are blue,
      * blimps start in a random location (at least 50 away from the edge),
-     * capacity is 10 times the size of the blimp.
+     * capacity is 5 times the size of the blimp.
      */
     public RefuelingBlimp()
     {
         Random rand = new Random();
         setSize(rand.nextInt(10) + 10);
-        this.capacity = 10 * getSize();
+        this.capacity = 5 * getSize();
         this.setColor(ColorUtil.blue(this.capacity));
         double startX = (double) rand.nextInt(925) + 50;
         double startY = (double) rand.nextInt(668) + 50;
@@ -35,18 +35,29 @@ public class RefuelingBlimp extends Fixed
     }
 
     /**
-     * Withdraw a specific amount from the blimp, when fuel
-     * is withdrawn the color of the blimp fades.
-     *
-     * @param amount how much fuel to withdraw
+     * Transfer fuel to a Helicopter, up to the rest
+     * of the capacity of the Helicopter can hold it.
+     * The color of the blimp fades as the fuel is
+     * transferred.
      */
-    public void withdrawFuel(int amount)
+    public void transferFuel(Helicopter helo)
     {
-        if (!isEmpty())
+        int fuelNeeded = 100 - (int) helo.getFuelLevel();
+        if (isEmpty())
         {
-            capacity = capacity - amount;
-            this.setColor(capacity);
+            System.out.println("The blimp is empty");
         }
+        else if (fuelNeeded < capacity)
+        {
+            helo.fuelUp(fuelNeeded);
+            capacity = capacity - fuelNeeded;
+        }
+        else if (fuelNeeded > capacity)
+        {
+            helo.fuelUp(capacity);
+            capacity = 0;
+        }
+        this.setColor(capacity);
     }
 
     public boolean isEmpty()

@@ -33,12 +33,10 @@ public class GameWorld
         world.add(new SkyScraper(800, 500, 5));
 
         // refuel blimps
-        world.add(new RefuelingBlimp());
-        world.add(new RefuelingBlimp());
+        placeBlimps(2);
 
         // 2 birds
-        world.add(new Bird());
-        world.add(new Bird());
+        placeBirds(2);
     }
 
     public void checkIfReset()
@@ -133,8 +131,20 @@ public class GameWorld
      */
     public void refuel()
     {
-        // TODO take in an amount from a blimp
-        // TODO when a blimp is used, it fades color and a new one is placed
+        // TODO check if this is the closest blimp, for now its breaking after the first blimp
+        for (GameObject obj : world)
+        {
+            if (obj instanceof RefuelingBlimp)
+            {
+                RefuelingBlimp blimp = (RefuelingBlimp) obj;
+                if (!blimp.isEmpty())
+                {
+                    blimp.transferFuel(player);
+                    if (blimp.isEmpty()) placeBlimps(1);
+                }
+                break;
+            }
+        }
         player.fuelUp(100);
     }
 
@@ -193,5 +203,21 @@ public class GameWorld
     public boolean isGameOver()
     {
         return lives == 0;
+    }
+
+    private void placeBlimps(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            world.add(new RefuelingBlimp());
+        }
+    }
+
+    private void placeBirds(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            world.add(new Bird());
+        }
     }
 }
