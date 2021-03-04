@@ -124,6 +124,10 @@ public class Game extends Form
                         System.out.println("I don't understand '" + sCommand + "'");
                         break;
                 }
+                // check if the game needs to be reinitialized
+                gw.checkIfReset();
+
+                // check if game is over
                 if (gw.isGameOver())
                 {
                     gw.exit();

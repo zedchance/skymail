@@ -10,56 +10,63 @@ public class GameWorld
 {
     private final List<GameObject> world = new ArrayList<>();
     private Helicopter player;
-    private int clock, lives;
+    private int clock = 0;
+    private int lives = 3;
 
     // this initial level design has hard coded values for all objects
     public void init()
     {
         // setup
-        clock = 0;
-        lives = 3;
         int startX = 100;
         int startY = 100;
+        world.clear();
 
         // player starts at first SkyScraper
         player = new Helicopter(startX, startY);
-        SkyScraper sky1 = new SkyScraper(startX, startY, 1);
+        world.add(player);
+        world.add(new SkyScraper(startX, startY, 1));
 
         // the rest of the checkpoints to reach
-        SkyScraper sky2 = new SkyScraper(100, 200, 2);
-        SkyScraper sky3 = new SkyScraper(100, 300, 3);
-        SkyScraper sky4 = new SkyScraper(250, 500, 4);
-        SkyScraper sky5 = new SkyScraper(800, 500, 5);
+        world.add(new SkyScraper(100, 200, 2));
+        world.add(new SkyScraper(100, 300, 3));
+        world.add(new SkyScraper(250, 500, 4));
+        world.add(new SkyScraper(800, 500, 5));
 
         // refuel blimps
-        RefuelingBlimp blimp1 = new RefuelingBlimp(250, 350);
-        RefuelingBlimp blimp2 = new RefuelingBlimp(600, 400);
+        world.add(new RefuelingBlimp());
+        world.add(new RefuelingBlimp());
 
         // 2 birds
-        Bird bird1 = new Bird();
-        Bird bird2 = new Bird();
+        world.add(new Bird());
+        world.add(new Bird());
+    }
 
-        // add game objects to world
-        world.add(player);
-        world.add(sky1);
-        world.add(sky2);
-        world.add(sky3);
-        world.add(sky4);
-        world.add(sky5);
-        world.add(blimp1);
-        world.add(blimp2);
-        world.add(bird1);
-        world.add(bird2);
+    public void checkIfReset()
+    {
+        if (player.isDestroyed())
+        {
+            System.out.printf("You crashed!\nRemaining lives: %3d\n", --lives);
+            init();
+        }
+        else if (player.isFuelEmpty())
+        {
+            System.out.printf("You have run out of fuel!\nRemaining lives: %3d\n", --lives);
+            init();
+        }
     }
 
     public void exit()
     {
-        // TODO print game over message, displaying whether the player won or not, and how many clock ticks
-        System.out.println("Exiting after " + clock + " ticks");
+        int TOTAL_CHECKPOINTS = 5;
         if (lives == 0)
         {
             System.out.println("You have run out of lives!");
         }
+        else if (player.getLastSkyscraperReached() == TOTAL_CHECKPOINTS)
+        {
+            System.out.println("You have completed all checkpoints!");
+        }
+        System.out.println("Exiting after " + clock + " ticks");
         System.exit(0);
     }
 
@@ -103,13 +110,9 @@ public class GameWorld
      */
     public void helicopterCollision()
     {
+        // TODO collision methods should check that the other object exists
         player.collide();
-        if (player.isDestroyed())
-        {
-            lives--;
-            player.resetAfterCollision();
-            System.out.printf("You crashed!\nRemaining lives: %3d\n", lives);
-        }
+
     }
 
     public void landOnSkyScraperCheckpoint(int n)
@@ -131,6 +134,7 @@ public class GameWorld
     public void refuel()
     {
         // TODO take in an amount from a blimp
+        // TODO when a blimp is used, it fades color and a new one is placed
         player.fuelUp(100);
     }
 
@@ -164,7 +168,7 @@ public class GameWorld
     public void display()
     {
         System.out.printf("You are at (%.1f, %.1f)\n", player.getX(), player.getY());
-        System.out.printf("Speed: %5d    Heading: %5d\n", player.getSpeed(), player.getHeading());
+        System.out.printf("Speed: %2d/%2d    Heading: %5d\n", player.getSpeed(), player.getMaximumSpeed(), player.getHeading());
         System.out.printf("Fuel: %6.0f    Damage: %6d\n", player.getFuelLevel(), player.getDamageLevel());
         System.out.printf("Lives: %5d    Clock: %7d\n", lives, clock);
         System.out.printf("Highest SkyScraper reached: %2d\n", player.getLastSkyscraperReached());
