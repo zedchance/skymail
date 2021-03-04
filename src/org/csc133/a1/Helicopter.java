@@ -2,6 +2,8 @@ package org.csc133.a1;
 
 import com.codename1.charts.util.ColorUtil;
 
+import java.util.Random;
+
 /**
  * The player controls the Helicopter
  */
@@ -23,13 +25,14 @@ public class Helicopter extends Movable implements ISteerable
      * damageLevel is 0,
      * lastSkyScraperReached is 0,
      * color is red,
-     * speed is 0,
+     * speed is random between 0 and 5,
      * size is 10.
      */
     public Helicopter()
     {
         this(0, 50, 100, 5, 0, 0);
-        setSpeed(0);
+        Random rand = new Random();
+        setSpeed(rand.nextInt(6));
         setSize(10);
     }
 
