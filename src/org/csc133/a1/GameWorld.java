@@ -148,9 +148,25 @@ public class GameWorld
         player.fuelUp(100);
     }
 
+    /**
+     * Collide with a bird, after the collision
+     * the bird is removed from the world, and a new
+     * is added.
+     */
     public void birdCollision()
     {
-        player.collideWithBird();
+        // TODO this collides with the first bird in the list, check for closest
+        for (GameObject obj : world)
+        {
+            if (obj instanceof Bird)
+            {
+                Bird bird = (Bird) obj;
+                player.collideWithBird();
+                world.remove(bird);
+                placeBirds(1);
+                break;
+            }
+        }
     }
 
     /**
