@@ -113,6 +113,7 @@ public class GameWorld
      */
     public void helicopterCollision()
     {
+        // TODO actually collide with another helo object
         player.collide();
 
     }

@@ -9,6 +9,7 @@ import java.util.Random;
  */
 public class Helicopter extends Movable implements ISteerable
 {
+    private final int MAX_SPEED = 50;
     private int stickAngle;
     private int maximumSpeed;
     private double fuelLevel;
@@ -119,18 +120,29 @@ public class Helicopter extends Movable implements ISteerable
     }
 
     /**
+     * Calculate the maximum speed that the helicopter
+     * can travel.
+     * Lighter helicopters travel faster, so the less
+     * in the tank the faster the speed (up to 25% increase).
+     * Damaged helicopters travel slower
+     * (15% faster when not damaged).
+     */
+    private void calculateMaximumSpeed()
+    {
+        double newSpeed = maximumSpeed;
+        double fuelFactor = 1 + (-0.0025 * fuelLevel + 0.25);
+        newSpeed = newSpeed * fuelFactor;
+        double damageFactor = 1 + (-0.0015 * damageLevel + 0.15);
+        newSpeed = newSpeed * damageFactor;
+        maximumSpeed = Math.min(MAX_SPEED, (int) newSpeed);
+    }
+
+    /**
      * Check to make sure the helicopter is not travelling faster
      * than the maximum speed
      */
     private void checkSpeed()
     {
-        // helicopters travel faster the lighter they are
-        double fuelFactor = (1 - (fuelLevel * 0.01));
-
-        // helicopters travel faster the less damaged they are
-        double damageFactor = damageLevel * 0.01;
-        // TODO acceleration should be proportional to current fuel, damage, and max speed
-
         if (getSpeed() > maximumSpeed)
         {
             setSpeed(maximumSpeed);
@@ -165,6 +177,7 @@ public class Helicopter extends Movable implements ISteerable
             damageLevel = damageLevel + amount + 1;
             setColor(ColorUtil.red(100 - damageLevel));
             maximumSpeed = maximumSpeed - (amount / 2);
+            calculateMaximumSpeed();
         }
     }
 
@@ -270,6 +283,7 @@ public class Helicopter extends Movable implements ISteerable
 
         if (!isFuelEmpty() && !isDestroyed())
         {
+            calculateMaximumSpeed();
             checkSpeed();
             super.move();
             consumeFuel();
