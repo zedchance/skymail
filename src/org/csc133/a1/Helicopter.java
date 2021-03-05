@@ -93,13 +93,15 @@ public class Helicopter extends Movable implements ISteerable
 
     /**
      * Helicopters can accelerate by a specific amount
-     * up to the maximumSpeed
+     * up to the maximumSpeed. Causing a Helicopter to accelerate
+     * also spends 1 unit of fuel.
      */
     public void accelerate()
     {
         int accelerationSpeed = 10;
         setSpeed(getSpeed() + accelerationSpeed);
         checkSpeed();
+        consumeFuel(1);
     }
 
     /**
@@ -122,7 +124,7 @@ public class Helicopter extends Movable implements ISteerable
     /**
      * Calculate the maximum speed that the helicopter
      * can travel.
-     * Lighter helicopters travel faster, so the less
+     * Lighter helicopters travel faster, so the less fuel
      * in the tank the faster the speed (up to 25% increase).
      * Damaged helicopters travel slower
      * (15% faster when not damaged).
@@ -200,13 +202,6 @@ public class Helicopter extends Movable implements ISteerable
         takeDamage(getSpeed() / 5 + 1);
     }
 
-    public void resetAfterCollision()
-    {
-        setSpeed(0);
-        damageLevel = 0;
-        setColor(ColorUtil.red(100));
-    }
-
     /**
      * Helicopters are empty when their fuelLevel has reached 0
      *
@@ -223,8 +218,12 @@ public class Helicopter extends Movable implements ISteerable
      */
     private void consumeFuel()
     {
-        // TODO consumption should be proportional to current speed
-        fuelLevel = fuelLevel - fuelConsumptionRate;
+        consumeFuel(fuelConsumptionRate);
+    }
+
+    private void consumeFuel(double amount)
+    {
+        fuelLevel = fuelLevel - amount;
     }
 
     /**
