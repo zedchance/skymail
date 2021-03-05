@@ -146,11 +146,10 @@ public class GameWorld
                 {
                     blimp.transferFuel(player);
                     if (blimp.isEmpty()) placeBlimps(1);
+                    break;
                 }
-                break;
             }
         }
-        player.fuelUp(100);
     }
 
     /**
