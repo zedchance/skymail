@@ -1,4 +1,4 @@
-package org.csc133.a1;
+package org.csc133.a2;
 
 /**
  * Objects in game that have a movable position

@@ -1,4 +1,4 @@
-package org.csc133.a1;
+package org.csc133.a2;
 
 import com.codename1.charts.util.ColorUtil;
 
@@ -35,16 +35,6 @@ public class SkyScraper extends Fixed
     {
         this(sequenceNumber);
         setLocation(x, y);
-    }
-
-    public int getSequenceNumber()
-    {
-        return sequenceNumber;
-    }
-
-    public void setSequenceNumber(int sequenceNumber)
-    {
-        this.sequenceNumber = sequenceNumber;
     }
 
     @Override

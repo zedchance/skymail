@@ -1,4 +1,4 @@
-package org.csc133.a1;
+package org.csc133.a2;
 
 import java.util.ArrayList;
 import java.util.List;

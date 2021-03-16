@@ -1,4 +1,4 @@
-package org.csc133.a1;
+package org.csc133.a2;
 
 import com.codename1.charts.util.ColorUtil;
 
@@ -27,11 +27,6 @@ public class RefuelingBlimp extends Fixed
         double startX = (double) rand.nextInt(925) + 50;
         double startY = (double) rand.nextInt(668) + 50;
         setLocation(startX, startY);
-    }
-
-    public int getCapacity()
-    {
-        return capacity;
     }
 
     /**
