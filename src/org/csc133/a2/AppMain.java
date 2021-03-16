@@ -5,6 +5,7 @@ import static com.codename1.ui.CN.*;
 
 import com.codename1.ui.Form;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
@@ -25,7 +26,7 @@ public class AppMain
         // use two network threads instead of one
         updateNetworkThreadCount(2);
 
-        theme = UIManager.initFirstTheme("/theme");
+        // theme = UIManager.initFirstTheme("/theme");
 
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(true);
@@ -53,7 +54,7 @@ public class AppMain
             current.show();
             return;
         }
-        new Game();
+        new MainView().show();
     }
 
     public void stop()
