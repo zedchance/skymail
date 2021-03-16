@@ -1,23 +1,4 @@
-# A1Prj
+# SkyMail 3000
 
-```
-src
-└── org
-    └── csc133
-        └── a1
-            ├── AppMain.java
-            ├── Bird.java
-            ├── Fixed.java
-            ├── Game.java
-            ├── GameObject.java
-            ├── GameWorld.java
-            ├── Helicopter.java
-            ├── ISteerable.java
-            ├── Movable.java
-            ├── RefuelingBlimp.java
-            ├── SkyScraper.java
-            └── Tester.java
-
-3 directories, 12 files
-```
-
+A graphical game where you play as a Helicopter flying between sky scrapers delivering mail.
+Created for CS133 during Spring 2021.
