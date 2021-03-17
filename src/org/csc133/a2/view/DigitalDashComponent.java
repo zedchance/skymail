@@ -24,9 +24,9 @@ public abstract class DigitalDashComponent<T> extends Component
                 digitalImages[i] = Image.createImage("/LED_digit_" + i + ".png");
             }
             // second 10 is digits 0-9 with decimal
-            for (int i = 10; i < 20; i++)
+            for (int i = 0; i < 10; i++)
             {
-                digitalImages[i] = Image.createImage("/LED_digit_" + (i - 10) + "_with_dot.png");
+                digitalImages[i + 10] = Image.createImage("/LED_digit_" + i + "_with_dot.png");
             }
             colonImage = Image.createImage("/LED_colon.png");
         }

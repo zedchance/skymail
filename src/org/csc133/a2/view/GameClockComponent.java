@@ -17,6 +17,8 @@ public class GameClockComponent extends DigitalDashComponent
     public GameClockComponent()
     {
         super();
+        startTime = Calendar.getInstance().getTimeInMillis();
+        // timer starts as a green color
         setLedColor(ColorUtil.GREEN);
         // clock shows all 0s at first
         for (int i = 0; i < numDigitsShowing; i++)
@@ -44,12 +46,12 @@ public class GameClockComponent extends DigitalDashComponent
         int tenthsOfSeconds = (int) elapsedTime / 100;
         int seconds = (int) elapsedTime / 1000;
         int minutes = seconds / 60;
+        if (minutes > 1) setLedColor(ColorUtil.rgb(255, 0, 0));
         setTime(minutes, seconds % 60, tenthsOfSeconds);
     }
 
     public void start()
     {
-        startTime = Calendar.getInstance().getTimeInMillis();
         getComponentForm().registerAnimated(this);
     }
 
