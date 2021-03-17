@@ -28,7 +28,6 @@ public class Game extends Form
         addComponent(lblCommand);
         final TextField txtInput = new TextField();
         addComponent(txtInput);
-        this.show();
 
         // accept and execute user command
         txtInput.addActionListener(new ActionListener()

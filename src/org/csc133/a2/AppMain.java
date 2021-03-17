@@ -5,11 +5,10 @@ import static com.codename1.ui.CN.*;
 
 import com.codename1.ui.Form;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.layouts.BorderLayout;
-import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
+import org.csc133.a2.view.MainView;
 
 
 /**

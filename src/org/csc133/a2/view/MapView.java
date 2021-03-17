@@ -1,4 +1,4 @@
-package org.csc133.a2;
+package org.csc133.a2.view;
 
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
