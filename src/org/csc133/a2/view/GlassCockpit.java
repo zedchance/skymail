@@ -1,14 +1,25 @@
 package org.csc133.a2.view;
 
-import com.codename1.ui.Form;
+import com.codename1.ui.Container;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.GridLayout;
+import org.csc133.a2.controller.GameWorld;
 
-public class GlassCockpit extends Form
+import java.util.List;
+
+public class GlassCockpit extends Container
 {
-    public GlassCockpit()
+    GameWorld gw;
+    DigitalDashComponent fuelDash;
+    DigitalDashComponent damageDash;
+    DigitalDashComponent livesDash;
+    DigitalDashComponent lastCheckpointReachedDash;
+    DigitalDashComponent headingDash;
+
+    public GlassCockpit(GameWorld gw)
     {
         super(new GridLayout(2, 6));
+        this.gw = gw;
 
         // first row is header
         add(new Label("Game Time"));
@@ -19,12 +30,51 @@ public class GlassCockpit extends Form
         add(new Label("Heading"));
 
         // second row is digidash
-        // TODO add digidashes
         add(new GameClockComponent());
-        add(new Label("100"));
-        add(new Label("0"));
-        add(new Label("3"));
-        add(new Label("1"));
-        add(new Label("0 degrees"));
+
+        fuelDash = new DigitalDashComponent(3);
+        fuelDash.setValue(100);
+        add(fuelDash);
+
+        damageDash = new DigitalDashComponent(3);
+        add(damageDash);
+
+        livesDash = new DigitalDashComponent(1);
+        livesDash.setValue(3);
+        add(livesDash);
+
+        lastCheckpointReachedDash = new DigitalDashComponent(1);
+        lastCheckpointReachedDash.setValue(1);
+        add(lastCheckpointReachedDash);
+
+        headingDash = new DigitalDashComponent(3);
+        add(headingDash);
+    }
+
+    public void start()
+    {
+        getComponentForm().registerAnimated(this);
+    }
+
+    public void stop()
+    {
+        getComponentForm().deregisterAnimated(this);
+    }
+
+    public void laidOut()
+    {
+        this.start();
+    }
+
+    public boolean animate()
+    {
+        // TODO fix these hardcoded values
+        List<Double> dashElements = gw.getDashElements();
+        fuelDash.setValue(dashElements.get(0));
+        damageDash.setValue(dashElements.get(1));
+        livesDash.setValue(dashElements.get(2));
+        lastCheckpointReachedDash.setValue(dashElements.get(3));
+        headingDash.setValue(dashElements.get(4));
+        return false;
     }
 }

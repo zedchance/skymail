@@ -8,7 +8,7 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
-import org.csc133.a2.view.MainView;
+import org.csc133.a2.view.Game;
 
 
 /**
@@ -53,7 +53,7 @@ public class AppMain
             current.show();
             return;
         }
-        new MainView().show();
+        new Game().show();
     }
 
     public void stop()

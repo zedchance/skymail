@@ -1,4 +1,4 @@
-package org.csc133.a2;
+package org.csc133.a2.model;
 
 import com.codename1.charts.util.ColorUtil;
 

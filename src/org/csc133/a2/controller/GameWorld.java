@@ -1,4 +1,6 @@
-package org.csc133.a2;
+package org.csc133.a2.controller;
+
+import org.csc133.a2.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,22 @@ public class GameWorld
 
         // 2 birds
         placeBirds(2);
+    }
+
+    public List<GameObject> getWorld()
+    {
+        return world;
+    }
+
+    public List<Double> getDashElements()
+    {
+        List<Double> dashElements = new ArrayList<>();
+        dashElements.add(player.getFuelLevel());
+        dashElements.add((double) player.getDamageLevel());
+        dashElements.add((double) lives);
+        dashElements.add((double) player.getLastSkyscraperReached());
+        dashElements.add((double) player.getHeading());
+        return dashElements;
     }
 
     public void checkIfReset()

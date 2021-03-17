@@ -1,10 +1,12 @@
-package org.csc133.a2;
+package org.csc133.a2.view;
 
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
+import org.csc133.a2.controller.GameWorld;
 
 /**
  * Sky Mail 3000
@@ -16,18 +18,25 @@ public class Game extends Form
 
     public Game()
     {
-        System.out.println("New game started");
+        super("SkyMail 3000");
+        setLayout(new BorderLayout());
+
         gw = new GameWorld();
         gw.init();
+
+        // map and cockpit views
+        add(BorderLayout.SOUTH, new GlassCockpit(gw));
+        add(BorderLayout.CENTER, new MapView(gw.getWorld()));
         play();
     }
 
     private void play()
     {
+        // old play controls
         Label lblCommand = new Label("Enter a command: ");
-        addComponent(lblCommand);
+        addComponent(BorderLayout.NORTH, lblCommand);
         final TextField txtInput = new TextField();
-        addComponent(txtInput);
+        addComponent(BorderLayout.NORTH, txtInput);
 
         // accept and execute user command
         txtInput.addActionListener(new ActionListener()
