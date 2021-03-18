@@ -1,13 +1,15 @@
 package org.csc133.a2.model;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 
 import java.util.Random;
 
 /**
  * All objects in game inherit from GameObject
  */
-public abstract class GameObject
+public abstract class GameObject implements IDrawable
 {
     private int size;
     private double x;
@@ -101,6 +103,16 @@ public abstract class GameObject
     public void setColor(int color)
     {
         this.color = color;
+    }
+
+    @Override
+    public void draw(Graphics g, Point containerOrigin)
+    {
+        int x = (int) getX() + containerOrigin.getX();
+        int y = (int) getY() + containerOrigin.getY();
+
+        g.setColor(getColor());
+        g.fillRect(x, y, getSize(), getSize());
     }
 
     @Override

@@ -20,20 +20,20 @@ public class Helicopter extends Movable implements ISteerable
     /**
      * By default, Helicopters have these properties:
      * stickAngle is 0,
-     * maximumSpeed is 50,
+     * maximumSpeed is 10,
      * fuelLevel is 100,
-     * fuelConsumptionRate is 5,
+     * fuelConsumptionRate is 0.05,
      * damageLevel is 0,
      * lastSkyScraperReached is 0,
      * color is red,
-     * speed is random between 0 and 5,
+     * speed is random between 1 and 3,
      * size is 10.
      */
     public Helicopter()
     {
-        this(0, 50, 100, 5, 0, 0);
+        this(0, 10, 100, 0.05, 0, 0);
         Random rand = new Random();
-        setSpeed(rand.nextInt(6));
+        setSpeed(rand.nextInt(2) + 1);
         setSize(10);
     }
 
@@ -68,7 +68,7 @@ public class Helicopter extends Movable implements ISteerable
         this.fuelConsumptionRate = fuelConsumptionRate;
         this.damageLevel = damageLevel;
         this.lastSkyscraperReached = lastSkyscraperReached;
-        setColor(ColorUtil.red(100));
+        setColor(ColorUtil.rgb(255, 0, 0));
     }
 
     public double getFuelLevel()
@@ -98,7 +98,7 @@ public class Helicopter extends Movable implements ISteerable
      */
     public void accelerate()
     {
-        int accelerationSpeed = 10;
+        int accelerationSpeed = 1;
         setSpeed(getSpeed() + accelerationSpeed);
         checkSpeed();
         consumeFuel(1);
@@ -110,7 +110,7 @@ public class Helicopter extends Movable implements ISteerable
      */
     public void decelerate()
     {
-        int decelerationSpeed = 10;
+        int decelerationSpeed = 2;
         if (getSpeed() <= 0)
         {
             setSpeed(0);
@@ -177,7 +177,7 @@ public class Helicopter extends Movable implements ISteerable
         else
         {
             damageLevel = damageLevel + amount + 1;
-            setColor(ColorUtil.red(100 - damageLevel));
+            setColor(ColorUtil.rgb(100 - damageLevel, 0, 0));
             maximumSpeed = maximumSpeed - (amount / 2);
             calculateMaximumSpeed();
         }

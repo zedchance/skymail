@@ -23,7 +23,7 @@ public class Bird extends Movable
         double startX = (double) rand.nextInt(1025);
         double startY = (double) rand.nextInt(768);
         setLocation(startX, startY);
-        setSpeed(rand.nextInt(11));
+        setSpeed(rand.nextInt(2) + 1);
         setHeading(rand.nextInt(360));
         super.setColor(ColorUtil.rgb(100, 100, 0));
     }
@@ -42,7 +42,7 @@ public class Bird extends Movable
     public void move()
     {
         Random rand = new Random();
-        setHeading(rand.nextInt(11) - 5);
+        setHeading(getHeading() + (rand.nextInt(11) - 5));
         super.move();
     }
 

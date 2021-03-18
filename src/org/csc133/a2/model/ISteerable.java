@@ -7,7 +7,7 @@ public interface ISteerable
      * Input a negative degree to turn left,
      * input a positive degree to turn right.
      *
-     * @param degrees
+     * @param degrees amount to change
      */
-    public void changeDirection(int degrees);
+    void changeDirection(int degrees);
 }
