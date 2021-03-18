@@ -1,14 +1,9 @@
 package org.csc133.a2.view;
 
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
-import com.codename1.ui.Label;
-import com.codename1.ui.TextField;
-import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import org.csc133.a2.controller.GameWorld;
-
-import java.awt.event.KeyEvent;
 
 /**
  * Sky Mail 3000
@@ -16,8 +11,6 @@ import java.awt.event.KeyEvent;
 public class Game extends Form
 {
     private GameWorld gw;
-    private boolean isUserExiting = false;
-    boolean readyToAnimate = true;
 
     public Game()
     {
@@ -44,8 +37,12 @@ public class Game extends Form
         addKeyListener('c', evt -> gw.helicopterCollision());
         addKeyListener('e', evt -> gw.refuel());
         addKeyListener('g', evt -> gw.birdCollision());
-
-        // TODO exit on 'x', popup dialog box
+        addKeyListener('x', evt -> {
+            if (Dialog.show("Exit?", "Are you sure you want to exit?", "Yes", "No"))
+            {
+                System.exit(0);
+            }
+        });
         // TODO nums 1-9 for checkpoints
     }
 
