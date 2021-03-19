@@ -1,5 +1,6 @@
 package org.csc133.a2.controller;
 
+import com.codename1.ui.Dialog;
 import org.csc133.a2.model.*;
 
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ public class GameWorld
 
         // player starts at first SkyScraper
         player = new Helicopter(startX, startY);
-        world.add(player);
         world.add(new SkyScraper(startX, startY, 1));
 
         // the rest of the checkpoints to reach
@@ -41,6 +41,9 @@ public class GameWorld
 
         // 2 birds
         placeBirds(2);
+
+        // place player last to draw on top
+        world.add(player);
     }
 
     public List<GameObject> getWorld()
@@ -79,15 +82,18 @@ public class GameWorld
 
     public void exit()
     {
+        String endOfGameDisplay = "";
         if (lives == 0)
         {
-            System.out.println("You have run out of lives!");
+            endOfGameDisplay += "You have run out of lives!\n";
         }
         else if (player.getLastSkyscraperReached() == TOTAL_CHECKPOINTS)
         {
-            System.out.println("You have completed all checkpoints!");
+            endOfGameDisplay += "You have completed all checkpoints!\n";
         }
-        System.out.println("Exiting after " + clock + " ticks");
+        endOfGameDisplay += "Exiting after " + clock + " ticks";
+
+        Dialog.show(null, endOfGameDisplay, "Ok", null);
         System.exit(0);
     }
 

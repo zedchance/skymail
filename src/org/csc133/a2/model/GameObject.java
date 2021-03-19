@@ -37,7 +37,7 @@ public abstract class GameObject implements IDrawable
     public GameObject(double x, double y, int color)
     {
         Random rand = new Random();
-        this.size = rand.nextInt(20) + 5;
+        this.size = rand.nextInt(20) + 10;
         this.x = x;
         this.y = y;
         this.color = ColorUtil.rgb(0, color, 0);

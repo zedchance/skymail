@@ -1,6 +1,9 @@
 package org.csc133.a2.model;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
+import com.codename1.ui.geom.Shape;
 
 import java.util.Random;
 
@@ -21,7 +24,7 @@ public class RefuelingBlimp extends Fixed
     public RefuelingBlimp()
     {
         Random rand = new Random();
-        setSize(rand.nextInt(10) + 10);
+        setSize(rand.nextInt(30) + 10);
         this.capacity = 5 * getSize();
         this.setColor(ColorUtil.blue(this.capacity));
         double startX = (double) rand.nextInt(925) + 50;
@@ -58,6 +61,19 @@ public class RefuelingBlimp extends Fixed
     public boolean isEmpty()
     {
         return capacity == 0;
+    }
+
+    @Override
+    public void draw(Graphics g, Point containerOrigin)
+    {
+        int x = (int) getX() + containerOrigin.getX();
+        int y = (int) getY() + containerOrigin.getY();
+
+        g.setColor(getColor());
+        g.fillRoundRect(x, y, getSize(), getSize(), 5, 5);
+
+        g.setColor(ColorUtil.WHITE);
+        g.drawString("C" + capacity, x, y);
     }
 
     @Override

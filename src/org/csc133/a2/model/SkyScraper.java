@@ -1,6 +1,8 @@
 package org.csc133.a2.model;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 
 /**
  * SkyScrapers act as checkpoints for the player's flight path
@@ -41,6 +43,19 @@ public class SkyScraper extends Fixed
     public void setColor(int color)
     {
         System.out.println("SkyScrapers cannot change color once created.");
+    }
+
+    @Override
+    public void draw(Graphics g, Point containerOrigin)
+    {
+        int x = (int) getX() + containerOrigin.getX();
+        int y = (int) getY() + containerOrigin.getY();
+
+        g.setColor(getColor());
+        g.fillRect(x, y, getSize(), getSize());
+
+        g.setColor(ColorUtil.WHITE);
+        g.drawString("S" + sequenceNumber, x, y);
     }
 
     @Override

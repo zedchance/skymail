@@ -1,6 +1,9 @@
 package org.csc133.a2.model;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
+import com.codename1.ui.geom.Shape;
 
 import java.util.Random;
 
@@ -271,14 +274,8 @@ public class Helicopter extends Movable implements ISteerable
     @Override
     public void move()
     {
-        if (stickAngle > getHeading())
-        {
-            setHeading(getHeading() + 5);
-        }
-        else if (stickAngle < getHeading())
-        {
-            setHeading(getHeading() - 5);
-        }
+        // TODO this isn't obeying the A1 rules for stick angle / heading anymore
+        setHeading(stickAngle);
 
         if (!isFuelEmpty() && !isDestroyed())
         {
@@ -305,8 +302,31 @@ public class Helicopter extends Movable implements ISteerable
     {
         if (Math.abs(stickAngle - getHeading()) <= 35)
         {
-            stickAngle = stickAngle + degrees;
+            stickAngle = Math.floorMod(stickAngle + degrees, 360);
         }
+    }
+
+    @Override
+    public void draw(Graphics g, Point containerOrigin)
+    {
+        // center of helo
+        int x = (int) getX() + containerOrigin.getX();
+        int y = (int) getY() + containerOrigin.getY();
+
+        // nose of helo
+        double theta = 90 - getHeading();
+        int noseX = x + (int) (Math.cos(Math.toRadians(theta)) * getSize());
+        int noseY = y + (int) (Math.sin(Math.toRadians(theta)) * getSize());
+
+        // left and right tails of helo
+        int leftTailX = x + (int) (Math.cos(Math.toRadians(theta + 90)) * getSize());
+        int leftTailY = y + (int) (Math.sin(Math.toRadians(theta + 90)) * getSize());
+
+        int rightTailX = x + (int) (Math.cos(Math.toRadians(theta - 90)) * getSize());
+        int rightTailY = y + (int) (Math.sin(Math.toRadians(theta - 90)) * getSize());
+
+        g.setColor(getColor());
+        g.fillTriangle(noseX, noseY, leftTailX, leftTailY, rightTailX, rightTailY);
     }
 
     @Override
