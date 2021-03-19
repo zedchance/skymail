@@ -114,14 +114,7 @@ public class Helicopter extends Movable implements ISteerable
     public void decelerate()
     {
         int decelerationSpeed = 2;
-        if (getSpeed() <= 0)
-        {
-            setSpeed(0);
-        }
-        else
-        {
-            setSpeed(getSpeed() - decelerationSpeed);
-        }
+        setSpeed(Math.max(getSpeed() - decelerationSpeed, 0));
     }
 
     /**
@@ -321,7 +314,6 @@ public class Helicopter extends Movable implements ISteerable
         // left and right tails of helo
         int leftTailX = x + (int) (Math.cos(Math.toRadians(theta + 90)) * getSize());
         int leftTailY = y + (int) (Math.sin(Math.toRadians(theta + 90)) * getSize());
-
         int rightTailX = x + (int) (Math.cos(Math.toRadians(theta - 90)) * getSize());
         int rightTailY = y + (int) (Math.sin(Math.toRadians(theta - 90)) * getSize());
 

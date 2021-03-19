@@ -58,13 +58,13 @@ public abstract class Movable extends GameObject
     }
 
     /**
-     * Move the object to a new location based on its current heading and speed
+     * Move the object to a new location based on its current heading and speed / 2
      */
     public void move()
     {
         double theta = 90 - heading;
-        double deltaX = Math.cos(Math.toRadians(theta)) * speed;
-        double deltaY = Math.sin(Math.toRadians(theta)) * speed;
+        double deltaX = Math.cos(Math.toRadians(theta)) * speed / 2;
+        double deltaY = Math.sin(Math.toRadians(theta)) * speed / 2;
         setLocation(getX() + deltaX, getY() + deltaY);
     }
 
