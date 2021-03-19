@@ -5,6 +5,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.layouts.GridLayout;
 import org.csc133.a2.controller.GameWorld;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class GlassCockpit extends Container
@@ -68,13 +69,12 @@ public class GlassCockpit extends Container
 
     public boolean animate()
     {
-        // TODO fix these hardcoded values
-        List<Double> dashElements = gw.getDashElements();
-        fuelDash.setValue(dashElements.get(0));
-        damageDash.setValue(dashElements.get(1));
-        livesDash.setValue(dashElements.get(2));
-        lastCheckpointReachedDash.setValue(dashElements.get(3));
-        headingDash.setValue(dashElements.get(4));
+        HashMap<String, Double> dashElements = gw.getDashElements();
+        fuelDash.setValue(dashElements.get("fuel"));
+        damageDash.setValue(dashElements.get("damage"));
+        livesDash.setValue(dashElements.get("lives"));
+        lastCheckpointReachedDash.setValue(dashElements.get("last"));
+        headingDash.setValue(dashElements.get("heading"));
         return false;
     }
 }

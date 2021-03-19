@@ -80,7 +80,6 @@ public class Game extends Form
         // check if game is over
         if (gw.isGameOver())
         {
-            // TODO display dialog with end of game stats
             gw.exit();
         }
         gw.tick();

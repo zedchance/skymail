@@ -3,7 +3,6 @@ package org.csc133.a2.model;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
-import com.codename1.ui.geom.Shape;
 
 import java.util.Random;
 

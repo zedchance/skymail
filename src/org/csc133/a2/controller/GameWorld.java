@@ -4,6 +4,7 @@ import com.codename1.ui.Dialog;
 import org.csc133.a2.model.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,14 +52,19 @@ public class GameWorld
         return world;
     }
 
-    public List<Double> getDashElements()
+    /**
+     * Dash elements to be displayed on GlassClockpit
+     *
+     * @return HashMap of fuel, damage, lives, last, heading
+     */
+    public HashMap<String, Double> getDashElements()
     {
-        List<Double> dashElements = new ArrayList<>();
-        dashElements.add(player.getFuelLevel());
-        dashElements.add((double) player.getDamageLevel());
-        dashElements.add((double) lives);
-        dashElements.add((double) player.getLastSkyscraperReached());
-        dashElements.add((double) player.getHeading());
+        HashMap<String, Double> dashElements = new HashMap<>();
+        dashElements.put("fuel", player.getFuelLevel());
+        dashElements.put("damage", (double) player.getDamageLevel());
+        dashElements.put("lives", (double) lives);
+        dashElements.put("last", (double) player.getLastSkyscraperReached());
+        dashElements.put("heading", (double) player.getHeading());
         return dashElements;
     }
 
@@ -214,29 +220,6 @@ public class GameWorld
             }
         }
         return ++clock;
-    }
-
-    /**
-     * Generate a basic text HUD
-     */
-    public void display()
-    {
-        System.out.printf("You are at (%.1f, %.1f)\n", player.getX(), player.getY());
-        System.out.printf("Speed: %2d/%2d    Heading: %5d\n", player.getSpeed(), player.getMaximumSpeed(), player.getHeading());
-        System.out.printf("Fuel: %6.0f    Damage: %6d\n", player.getFuelLevel(), player.getDamageLevel());
-        System.out.printf("Lives: %5d    Clock: %7d\n", lives, clock);
-        System.out.printf("Highest SkyScraper reached: %2d\n", player.getLastSkyscraperReached());
-    }
-
-    /**
-     * Print out a text representation of the map
-     */
-    public void map()
-    {
-        for (GameObject item : world)
-        {
-            System.out.println(item);
-        }
     }
 
     /**
