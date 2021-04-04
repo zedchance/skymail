@@ -3,10 +3,9 @@ package org.csc133.a2.view;
 import com.codename1.ui.Container;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.GridLayout;
-import org.csc133.a2.controller.GameWorld;
+import org.csc133.a2.model.GameWorld;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class GlassCockpit extends Container
 {

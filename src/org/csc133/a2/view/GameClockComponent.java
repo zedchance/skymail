@@ -1,9 +1,6 @@
 package org.csc133.a2.view;
 
 import com.codename1.charts.util.ColorUtil;
-import com.codename1.ui.Graphics;
-import com.codename1.ui.Image;
-import com.codename1.ui.geom.Dimension;
 
 import java.util.Calendar;
 
