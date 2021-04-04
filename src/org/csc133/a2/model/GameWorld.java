@@ -1,4 +1,4 @@
-package org.csc133.a2.controller;
+package org.csc133.a2.model;
 
 import com.codename1.ui.Dialog;
 import org.csc133.a2.model.*;
@@ -31,6 +31,7 @@ public class GameWorld
         player = new Helicopter(startX, startY);
         world.add(new SkyScraper(startX, startY, 1));
 
+        // TODO randomly place skyscrapers
         // the rest of the checkpoints to reach
         world.add(new SkyScraper(100, 200, 2));
         world.add(new SkyScraper(100, 300, 3));
@@ -126,7 +127,7 @@ public class GameWorld
      */
     public void left()
     {
-        player.changeDirection(-5);
+        player.changeDirection(5);
     }
 
     /**
@@ -135,7 +136,7 @@ public class GameWorld
      */
     public void right()
     {
-        player.changeDirection(5);
+        player.changeDirection(-5);
     }
 
     /**

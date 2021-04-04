@@ -111,6 +111,11 @@ public abstract class GameObject implements IDrawable
         int x = (int) getX() + containerOrigin.getX();
         int y = (int) getY() + containerOrigin.getY();
 
+        // TODO DRY
+        // center object
+        x = x - size / 2;
+        y = y + size / 2;
+
         g.setColor(getColor());
         g.fillRect(x, y, getSize(), getSize());
     }

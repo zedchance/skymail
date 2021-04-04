@@ -51,6 +51,11 @@ public class SkyScraper extends Fixed
         int x = (int) getX() + containerOrigin.getX();
         int y = (int) getY() + containerOrigin.getY();
 
+        // center object
+        // TODO DRY
+        x = x - getSize() / 2;
+        y = y + getSize() / 2;
+
         g.setColor(getColor());
         g.fillRect(x, y, getSize(), getSize());
 

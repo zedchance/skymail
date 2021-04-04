@@ -69,8 +69,13 @@ public class RefuelingBlimp extends Fixed
         int x = (int) getX() + containerOrigin.getX();
         int y = (int) getY() + containerOrigin.getY();
 
+        // TODO DRY
+        // center object
+        x = x - getSize() / 2;
+        y = y + getSize() / 2;
+
         g.setColor(getColor());
-        g.fillRoundRect(x, y, getSize(), getSize(), 5, 5);
+        g.fillRoundRect(x, y, getSize() * 2, getSize(), 5, 5);
 
         g.setColor(ColorUtil.WHITE);
         g.drawString("C" + capacity, x, y);
