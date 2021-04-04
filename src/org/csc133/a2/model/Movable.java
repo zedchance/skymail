@@ -1,5 +1,7 @@
 package org.csc133.a2.model;
 
+import org.csc133.a2.controller.Game;
+
 /**
  * Objects in game that have a movable position
  */
@@ -58,13 +60,15 @@ public abstract class Movable extends GameObject
     }
 
     /**
-     * Move the object to a new location based on its current heading and speed / 2
+     * Move the object to a new location based on its current heading and speed / elapsed time
      */
     public void move()
     {
         double theta = 90 - heading;
-        double deltaX = Math.cos(Math.toRadians(theta)) * speed / 2;
-        double deltaY = Math.sin(Math.toRadians(theta)) * speed / 2;
+        /* TODO find a way to pass REFRESH_RATE to tick, and to all the move methods,
+         *   this isn't working because of Bird and Helicopter's overridden move() */
+        double deltaX = Math.cos(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
+        double deltaY = Math.sin(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
         setLocation(getX() + deltaX, getY() + deltaY);
     }
 

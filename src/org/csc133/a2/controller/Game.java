@@ -9,13 +9,13 @@ import org.csc133.a2.model.GameWorld;
 import org.csc133.a2.view.GlassCockpit;
 import org.csc133.a2.view.MapView;
 
-import java.util.Calendar;
-
 /**
  * Sky Mail 3000
  */
 public class Game extends Form implements Runnable
 {
+    public static final int REFRESH_RATE = 15;
+
     private final GameWorld gw;
 
     public Game()
@@ -23,7 +23,6 @@ public class Game extends Form implements Runnable
         super("SkyMail 3000");
         setLayout(new BorderLayout());
 
-        // controller
         gw = new GameWorld();
         gw.init();
 
@@ -33,8 +32,8 @@ public class Game extends Form implements Runnable
         // setup key listeners
         handleKeys();
 
-        // timer continually calls run method
-        UITimer.timer((int) Calendar.getInstance().getTimeInMillis(), true, this, this);
+        // timer continually calls run method every 20 ms
+        UITimer.timer(REFRESH_RATE, true, this, this);
     }
 
     private void handleViews()
