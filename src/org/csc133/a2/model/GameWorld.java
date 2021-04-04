@@ -212,11 +212,11 @@ public class GameWorld
      */
     public int tick()
     {
-        for (int i = 0; i < world.size(); i++)
+        for (GameObject gameObject : world)
         {
-            if (world.get(i) instanceof Movable)
+            if (gameObject instanceof Movable)
             {
-                Movable mObj = (Movable) world.get(i);
+                Movable mObj = (Movable) gameObject;
                 mObj.move();
             }
         }

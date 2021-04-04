@@ -20,8 +20,8 @@ public class Bird extends Movable
     {
         super();
         Random rand = new Random();
-        double startX = (double) rand.nextInt(1025);
-        double startY = (double) rand.nextInt(768);
+        double startX = rand.nextInt(1025);
+        double startY = rand.nextInt(768);
         setLocation(startX, startY);
         setSpeed(rand.nextInt(2) + 1);
         setHeading(rand.nextInt(360));
@@ -33,6 +33,8 @@ public class Bird extends Movable
     {
         System.out.println("Birds cannot change color.");
     }
+
+    // TODO override draw()
 
     /**
      * Bird change their heading randomly +- 5 degrees
