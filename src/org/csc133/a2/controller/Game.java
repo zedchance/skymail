@@ -1,15 +1,20 @@
-package org.csc133.a2.view;
+package org.csc133.a2.controller;
 
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
-import org.csc133.a2.controller.GameWorld;
+import com.codename1.ui.util.UITimer;
+import org.csc133.a2.model.GameWorld;
+import org.csc133.a2.view.GlassCockpit;
+import org.csc133.a2.view.MapView;
+
+import java.util.Calendar;
 
 /**
  * Sky Mail 3000
  */
-public class Game extends Form
+public class Game extends Form implements Runnable
 {
     private final GameWorld gw;
 
@@ -27,6 +32,9 @@ public class Game extends Form
 
         // setup key listeners
         handleKeys();
+
+        // timer continually calls run method
+        UITimer.timer((int) Calendar.getInstance().getTimeInMillis(), true, this, this);
     }
 
     private void handleViews()
@@ -37,6 +45,7 @@ public class Game extends Form
 
     private void handleKeys()
     {
+        // key commands
         addKeyListener('a', evt -> gw.accelerate());
         addKeyListener('b', evt -> gw.brake());
         addKeyListener('l', evt -> gw.left());
@@ -45,6 +54,16 @@ public class Game extends Form
         addKeyListener('e', evt -> gw.refuel());
         addKeyListener('g', evt -> gw.birdCollision());
         addKeyListener('x', this::askToExit);
+
+        // arrow keys for flight
+        final int LEFT = 2;
+        final int RIGHT = 5;
+        final int UP = 1;
+        final int DOWN = 6;
+        addGameKeyListener(LEFT, evt -> gw.left());
+        addGameKeyListener(RIGHT, evt -> gw.right());
+        addGameKeyListener(UP, evt -> gw.accelerate());
+        addGameKeyListener(DOWN, evt -> gw.brake());
         // TODO nums 1-9 for checkpoints
     }
 
@@ -56,23 +75,8 @@ public class Game extends Form
         }
     }
 
-    public void start()
-    {
-        getComponentForm().registerAnimated(this);
-    }
-
-    public void stop()
-    {
-        getComponentForm().deregisterAnimated(this);
-    }
-
-    public void laidOut()
-    {
-        this.start();
-    }
-
     @Override
-    public boolean animate()
+    public void run()
     {
         // check if the game needs to be reinitialized
         gw.checkIfReset();
@@ -83,6 +87,5 @@ public class Game extends Form
             gw.exit();
         }
         gw.tick();
-        return false;
     }
 }
