@@ -27,8 +27,8 @@ public class GameWorld
         int startY = 100;
         world.clear();
 
-        // player starts at first SkyScraper
-        player = new Helicopter(startX, startY);
+        // player starts at first SkyScraper, only one Player can exist at once
+        player = Player.getPlayer(startX, startY);
         world.add(new SkyScraper(startX, startY, 1));
 
         // TODO randomly place skyscrapers
