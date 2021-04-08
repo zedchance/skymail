@@ -6,6 +6,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.util.UITimer;
 import org.csc133.a2.model.GameWorld;
+import org.csc133.a2.view.ButtonControls;
 import org.csc133.a2.view.GlassCockpit;
 import org.csc133.a2.view.MapView;
 
@@ -32,14 +33,17 @@ public class Game extends Form implements Runnable
         // setup key listeners
         handleKeys();
 
-        // timer continually calls run method every 20 ms
+        // timer continually calls run method
         UITimer.timer(REFRESH_RATE, true, this, this);
     }
 
     private void handleViews()
     {
-        add(BorderLayout.SOUTH, new GlassCockpit(gw));
-        add(BorderLayout.CENTER, new MapView(gw.getWorld()));
+        System.out.println("Game.handleViews");
+        add(BorderLayout.NORTH, new GlassCockpit(gw));
+        add(BorderLayout.CENTER, new MapView(gw));
+        add(BorderLayout.SOUTH, new ButtonControls(gw));
+        // TODO add commands in overflow menu
     }
 
     private void handleKeys()
@@ -53,6 +57,7 @@ public class Game extends Form implements Runnable
         addKeyListener('e', evt -> gw.refuel());
         addKeyListener('g', evt -> gw.birdCollision());
         addKeyListener('x', this::askToExit);
+        // TODO 's' key for skyscraper collision, with Dialog
 
         // arrow keys for flight
         final int LEFT = 2;
@@ -63,7 +68,6 @@ public class Game extends Form implements Runnable
         addGameKeyListener(RIGHT, evt -> gw.right());
         addGameKeyListener(UP, evt -> gw.accelerate());
         addGameKeyListener(DOWN, evt -> gw.brake());
-        // TODO nums 1-9 for checkpoints
     }
 
     private void askToExit(ActionEvent evt)

@@ -6,17 +6,16 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.layouts.BorderLayout;
 import org.csc133.a2.model.GameObject;
-
-import java.util.List;
+import org.csc133.a2.model.GameWorld;
 
 public class MapView extends Container
 {
-    private List<GameObject> world;
+    private GameWorld gw;
 
-    public MapView(List<GameObject> world)
+    public MapView(GameWorld gw)
     {
         super(new BorderLayout());
-        this.world = world;
+        this.gw = gw;
     }
 
     public void start()
@@ -32,6 +31,7 @@ public class MapView extends Container
     public void laidOut()
     {
         this.start();
+        gw.setMapSize(getWidth(), getHeight());
     }
 
     public boolean animate()
@@ -50,7 +50,7 @@ public class MapView extends Container
 
         // draw all world objects
         Point originOfMap = new Point(getX(), getY());
-        for (GameObject item : world)
+        for (GameObject item : gw.getWorld())
         {
             item.draw(g, originOfMap);
         }

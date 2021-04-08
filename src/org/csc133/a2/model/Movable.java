@@ -69,7 +69,8 @@ public abstract class Movable extends GameObject
          *   this isn't working because of Bird and Helicopter's overridden move() */
         double deltaX = Math.cos(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
         double deltaY = Math.sin(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
-        setLocation(getX() + deltaX, getY() + deltaY);
+        // TODO this is badly coupled, and still hardcoded!
+        setLocation(getX() + deltaX, getY() + deltaY, 2000, 2000);
     }
 
     @Override

@@ -63,29 +63,34 @@ public abstract class GameObject implements IDrawable
         return y;
     }
 
+    public void setLocation(double x, double y)
+    {
+        /* TODO this needs to take in the map size for starting locations
+         *   but currently the map size isn't set until fully laid out */
+        double defaultX = 1024;
+        double defaultY = 768;
+        setLocation(x, y, defaultX, defaultY);
+    }
+
     /**
      * Sets the location of the object in a (x, y) fashion.
-     * The game board is restricted to 1024.0 x 768.0
      *
      * @param x coordinate as double
      * @param y coordinate as double
      */
-    public void setLocation(double x, double y)
+    public void setLocation(double x, double y, double maxX, double maxY)
     {
-        final double X_BOUNDARY = 1024.0;
-        final double Y_BOUNDARY = 768.0;
-
-        if (x > X_BOUNDARY)
+        if (x > maxX)
         {
-            x = X_BOUNDARY;
+            x = maxX;
         }
         else if (x < 0)
         {
             x = 0;
         }
-        if (y > Y_BOUNDARY)
+        if (y > maxY)
         {
-            y = Y_BOUNDARY;
+            y = maxY;
         }
         else if (y < 0)
         {

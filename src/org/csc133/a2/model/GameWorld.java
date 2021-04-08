@@ -1,11 +1,11 @@
 package org.csc133.a2.model;
 
 import com.codename1.ui.Dialog;
-import org.csc133.a2.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The GameWorld has all game objects, and commands to interact with the objects
@@ -18,8 +18,9 @@ public class GameWorld
     private Helicopter player;
     private int clock = 0;
     private int lives = 3;
+    private int mapWidth;
+    private int mapHeight;
 
-    // this initial level design has hard coded values for all objects
     public void init()
     {
         // setup
@@ -29,14 +30,7 @@ public class GameWorld
 
         // player starts at first SkyScraper, only one Player can exist at once
         player = Player.getPlayer(startX, startY);
-        world.add(new SkyScraper(startX, startY, 1));
-
-        // TODO randomly place skyscrapers
-        // the rest of the checkpoints to reach
-        world.add(new SkyScraper(100, 200, 2));
-        world.add(new SkyScraper(100, 300, 3));
-        world.add(new SkyScraper(250, 500, 4));
-        world.add(new SkyScraper(800, 500, 5));
+        placeSkyScrapers(startX, startY);
 
         // refuel blimps
         placeBlimps(2);
@@ -53,8 +47,14 @@ public class GameWorld
         return world;
     }
 
+    public void setMapSize(int x, int y)
+    {
+        mapWidth = x;
+        mapHeight = y;
+    }
+
     /**
-     * Dash elements to be displayed on GlassClockpit
+     * Dash elements to be displayed on GlassCockpit
      *
      * @return HashMap of fuel, damage, lives, last, heading
      */
@@ -146,7 +146,6 @@ public class GameWorld
     {
         // TODO actually collide with another helo object
         player.collide();
-
     }
 
     public void landOnSkyScraperCheckpoint(int n)
@@ -231,6 +230,22 @@ public class GameWorld
     public boolean isGameOver()
     {
         return lives == 0;
+    }
+
+    private void placeSkyScrapers(int startX, int startY)
+    {
+        // first sky scraper is at helo's start location
+        world.add(new SkyScraper(startX, startY, 1));
+
+        // the rest of the checkpoints to reach
+        Random rand = new Random();
+        for (int i = 2; i <= TOTAL_CHECKPOINTS; i++)
+        {
+            // TODO these are still hardcoded
+            int randX = rand.nextInt(2000);
+            int randY = rand.nextInt(1000);
+            world.add(new SkyScraper(randX, randY, i));
+        }
     }
 
     private void placeBlimps(int amount)
