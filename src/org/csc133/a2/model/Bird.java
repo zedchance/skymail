@@ -1,6 +1,8 @@
 package org.csc133.a2.model;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Point;
 
 import java.util.Random;
 
@@ -20,10 +22,10 @@ public class Bird extends Movable
     {
         super();
         Random rand = new Random();
-        double startX = rand.nextInt(1025);
-        double startY = rand.nextInt(768);
+        double startX = rand.nextInt(2000);
+        double startY = rand.nextInt(2000);
         setLocation(startX, startY);
-        setSpeed(rand.nextInt(2) + 1);
+        setSpeed(rand.nextInt(5) + 10);
         setHeading(rand.nextInt(360));
         super.setColor(ColorUtil.rgb(100, 100, 0));
     }
@@ -34,7 +36,23 @@ public class Bird extends Movable
         System.out.println("Birds cannot change color.");
     }
 
-    // TODO override draw()
+    @Override
+    public void draw(Graphics g, Point containerOrigin)
+    {
+        int x = (int) getX() + containerOrigin.getX();
+        int y = (int) getY() + containerOrigin.getY();
+
+        // TODO DRY
+        // center object
+        x = x - getSize() / 2;
+        y = y + getSize() / 2;
+
+        g.setColor(getColor());
+        g.fillRoundRect(x, y, getSize() * 2, getSize(), 5, 5);
+
+        g.setColor(ColorUtil.WHITE);
+        g.drawString("BIRD", x, y);
+    }
 
     /**
      * Bird change their heading randomly +- 5 degrees

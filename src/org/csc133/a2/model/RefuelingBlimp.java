@@ -27,8 +27,8 @@ public class RefuelingBlimp extends Fixed
         setSize(rand.nextInt(30) + 10);
         this.capacity = 5 * getSize();
         this.setColor(ColorUtil.blue(this.capacity));
-        double startX = (double) rand.nextInt(925) + 50;
-        double startY = (double) rand.nextInt(668) + 50;
+        double startX = (double) rand.nextInt(2000) + 50;
+        double startY = (double) rand.nextInt(2000) + 50;
         setLocation(startX, startY);
     }
 

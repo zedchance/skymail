@@ -39,7 +39,6 @@ public class Game extends Form implements Runnable
 
     private void handleViews()
     {
-        System.out.println("Game.handleViews");
         add(BorderLayout.NORTH, new GlassCockpit(gw));
         add(BorderLayout.CENTER, new MapView(gw));
         add(BorderLayout.SOUTH, new ButtonControls(gw));

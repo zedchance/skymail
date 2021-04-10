@@ -18,8 +18,6 @@ public class GameWorld
     private Helicopter player;
     private int clock = 0;
     private int lives = 3;
-    private int mapWidth;
-    private int mapHeight;
 
     public void init()
     {
@@ -29,6 +27,7 @@ public class GameWorld
         world.clear();
 
         // player starts at first SkyScraper, only one Player can exist at once
+        // FIXME: 4/9/21 this needs to reset the helicopter, its causing immediate game over on 1 life lost
         player = Player.getPlayer(startX, startY);
         placeSkyScrapers(startX, startY);
 
@@ -45,12 +44,6 @@ public class GameWorld
     public List<GameObject> getWorld()
     {
         return world;
-    }
-
-    public void setMapSize(int x, int y)
-    {
-        mapWidth = x;
-        mapHeight = y;
     }
 
     /**
@@ -243,7 +236,7 @@ public class GameWorld
         {
             // TODO these are still hardcoded
             int randX = rand.nextInt(2000);
-            int randY = rand.nextInt(1000);
+            int randY = rand.nextInt(2000);
             world.add(new SkyScraper(randX, randY, i));
         }
     }

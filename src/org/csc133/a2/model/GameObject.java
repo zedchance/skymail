@@ -3,7 +3,9 @@ package org.csc133.a2.model;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
+import org.csc133.a2.view.MapView;
 
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -63,39 +65,14 @@ public abstract class GameObject implements IDrawable
         return y;
     }
 
-    public void setLocation(double x, double y)
-    {
-        /* TODO this needs to take in the map size for starting locations
-         *   but currently the map size isn't set until fully laid out */
-        double defaultX = 1024;
-        double defaultY = 768;
-        setLocation(x, y, defaultX, defaultY);
-    }
-
     /**
      * Sets the location of the object in a (x, y) fashion.
      *
      * @param x coordinate as double
      * @param y coordinate as double
      */
-    public void setLocation(double x, double y, double maxX, double maxY)
+    public void setLocation(double x, double y)
     {
-        if (x > maxX)
-        {
-            x = maxX;
-        }
-        else if (x < 0)
-        {
-            x = 0;
-        }
-        if (y > maxY)
-        {
-            y = maxY;
-        }
-        else if (y < 0)
-        {
-            y = 0;
-        }
         this.x = x;
         this.y = y;
     }

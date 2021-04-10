@@ -1,6 +1,7 @@
 package org.csc133.a2.model;
 
 import org.csc133.a2.controller.Game;
+import org.csc133.a2.view.MapView;
 
 /**
  * Objects in game that have a movable position
@@ -69,8 +70,27 @@ public abstract class Movable extends GameObject
          *   this isn't working because of Bird and Helicopter's overridden move() */
         double deltaX = Math.cos(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
         double deltaY = Math.sin(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
-        // TODO this is badly coupled, and still hardcoded!
-        setLocation(getX() + deltaX, getY() + deltaY, 2000, 2000);
+        double newX = getX() + deltaX;
+        double newY = getY() + deltaY;
+        // check to see if moving out of bounds
+        // TODO: 4/9/21 I don't love these static values
+        if (newX > MapView.mapWidth)
+        {
+            newX = MapView.mapWidth;
+        }
+        else if (newX < MapView.WALL_PAD)
+        {
+            newX = MapView.WALL_PAD;
+        }
+        if (newY > MapView.mapHeight)
+        {
+            newY = MapView.mapHeight;
+        }
+        else if (newY < MapView.WALL_PAD)
+        {
+            newY = MapView.WALL_PAD;
+        }
+        setLocation(newX, newY);
     }
 
     @Override

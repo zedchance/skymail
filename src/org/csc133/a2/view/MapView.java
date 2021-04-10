@@ -10,6 +10,9 @@ import org.csc133.a2.model.GameWorld;
 
 public class MapView extends Container
 {
+    public static final int WALL_PAD = 25;
+    public static int mapWidth;
+    public static int mapHeight;
     private GameWorld gw;
 
     public MapView(GameWorld gw)
@@ -31,7 +34,8 @@ public class MapView extends Container
     public void laidOut()
     {
         this.start();
-        gw.setMapSize(getWidth(), getHeight());
+        mapWidth = getWidth() - (2 * WALL_PAD);
+        mapHeight = getHeight() - (2 * WALL_PAD);
     }
 
     public boolean animate()
@@ -44,9 +48,14 @@ public class MapView extends Container
     {
         super.paint(g);
 
-        // bg
-        g.setColor(ColorUtil.LTGRAY);
+        // bg and wall
+        g.setColor(ColorUtil.BLACK);
         g.fillRect(getX(), getY(), getWidth(), getHeight());
+        g.setColor(ColorUtil.LTGRAY);
+        g.fillRect(getX() + WALL_PAD,
+                   getY() + WALL_PAD,
+                   getWidth() - WALL_PAD * 2,
+                   getHeight() - WALL_PAD * 2);
 
         // draw all world objects
         Point originOfMap = new Point(getX(), getY());

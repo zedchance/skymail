@@ -29,14 +29,14 @@ public class Helicopter extends Movable implements ISteerable
      * lastSkyScraperReached is 0,
      * color is red,
      * speed is random between 1 and 3,
-     * size is 10.
+     * size is 20.
      */
     public Helicopter()
     {
         this(0, 10, 100, 0.05, 0, 0);
         Random rand = new Random();
         setSpeed(rand.nextInt(2) + 1);
-        setSize(10);
+        setSize(20);
     }
 
     /**
