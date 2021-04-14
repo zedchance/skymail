@@ -1,7 +1,9 @@
 package org.csc133.a2.model;
 
-import org.csc133.a2.controller.Game;
+import com.codename1.ui.geom.Point;
 import org.csc133.a2.view.MapView;
+
+import java.util.Map;
 
 /**
  * Objects in game that have a movable position
@@ -60,37 +62,49 @@ public abstract class Movable extends GameObject
         this.heading = Math.floorMod(heading, 360);
     }
 
+    private boolean checkIfOnWall(Point location)
+    {
+        double newX = location.getX();
+        double newY = location.getY();
+        return  newX > MapView.mapWidth ||
+                newX < MapView.WALL_PAD ||
+                newY > MapView.mapHeight ||
+                newY < MapView.WALL_PAD;
+    }
+
+    private Point checkIfMovingOutOfBounds(Point location)
+    {
+        int newX = location.getX();
+        int newY = location.getY();
+        // TODO: 4/9/21 I don't love these static values
+        newX = Math.min(newX, MapView.mapWidth);
+        newX = Math.max(newX, MapView.WALL_PAD);
+        newY = Math.min(newY, MapView.mapHeight);
+        newY = Math.max(newY, MapView.WALL_PAD);
+        return new Point(newX, newY);
+    }
+
     /**
-     * Move the object to a new location based on its current heading and speed / elapsed time
+     * Move the object to a new location based on its current heading and speed
      */
     public void move()
     {
         double theta = 90 - heading;
         /* TODO find a way to pass REFRESH_RATE to tick, and to all the move methods,
          *   this isn't working because of Bird and Helicopter's overridden move() */
-        double deltaX = Math.cos(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
-        double deltaY = Math.sin(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
-        double newX = getX() + deltaX;
-        double newY = getY() + deltaY;
-        // check to see if moving out of bounds
-        // TODO: 4/9/21 I don't love these static values
-        if (newX > MapView.mapWidth)
+        double deltaX = Math.cos(Math.toRadians(theta)) * speed;
+        double deltaY = Math.sin(Math.toRadians(theta)) * speed;
+        // TODO: 4/13/21 this is not flying around as gracefully as before
+        double newX = Math.ceil(getX() + deltaX);
+        double newY = Math.ceil(getY() + deltaY);
+        Point newLocation = new Point((int)newX, (int)newY);
+        // check if the object is contacting the wall
+        if (checkIfOnWall(newLocation))
         {
-            newX = MapView.mapWidth;
+            setHeading(getHeading() + 30);
         }
-        else if (newX < MapView.WALL_PAD)
-        {
-            newX = MapView.WALL_PAD;
-        }
-        if (newY > MapView.mapHeight)
-        {
-            newY = MapView.mapHeight;
-        }
-        else if (newY < MapView.WALL_PAD)
-        {
-            newY = MapView.WALL_PAD;
-        }
-        setLocation(newX, newY);
+        // set new location, and check if moving out of bounds
+        setLocation(checkIfMovingOutOfBounds(newLocation));
     }
 
     @Override

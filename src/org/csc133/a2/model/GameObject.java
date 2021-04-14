@@ -3,9 +3,7 @@ package org.csc133.a2.model;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
-import org.csc133.a2.view.MapView;
 
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -14,8 +12,7 @@ import java.util.Random;
 public abstract class GameObject implements IDrawable
 {
     private int size;
-    private double x;
-    private double y;
+    private Point location;
     private int color;
 
     /**
@@ -36,12 +33,11 @@ public abstract class GameObject implements IDrawable
      * @param y     vertical position
      * @param color what color the object is
      */
-    public GameObject(double x, double y, int color)
+    public GameObject(int x, int y, int color)
     {
         Random rand = new Random();
         this.size = rand.nextInt(20) + 10;
-        this.x = x;
-        this.y = y;
+        location = new Point(x, y);
         this.color = ColorUtil.rgb(0, color, 0);
     }
 
@@ -57,24 +53,20 @@ public abstract class GameObject implements IDrawable
 
     public double getX()
     {
-        return x;
+        return location.getX();
     }
 
     public double getY()
     {
-        return y;
+        return location.getY();
     }
 
     /**
      * Sets the location of the object in a (x, y) fashion.
-     *
-     * @param x coordinate as double
-     * @param y coordinate as double
      */
-    public void setLocation(double x, double y)
+    public void setLocation(Point location)
     {
-        this.x = x;
-        this.y = y;
+        this.location = location;
     }
 
     public int getColor()
@@ -88,7 +80,7 @@ public abstract class GameObject implements IDrawable
     }
 
     @Override
-    public void draw(Graphics g, Point containerOrigin)
+    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
     {
         int x = (int) getX() + containerOrigin.getX();
         int y = (int) getY() + containerOrigin.getY();
@@ -107,8 +99,8 @@ public abstract class GameObject implements IDrawable
     {
         return "GameObject{" +
                 "size=" + size +
-                ", x=" + x +
-                ", y=" + y +
+                ", x=" + getX() +
+                ", y=" + getY() +
                 ", color=" + color +
                 '}';
     }

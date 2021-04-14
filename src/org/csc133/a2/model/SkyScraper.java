@@ -2,7 +2,10 @@ package org.csc133.a2.model;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.Image;
 import com.codename1.ui.geom.Point;
+
+import java.io.IOException;
 
 /**
  * SkyScrapers act as checkpoints for the player's flight path
@@ -10,6 +13,7 @@ import com.codename1.ui.geom.Point;
 public class SkyScraper extends Fixed
 {
     private int sequenceNumber;
+    private Image skyScraperImage;
 
     /**
      * By default, SkyScraper's have these properties:
@@ -31,12 +35,25 @@ public class SkyScraper extends Fixed
         super();
         this.sequenceNumber = sequenceNumber;
         super.setColor(ColorUtil.green(100));
+        initImage();
     }
 
-    public SkyScraper(double x, double y, int sequenceNumber)
+    private void initImage()
+    {
+        try
+        {
+            skyScraperImage = Image.createImage("/skyscraper.png").scaled(100, 100);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public SkyScraper(int x, int y, int sequenceNumber)
     {
         this(sequenceNumber);
-        setLocation(x, y);
+        setLocation(new Point(x, y));
     }
 
     @Override
@@ -46,7 +63,7 @@ public class SkyScraper extends Fixed
     }
 
     @Override
-    public void draw(Graphics g, Point containerOrigin)
+    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
     {
         int x = (int) getX() + containerOrigin.getX();
         int y = (int) getY() + containerOrigin.getY();
@@ -56,11 +73,10 @@ public class SkyScraper extends Fixed
         x = x - getSize() / 2;
         y = y + getSize() / 2;
 
-        g.setColor(getColor());
-        g.fillRect(x, y, getSize(), getSize());
+        g.drawImage(skyScraperImage, x, y);
 
         g.setColor(ColorUtil.WHITE);
-        g.drawString("S" + sequenceNumber, x, y);
+        g.drawString(" " + sequenceNumber, x, y);
     }
 
     @Override

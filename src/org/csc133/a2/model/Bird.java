@@ -2,8 +2,10 @@ package org.csc133.a2.model;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.Image;
 import com.codename1.ui.geom.Point;
 
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -11,6 +13,9 @@ import java.util.Random;
  */
 public class Bird extends Movable
 {
+    private int headingChangeCounter = 0;
+    Image birdImage;
+
     /**
      * By default, Bird's have these properties:
      * color is yellow,
@@ -22,12 +27,14 @@ public class Bird extends Movable
     {
         super();
         Random rand = new Random();
-        double startX = rand.nextInt(2000);
-        double startY = rand.nextInt(2000);
-        setLocation(startX, startY);
+        int startX = rand.nextInt(2000);
+        int startY = rand.nextInt(2000);
+        setLocation(new Point(startX, startY));
         setSpeed(rand.nextInt(5) + 10);
         setHeading(rand.nextInt(360));
         super.setColor(ColorUtil.rgb(100, 100, 0));
+        setSize(rand.nextInt(100) + 50);
+        initImage();
     }
 
     @Override
@@ -36,33 +43,51 @@ public class Bird extends Movable
         System.out.println("Birds cannot change color.");
     }
 
-    @Override
-    public void draw(Graphics g, Point containerOrigin)
+    public void initImage()
     {
-        int x = (int) getX() + containerOrigin.getX();
-        int y = (int) getY() + containerOrigin.getY();
+        try
+        {
+            birdImage = Image.createImage("/bird.png").scaled(getSize(), getSize());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
+    {
+        int x = (int) (getX() + containerOrigin.getX());
+        int y = (int) (getY() + containerOrigin.getY());
 
         // TODO DRY
-        // center object
-        x = x - getSize() / 2;
-        y = y + getSize() / 2;
+        // center of bird
+        int centerX = x + (getSize() / 2);
+        int centerY = y + (getSize() / 2);
 
-        g.setColor(getColor());
-        g.fillRoundRect(x, y, getSize() * 2, getSize(), 5, 5);
+        // rotate graphics plane
+        float amountToRotate = (float) Math.toRadians(getHeading());
+        g.rotateRadians(-1 * amountToRotate, centerX, centerY);
 
-        g.setColor(ColorUtil.WHITE);
-        g.drawString("BIRD", x, y);
+        g.drawImage(birdImage, x, y);
+
+        g.rotateRadians(amountToRotate, centerX, centerY);
     }
 
     /**
      * Bird change their heading randomly +- 5 degrees
-     * from current heading each tick
+     * from current heading every 20 ticks
      */
     @Override
     public void move()
     {
-        Random rand = new Random();
-        setHeading(getHeading() + (rand.nextInt(11) - 5));
+        // slow down heading change to every 5 ticks
+        if (headingChangeCounter++ % 5 == 0)
+        {
+            Random rand = new Random();
+            setHeading(getHeading() + (rand.nextInt(11) - 5));
+        }
         super.move();
     }
 

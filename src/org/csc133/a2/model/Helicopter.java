@@ -2,8 +2,10 @@ package org.csc133.a2.model;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.Image;
 import com.codename1.ui.geom.Point;
 
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -18,6 +20,7 @@ public class Helicopter extends Movable implements ISteerable
     private double fuelConsumptionRate;
     private int damageLevel;
     private int lastSkyscraperReached;
+    private Image heloImage;
 
     /**
      * By default, Helicopters have these properties:
@@ -29,14 +32,13 @@ public class Helicopter extends Movable implements ISteerable
      * lastSkyScraperReached is 0,
      * color is red,
      * speed is random between 1 and 3,
-     * size is 20.
+     * size is 100.
      */
     public Helicopter()
     {
         this(0, 10, 100, 0.05, 0, 0);
         Random rand = new Random();
         setSpeed(rand.nextInt(2) + 1);
-        setSize(20);
     }
 
     /**
@@ -48,7 +50,7 @@ public class Helicopter extends Movable implements ISteerable
     public Helicopter(int x, int y)
     {
         this();
-        setLocation(x, y);
+        setLocation(new Point(x, y));
     }
 
     /**
@@ -71,6 +73,20 @@ public class Helicopter extends Movable implements ISteerable
         this.damageLevel = damageLevel;
         this.lastSkyscraperReached = lastSkyscraperReached;
         setColor(ColorUtil.rgb(255, 0, 0));
+        setSize(100);
+        initImage();
+    }
+
+    private void initImage()
+    {
+        try
+        {
+            heloImage = Image.createImage("/helo.png").scaled(getSize(), getSize());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public double getFuelLevel()
@@ -91,6 +107,16 @@ public class Helicopter extends Movable implements ISteerable
     public int getMaximumSpeed()
     {
         return maximumSpeed;
+    }
+
+    public void setStickAngle(int stickAngle)
+    {
+        this.stickAngle = stickAngle;
+    }
+
+    public void setFuelLevel(double fuelLevel)
+    {
+        this.fuelLevel = fuelLevel;
     }
 
     /**
@@ -299,25 +325,25 @@ public class Helicopter extends Movable implements ISteerable
     }
 
     @Override
-    public void draw(Graphics g, Point containerOrigin)
+    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
     {
+        // top left of helo
+        int x = (int) (getX() + containerOrigin.getX());
+        int y = (int) (getY() + containerOrigin.getY());
+
         // center of helo
-        int x = (int) getX() + containerOrigin.getX();
-        int y = (int) getY() + containerOrigin.getY();
+        int centerX = x + (getSize() / 2);
+        int centerY = y + (getSize() / 2);
 
-        // nose of helo
-        double theta = 90 - getHeading();
-        int noseX = x + (int) (Math.cos(Math.toRadians(theta)) * getSize());
-        int noseY = y + (int) (Math.sin(Math.toRadians(theta)) * getSize());
+        // rotate graphics plane
+        float amountToRotate = (float) Math.toRadians(getHeading());
+        g.rotateRadians(-1 * amountToRotate, centerX, centerY);
 
-        // left and right tails of helo
-        int leftTailX = x + (int) (Math.cos(Math.toRadians(theta + 90)) * getSize());
-        int leftTailY = y + (int) (Math.sin(Math.toRadians(theta + 90)) * getSize());
-        int rightTailX = x + (int) (Math.cos(Math.toRadians(theta - 90)) * getSize());
-        int rightTailY = y + (int) (Math.sin(Math.toRadians(theta - 90)) * getSize());
+        g.drawImage(heloImage, x, y);
 
-        g.setColor(getColor());
-        g.fillTriangle(noseX, noseY, leftTailX, leftTailY, rightTailX, rightTailY);
+        g.rotateRadians(amountToRotate, centerX, centerY);
+
+        // TODO: 4/13/21 draw image with color
     }
 
     @Override

@@ -32,7 +32,7 @@ public class GlassCockpit extends Container
         // second row is digidash
         add(new GameClockComponent());
 
-        fuelDash = new DigitalDashComponent(3);
+        fuelDash = new DigitalDashComponent(4);
         fuelDash.setValue(100);
         add(fuelDash);
 

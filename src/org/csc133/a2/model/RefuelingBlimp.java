@@ -2,9 +2,10 @@ package org.csc133.a2.model;
 
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.Image;
 import com.codename1.ui.geom.Point;
-import com.codename1.ui.geom.Shape;
 
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -13,23 +14,37 @@ import java.util.Random;
 public class RefuelingBlimp extends Fixed
 {
     private int capacity;
+    private Image refuelingBlimpImage;
 
     /**
      * By default, RefuelingBlimp's have these properties:
-     * size is random between 10 and 20,
+     * size is random between 50 and 200,
      * blimps are blue,
      * blimps start in a random location (at least 50 away from the edge),
-     * capacity is 5 times the size of the blimp.
+     * capacity is the size of the blimp.
      */
     public RefuelingBlimp()
     {
         Random rand = new Random();
-        setSize(rand.nextInt(30) + 10);
-        this.capacity = 5 * getSize();
+        setSize(rand.nextInt(150) + 50);
+        this.capacity = getSize();
         this.setColor(ColorUtil.blue(this.capacity));
-        double startX = (double) rand.nextInt(2000) + 50;
-        double startY = (double) rand.nextInt(2000) + 50;
-        setLocation(startX, startY);
+        int startX = rand.nextInt(2000) + 50;
+        int startY = rand.nextInt(2000) + 50;
+        setLocation(new Point(startX, startY));
+        initImage();
+    }
+
+    private void initImage()
+    {
+        try
+        {
+            refuelingBlimpImage = Image.createImage("/blimp.png").scaled(getSize(), getSize());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -64,21 +79,22 @@ public class RefuelingBlimp extends Fixed
     }
 
     @Override
-    public void draw(Graphics g, Point containerOrigin)
+    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
     {
-        int x = (int) getX() + containerOrigin.getX();
-        int y = (int) getY() + containerOrigin.getY();
+        int x = (int) (getX() + containerOrigin.getX());
+        int y = (int) (getY() + containerOrigin.getY());
+
+        // TODO: 4/13/21 draw using blimp's color
+        g.drawImage(refuelingBlimpImage, x, y);
 
         // TODO DRY
-        // center object
-        x = x - getSize() / 2;
+        // center for text
+        x = x + getSize() / 4;
         y = y + getSize() / 2;
 
-        g.setColor(getColor());
-        g.fillRoundRect(x, y, getSize() * 2, getSize(), 5, 5);
-
         g.setColor(ColorUtil.WHITE);
-        g.drawString("C" + capacity, x, y);
+        // TODO: 4/13/21 center this text better
+        g.drawString("" + capacity, x, y);
     }
 
     @Override

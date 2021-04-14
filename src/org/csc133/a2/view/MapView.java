@@ -7,10 +7,11 @@ import com.codename1.ui.geom.Point;
 import com.codename1.ui.layouts.BorderLayout;
 import org.csc133.a2.model.GameObject;
 import org.csc133.a2.model.GameWorld;
+import org.csc133.a2.model.Helicopter;
 
 public class MapView extends Container
 {
-    public static final int WALL_PAD = 25;
+    public static final int WALL_PAD = 40;
     public static int mapWidth;
     public static int mapHeight;
     private GameWorld gw;
@@ -34,8 +35,8 @@ public class MapView extends Container
     public void laidOut()
     {
         this.start();
-        mapWidth = getWidth() - (2 * WALL_PAD);
-        mapHeight = getHeight() - (2 * WALL_PAD);
+        mapWidth = getWidth() - (4 * WALL_PAD);
+        mapHeight = getHeight() - (4 * WALL_PAD);
     }
 
     public boolean animate()
@@ -62,6 +63,7 @@ public class MapView extends Container
         for (GameObject item : gw.getWorld())
         {
             item.draw(g, originOfMap);
+//            System.out.println(item);
         }
     }
 }

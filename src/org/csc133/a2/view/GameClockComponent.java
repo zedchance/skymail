@@ -27,7 +27,6 @@ public class GameClockComponent extends DigitalDashComponent
         // + 10 for digits with dot
         clockDigits[4] = digitalImages[s % 10 + 10];
         clockDigits[5] = digitalImages[ms % 10];
-        // TODO make the rightmost digit darker in color
     }
 
     private void setElapsedTime()
@@ -37,10 +36,16 @@ public class GameClockComponent extends DigitalDashComponent
         int tenthsOfSeconds = (int) elapsedTime / 100;
         int seconds = (int) elapsedTime / 1000;
         int minutes = seconds / 60;
-        // TODO handle this somewhere else
-        if (minutes > 10) setLedColor(ColorUtil.rgb(255, 0, 0));
+        checkIfColorChange(minutes);
         setTime(minutes, seconds % 60, tenthsOfSeconds);
     }
+
+    private void checkIfColorChange(int minutes)
+    {
+        if (minutes > 10) setLedColor(ColorUtil.rgb(255, 0, 0));
+    }
+
+    // TODO: 4/10/21 resetElapsedTime(), startElapsedTime(), stopElapsedTime, and getElapsedTime()
 
     @Override
     public boolean animate()
@@ -48,4 +53,6 @@ public class GameClockComponent extends DigitalDashComponent
         setElapsedTime();
         return true;
     }
+
+    // TODO: 4/9/21 override paint, rightmost digit should be darker
 }

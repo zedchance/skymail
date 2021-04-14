@@ -13,6 +13,7 @@ import java.util.Random;
 public class GameWorld
 {
     private final int TOTAL_CHECKPOINTS = 5;
+    private final Random rand = new Random();
 
     private final List<GameObject> world = new ArrayList<>();
     private Helicopter player;
@@ -36,6 +37,9 @@ public class GameWorld
 
         // 2 birds
         placeBirds(2);
+
+        // 2 non player helos
+//        placeNonPlayerHelicopters();
 
         // place player last to draw on top
         world.add(player);
@@ -225,13 +229,20 @@ public class GameWorld
         return lives == 0;
     }
 
+    private void placeNonPlayerHelicopters()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            world.add(new NonPlayerHelicopter());
+        }
+    }
+
     private void placeSkyScrapers(int startX, int startY)
     {
         // first sky scraper is at helo's start location
         world.add(new SkyScraper(startX, startY, 1));
 
         // the rest of the checkpoints to reach
-        Random rand = new Random();
         for (int i = 2; i <= TOTAL_CHECKPOINTS; i++)
         {
             // TODO these are still hardcoded

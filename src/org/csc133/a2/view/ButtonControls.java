@@ -21,6 +21,20 @@ public class ButtonControls extends Container
         rightButton = new Button("→");
         upButton = new Button("↑");
         downButton = new Button("↓");
+        addButtons();
+        addListeners(gw);
+    }
+
+    private void addListeners(GameWorld gw)
+    {
+        leftButton.addActionListener(evt -> gw.left());
+        rightButton.addActionListener(evt -> gw.right());
+        upButton.addActionListener(evt -> gw.accelerate());
+        downButton.addActionListener(evt -> gw.brake());
+    }
+
+    private void addButtons()
+    {
         add(leftButton);
         add(rightButton);
         add(upButton);
