@@ -53,7 +53,7 @@ public class SkyScraper extends Fixed
     public SkyScraper(int x, int y, int sequenceNumber)
     {
         this(sequenceNumber);
-        setLocation(new Point(x, y));
+        setLocation(new DoublePoint(x, y));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class SkyScraper extends Fixed
     }
 
     @Override
-    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
+    public void draw(Graphics g, Point containerOrigin)
     {
         int x = (int) getX() + containerOrigin.getX();
         int y = (int) getY() + containerOrigin.getY();

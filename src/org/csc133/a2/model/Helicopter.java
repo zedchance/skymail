@@ -50,7 +50,7 @@ public class Helicopter extends Movable implements ISteerable
     public Helicopter(int x, int y)
     {
         this();
-        setLocation(new Point(x, y));
+        setLocation(new DoublePoint(x, y));
     }
 
     /**
@@ -325,7 +325,7 @@ public class Helicopter extends Movable implements ISteerable
     }
 
     @Override
-    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
+    public void draw(Graphics g, Point containerOrigin)
     {
         // top left of helo
         int x = (int) (getX() + containerOrigin.getX());

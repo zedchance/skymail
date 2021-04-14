@@ -18,7 +18,7 @@ public class NonPlayerHelicopter extends Helicopter
         Random rand = new Random();
         int startX = rand.nextInt(2000);
         int startY = rand.nextInt(2000);
-        setLocation(new Point(startX, startY));
+        setLocation(new DoublePoint(startX, startY));
         setSpeed(rand.nextInt(20) + 5);
         // TODO: 4/10/21 fix stick angle and heading difference
         setStickAngle(rand.nextInt(360) + 1);

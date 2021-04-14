@@ -31,7 +31,7 @@ public class RefuelingBlimp extends Fixed
         this.setColor(ColorUtil.blue(this.capacity));
         int startX = rand.nextInt(2000) + 50;
         int startY = rand.nextInt(2000) + 50;
-        setLocation(new Point(startX, startY));
+        setLocation(new DoublePoint(startX, startY));
         initImage();
     }
 
@@ -79,7 +79,7 @@ public class RefuelingBlimp extends Fixed
     }
 
     @Override
-    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
+    public void draw(Graphics g, Point containerOrigin)
     {
         int x = (int) (getX() + containerOrigin.getX());
         int y = (int) (getY() + containerOrigin.getY());

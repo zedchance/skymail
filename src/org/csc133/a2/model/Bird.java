@@ -29,7 +29,7 @@ public class Bird extends Movable
         Random rand = new Random();
         int startX = rand.nextInt(2000);
         int startY = rand.nextInt(2000);
-        setLocation(new Point(startX, startY));
+        setLocation(new DoublePoint(startX, startY));
         setSpeed(rand.nextInt(5) + 10);
         setHeading(rand.nextInt(360));
         super.setColor(ColorUtil.rgb(100, 100, 0));
@@ -56,7 +56,7 @@ public class Bird extends Movable
     }
 
     @Override
-    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
+    public void draw(Graphics g, Point containerOrigin)
     {
         int x = (int) (getX() + containerOrigin.getX());
         int y = (int) (getY() + containerOrigin.getY());

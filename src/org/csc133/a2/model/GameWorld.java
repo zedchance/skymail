@@ -27,9 +27,9 @@ public class GameWorld
         int startY = 100;
         world.clear();
 
-        // player starts at first SkyScraper, only one Player can exist at once
+        // player starts at first SkyScraper, only one PlayerHelicopter can exist at once
         // FIXME: 4/9/21 this needs to reset the helicopter, its causing immediate game over on 1 life lost
-        player = Player.getPlayer(startX, startY);
+        player = PlayerHelicopter.getPlayer(startX, startY);
         placeSkyScrapers(startX, startY);
 
         // refuel blimps

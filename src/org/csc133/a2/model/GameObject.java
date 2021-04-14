@@ -12,7 +12,7 @@ import java.util.Random;
 public abstract class GameObject implements IDrawable
 {
     private int size;
-    private Point location;
+    private DoublePoint location;
     private int color;
 
     /**
@@ -37,7 +37,7 @@ public abstract class GameObject implements IDrawable
     {
         Random rand = new Random();
         this.size = rand.nextInt(20) + 10;
-        location = new Point(x, y);
+        location = new DoublePoint(x, y);
         this.color = ColorUtil.rgb(0, color, 0);
     }
 
@@ -64,7 +64,7 @@ public abstract class GameObject implements IDrawable
     /**
      * Sets the location of the object in a (x, y) fashion.
      */
-    public void setLocation(Point location)
+    public void setLocation(DoublePoint location)
     {
         this.location = location;
     }
@@ -80,7 +80,7 @@ public abstract class GameObject implements IDrawable
     }
 
     @Override
-    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
+    public void draw(Graphics g, Point containerOrigin)
     {
         int x = (int) getX() + containerOrigin.getX();
         int y = (int) getY() + containerOrigin.getY();

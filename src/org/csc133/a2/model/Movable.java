@@ -62,7 +62,7 @@ public abstract class Movable extends GameObject
         this.heading = Math.floorMod(heading, 360);
     }
 
-    private boolean checkIfOnWall(Point location)
+    private boolean checkIfOnWall(DoublePoint location)
     {
         double newX = location.getX();
         double newY = location.getY();
@@ -72,16 +72,16 @@ public abstract class Movable extends GameObject
                 newY < MapView.WALL_PAD;
     }
 
-    private Point checkIfMovingOutOfBounds(Point location)
+    private DoublePoint checkIfMovingOutOfBounds(DoublePoint location)
     {
-        int newX = location.getX();
-        int newY = location.getY();
+        double newX = location.getX();
+        double newY = location.getY();
         // TODO: 4/9/21 I don't love these static values
         newX = Math.min(newX, MapView.mapWidth);
         newX = Math.max(newX, MapView.WALL_PAD);
         newY = Math.min(newY, MapView.mapHeight);
         newY = Math.max(newY, MapView.WALL_PAD);
-        return new Point(newX, newY);
+        return new DoublePoint(newX, newY);
     }
 
     /**
@@ -95,12 +95,13 @@ public abstract class Movable extends GameObject
         double deltaX = Math.cos(Math.toRadians(theta)) * speed;
         double deltaY = Math.sin(Math.toRadians(theta)) * speed;
         // TODO: 4/13/21 this is not flying around as gracefully as before
-        double newX = Math.ceil(getX() + deltaX);
-        double newY = Math.ceil(getY() + deltaY);
-        Point newLocation = new Point((int)newX, (int)newY);
+        double newX = getX() + deltaX;
+        double newY = getY() + deltaY;
+        DoublePoint newLocation = new DoublePoint(newX, newY);
         // check if the object is contacting the wall
         if (checkIfOnWall(newLocation))
         {
+            // TODO: 4/14/21 some kind of wall strategy
             setHeading(getHeading() + 30);
         }
         // set new location, and check if moving out of bounds

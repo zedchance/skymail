@@ -1,6 +1,6 @@
 package org.csc133.a2.model;
 
-public class Player
+public class PlayerHelicopter
 {
     private static Helicopter player;
 
