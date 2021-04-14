@@ -358,4 +358,11 @@ public class Helicopter extends Movable implements ISteerable
                 " fuelConsumptionRate=" + fuelConsumptionRate +
                 " damageLevel=" + damageLevel;
     }
+
+    @Override
+    public void wallStrategy()
+    {
+        takeDamage(10);
+        setSpeed(0);
+    }
 }

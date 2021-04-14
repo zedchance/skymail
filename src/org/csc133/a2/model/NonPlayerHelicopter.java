@@ -19,7 +19,7 @@ public class NonPlayerHelicopter extends Helicopter
         int startX = rand.nextInt(2000);
         int startY = rand.nextInt(2000);
         setLocation(new DoublePoint(startX, startY));
-        setSpeed(rand.nextInt(20) + 5);
+        startMoving();
         // TODO: 4/10/21 fix stick angle and heading difference
         setStickAngle(rand.nextInt(360) + 1);
         setColor(ColorUtil.CYAN);
@@ -38,6 +38,12 @@ public class NonPlayerHelicopter extends Helicopter
         {
             e.printStackTrace();
         }
+    }
+
+    private void startMoving()
+    {
+        Random rand = new Random();
+        setSpeed(rand.nextInt(20) + 5);
     }
 
     @Override
@@ -60,6 +66,14 @@ public class NonPlayerHelicopter extends Helicopter
         g.rotateRadians(amountToRotate, centerX, centerY);
 
         // TODO: 4/13/21 draw image with color
+    }
+
+    @Override
+    public void wallStrategy()
+    {
+        super.wallStrategy();
+        setHeading(getHeading() + 30);
+        startMoving();
     }
 
     // TODO: 4/10/21 strategies

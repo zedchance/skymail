@@ -99,4 +99,10 @@ public class Bird extends Movable
                 " speed=" + getSpeed() +
                 " heading=" + getHeading();
     }
+
+    @Override
+    public void wallStrategy()
+    {
+        setHeading(getHeading() + 30);
+    }
 }

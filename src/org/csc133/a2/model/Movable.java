@@ -1,6 +1,7 @@
 package org.csc133.a2.model;
 
 import com.codename1.ui.geom.Point;
+import org.csc133.a2.controller.Game;
 import org.csc133.a2.view.MapView;
 
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Map;
 /**
  * Objects in game that have a movable position
  */
-public abstract class Movable extends GameObject
+public abstract class Movable extends GameObject implements IWallStrategy
 {
     private int heading;
     private int speed;
@@ -92,8 +93,8 @@ public abstract class Movable extends GameObject
         double theta = 90 - heading;
         /* TODO find a way to pass REFRESH_RATE to tick, and to all the move methods,
          *   this isn't working because of Bird and Helicopter's overridden move() */
-        double deltaX = Math.cos(Math.toRadians(theta)) * speed;
-        double deltaY = Math.sin(Math.toRadians(theta)) * speed;
+        double deltaX = Math.cos(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
+        double deltaY = Math.sin(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
         // TODO: 4/13/21 this is not flying around as gracefully as before
         double newX = getX() + deltaX;
         double newY = getY() + deltaY;
@@ -102,7 +103,7 @@ public abstract class Movable extends GameObject
         if (checkIfOnWall(newLocation))
         {
             // TODO: 4/14/21 some kind of wall strategy
-            setHeading(getHeading() + 30);
+            wallStrategy();
         }
         // set new location, and check if moving out of bounds
         setLocation(checkIfMovingOutOfBounds(newLocation));

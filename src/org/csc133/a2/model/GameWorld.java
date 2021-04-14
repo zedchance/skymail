@@ -39,7 +39,7 @@ public class GameWorld
         placeBirds(2);
 
         // 2 non player helos
-//        placeNonPlayerHelicopters();
+        placeNonPlayerHelicopters();
 
         // place player last to draw on top
         world.add(player);
