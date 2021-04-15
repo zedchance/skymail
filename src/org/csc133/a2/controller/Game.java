@@ -18,6 +18,7 @@ public class Game extends Form implements Runnable
     public static final int REFRESH_RATE = 15;
 
     private final GameWorld gw;
+    private boolean isSpawned = false;
 
     public Game()
     {
@@ -25,7 +26,6 @@ public class Game extends Form implements Runnable
         setLayout(new BorderLayout());
 
         gw = new GameWorld();
-        gw.init();
 
         // map and cockpit views
         handleViews();
@@ -80,6 +80,9 @@ public class Game extends Form implements Runnable
     @Override
     public void run()
     {
+        // spawn world once everything is laid out
+        spawnWorld();
+
         // check if the game needs to be reinitialized
         gw.checkIfReset();
 
@@ -89,5 +92,14 @@ public class Game extends Form implements Runnable
             gw.exit();
         }
         gw.tick();
+    }
+
+    private void spawnWorld()
+    {
+        if (!isSpawned)
+        {
+            gw.init();
+            isSpawned = true;
+        }
     }
 }

@@ -7,7 +7,6 @@ import com.codename1.ui.geom.Point;
 import com.codename1.ui.layouts.BorderLayout;
 import org.csc133.a2.model.GameObject;
 import org.csc133.a2.model.GameWorld;
-import org.csc133.a2.model.Helicopter;
 
 public class MapView extends Container
 {
@@ -63,7 +62,7 @@ public class MapView extends Container
         for (GameObject item : gw.getWorld())
         {
             item.draw(g, originOfMap);
-//            System.out.println(item);
+            System.out.println(item);
         }
     }
 }

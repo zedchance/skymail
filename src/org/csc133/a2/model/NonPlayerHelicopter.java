@@ -47,7 +47,7 @@ public class NonPlayerHelicopter extends Helicopter
     }
 
     @Override
-    public void draw(Graphics g, com.codename1.ui.geom.Point containerOrigin)
+    public void draw(Graphics g, Point containerOrigin)
     {
         // top left of helo
         int x = (int) getX() + containerOrigin.getX();
@@ -69,11 +69,15 @@ public class NonPlayerHelicopter extends Helicopter
     }
 
     @Override
+    public void move()
+    {
+        super.move();
+    }
+
+    @Override
     public void wallStrategy()
     {
-        super.wallStrategy();
         setHeading(getHeading() + 30);
-        startMoving();
     }
 
     // TODO: 4/10/21 strategies

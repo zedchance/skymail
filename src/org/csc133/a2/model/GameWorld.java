@@ -1,6 +1,7 @@
 package org.csc133.a2.model;
 
 import com.codename1.ui.Dialog;
+import org.csc133.a2.view.MapView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.Random;
  */
 public class GameWorld
 {
-    private final int TOTAL_CHECKPOINTS = 5;
+    private final int TOTAL_CHECKPOINTS = 9;
     private final Random rand = new Random();
 
     private final List<GameObject> world = new ArrayList<>();
@@ -28,8 +29,9 @@ public class GameWorld
         world.clear();
 
         // player starts at first SkyScraper, only one PlayerHelicopter can exist at once
-        // FIXME: 4/9/21 this needs to reset the helicopter, its causing immediate game over on 1 life lost
-        player = PlayerHelicopter.getPlayer(startX, startY);
+        player = PlayerHelicopter.getPlayer();
+        player.setLocation(new DoublePoint(startX, startY));
+        player.resetHelicopter();
         placeSkyScrapers(startX, startY);
 
         // refuel blimps
@@ -246,8 +248,8 @@ public class GameWorld
         for (int i = 2; i <= TOTAL_CHECKPOINTS; i++)
         {
             // TODO these are still hardcoded
-            int randX = rand.nextInt(2000);
-            int randY = rand.nextInt(2000);
+            int randX = rand.nextInt(MapView.mapWidth);
+            int randY = rand.nextInt(MapView.mapHeight);
             world.add(new SkyScraper(randX, randY, i));
         }
     }

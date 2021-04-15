@@ -5,18 +5,15 @@ public class PlayerHelicopter
     private static Helicopter player;
 
     /**
-     * A singleton pattern to create a single instance
-     * of the player's Helicopter
+     * A singleton pattern for the player's Helicopter
      *
-     * @param x coordinate
-     * @param y coordinate
-     * @return Helicopter object
+     * @return single instance of a Helicopter
      */
-    public static synchronized Helicopter getPlayer(int x, int y)
+    public static synchronized Helicopter getPlayer()
     {
         if (player == null)
         {
-            player = new Helicopter(x, y);
+            player = new Helicopter();
         }
         return player;
     }

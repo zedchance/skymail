@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class Helicopter extends Movable implements ISteerable
 {
-    private final int MAX_SPEED = 50;
+    private final int MAX_SPEED = 100;
     private int stickAngle;
     private int maximumSpeed;
     private double fuelLevel;
@@ -126,7 +126,7 @@ public class Helicopter extends Movable implements ISteerable
      */
     public void accelerate()
     {
-        int accelerationSpeed = 1;
+        int accelerationSpeed = 10;
         setSpeed(getSpeed() + accelerationSpeed);
         checkSpeed();
         consumeFuel(1);
@@ -138,7 +138,7 @@ public class Helicopter extends Movable implements ISteerable
      */
     public void decelerate()
     {
-        int decelerationSpeed = 2;
+        int decelerationSpeed = 5;
         setSpeed(Math.max(getSpeed() - decelerationSpeed, 0));
     }
 
@@ -280,6 +280,14 @@ public class Helicopter extends Movable implements ISteerable
             return true;
         }
         return false;
+    }
+
+    public void resetHelicopter()
+    {
+        damageLevel = 0;
+        fuelLevel = 100;
+        setSpeed(0);
+        setHeading(0);
     }
 
     /**

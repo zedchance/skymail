@@ -4,6 +4,7 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.geom.Point;
+import org.csc133.a2.view.MapView;
 
 import java.io.IOException;
 import java.util.Random;
@@ -27,8 +28,8 @@ public class Bird extends Movable
     {
         super();
         Random rand = new Random();
-        int startX = rand.nextInt(2000);
-        int startY = rand.nextInt(2000);
+        int startX = rand.nextInt(MapView.mapWidth);
+        int startY = rand.nextInt(MapView.mapHeight);
         setLocation(new DoublePoint(startX, startY));
         setSpeed(rand.nextInt(5) + 10);
         setHeading(rand.nextInt(360));

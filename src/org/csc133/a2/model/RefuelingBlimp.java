@@ -4,6 +4,7 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.geom.Point;
+import org.csc133.a2.view.MapView;
 
 import java.io.IOException;
 import java.util.Random;
@@ -29,8 +30,8 @@ public class RefuelingBlimp extends Fixed
         setSize(rand.nextInt(150) + 50);
         this.capacity = getSize();
         this.setColor(ColorUtil.blue(this.capacity));
-        int startX = rand.nextInt(2000) + 50;
-        int startY = rand.nextInt(2000) + 50;
+        int startX = rand.nextInt(MapView.mapWidth) + 50;
+        int startY = rand.nextInt(MapView.mapHeight) + 50;
         setLocation(new DoublePoint(startX, startY));
         initImage();
     }

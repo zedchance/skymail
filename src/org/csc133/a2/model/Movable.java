@@ -91,18 +91,14 @@ public abstract class Movable extends GameObject implements IWallStrategy
     public void move()
     {
         double theta = 90 - heading;
-        /* TODO find a way to pass REFRESH_RATE to tick, and to all the move methods,
-         *   this isn't working because of Bird and Helicopter's overridden move() */
         double deltaX = Math.cos(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
         double deltaY = Math.sin(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
-        // TODO: 4/13/21 this is not flying around as gracefully as before
         double newX = getX() + deltaX;
         double newY = getY() + deltaY;
         DoublePoint newLocation = new DoublePoint(newX, newY);
         // check if the object is contacting the wall
         if (checkIfOnWall(newLocation))
         {
-            // TODO: 4/14/21 some kind of wall strategy
             wallStrategy();
         }
         // set new location, and check if moving out of bounds
