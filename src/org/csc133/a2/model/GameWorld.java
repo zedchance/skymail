@@ -247,7 +247,6 @@ public class GameWorld
         // the rest of the checkpoints to reach
         for (int i = 2; i <= TOTAL_CHECKPOINTS; i++)
         {
-            // TODO these are still hardcoded
             int randX = rand.nextInt(MapView.mapWidth);
             int randY = rand.nextInt(MapView.mapHeight);
             world.add(new SkyScraper(randX, randY, i));

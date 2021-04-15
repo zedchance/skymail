@@ -1,6 +1,8 @@
 package org.csc133.a2.view;
 
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.geom.Dimension;
 
 import java.util.Calendar;
 
@@ -54,5 +56,48 @@ public class GameClockComponent extends DigitalDashComponent
         return true;
     }
 
-    // TODO: 4/9/21 override paint, rightmost digit should be darker
+    @Override
+    public void paint(Graphics g)
+    {
+        final int COLOR_PAD = 1;
+
+        int digitWidth = clockDigits[0].getWidth();
+        int digitHeight = clockDigits[0].getHeight();
+        int clockWidth = numDigitsShowing * digitWidth;
+
+        float scaleFactor = Math.min(getInnerHeight() / (float) digitHeight,
+                                     getInnerWidth() / (float) clockWidth);
+
+        int displayDigitWidth = (int) (scaleFactor * digitWidth);
+        int displayDigitHeight = (int) (scaleFactor * digitHeight);
+        // num of digits showing minus one to account for darker ms color
+        int displayClockWidth = displayDigitWidth * (numDigitsShowing - 1);
+
+        int displayX = getX() + (getWidth() - displayClockWidth) / 4;
+        int displayY = getY() + (getHeight() - displayDigitHeight) / 2;
+
+        g.setColor(ColorUtil.BLACK);
+        g.fillRect(getX(), getY(), getWidth(), getHeight());
+
+        g.setColor(ledColor);
+        g.fillRect(displayX + COLOR_PAD,
+                   displayY + COLOR_PAD,
+                   displayClockWidth - COLOR_PAD * 2,
+                   displayDigitHeight - COLOR_PAD * 2);
+        // dark blue ms digit
+        g.setColor(ColorUtil.rgb(50, 50, 255));
+        g.fillRect(displayX + COLOR_PAD + (5 * displayDigitWidth),
+                   displayY + COLOR_PAD,
+                   displayDigitWidth - COLOR_PAD * 2,
+                   displayDigitHeight - COLOR_PAD * 2);
+
+        for (int digitIndex = 0; digitIndex < numDigitsShowing; digitIndex++)
+        {
+            g.drawImage(clockDigits[digitIndex],
+                        displayX + digitIndex * displayDigitWidth,
+                        displayY,
+                        displayDigitWidth,
+                        displayDigitHeight);
+        }
+    }
 }

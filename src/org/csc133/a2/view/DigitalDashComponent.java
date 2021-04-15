@@ -33,9 +33,6 @@ public class DigitalDashComponent extends Component
         zeroOutDigits();
     }
 
-    // TODO constructor that takes ints
-    // TODO constructor that takes doubles, and places decimal point
-
     private void initImages()
     {
         try
