@@ -1,5 +1,6 @@
 package org.csc133.a2.view;
 
+import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Container;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.GridLayout;
@@ -34,20 +35,25 @@ public class GlassCockpit extends Container
 
         fuelDash = new DigitalDashComponent(4);
         fuelDash.setValue(100);
+        fuelDash.setLedColor(ColorUtil.MAGENTA);
         add(fuelDash);
 
         damageDash = new DigitalDashComponent(3);
+        damageDash.setLedColor(ColorUtil.GREEN);
         add(damageDash);
 
         livesDash = new DigitalDashComponent(1);
         livesDash.setValue(3);
+        livesDash.setLedColor(ColorUtil.YELLOW);
         add(livesDash);
 
         lastCheckpointReachedDash = new DigitalDashComponent(1);
         lastCheckpointReachedDash.setValue(1);
+        lastCheckpointReachedDash.setLedColor(ColorUtil.CYAN);
         add(lastCheckpointReachedDash);
 
         headingDash = new DigitalDashComponent(3);
+        headingDash.setLedColor(ColorUtil.BLUE);
         add(headingDash);
     }
 

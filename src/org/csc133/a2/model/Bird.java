@@ -83,8 +83,8 @@ public class Bird extends Movable
     @Override
     public void move()
     {
-        // slow down heading change to every 5 ticks
-        if (headingChangeCounter++ % 5 == 0)
+        // slow down heading change to every 10 ticks
+        if (headingChangeCounter++ % 10 == 0)
         {
             Random rand = new Random();
             setHeading(getHeading() + (rand.nextInt(11) - 5));

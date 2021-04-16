@@ -4,6 +4,8 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Image;
 import com.codename1.ui.geom.Point;
+import org.csc133.a2.model.strategy.Strategy;
+import org.csc133.a2.view.MapView;
 
 import java.io.IOException;
 import java.util.Random;
@@ -11,21 +13,27 @@ import java.util.Random;
 public class NonPlayerHelicopter extends Helicopter
 {
     private Image nonPlayerHeloImage;
+    private Strategy strategy;
 
     public NonPlayerHelicopter()
     {
         super();
         Random rand = new Random();
-        int startX = rand.nextInt(2000);
-        int startY = rand.nextInt(2000);
+        int startX = rand.nextInt(MapView.mapWidth);
+        int startY = rand.nextInt(MapView.mapHeight);
         setLocation(new DoublePoint(startX, startY));
-        startMoving();
+        setSpeed(1);
         // TODO: 4/10/21 fix stick angle and heading difference
         setStickAngle(rand.nextInt(360) + 1);
         setColor(ColorUtil.CYAN);
         setFuelLevel(1000);
-        setSize(rand.nextInt(120) + 60);
+        setSize(rand.nextInt(100) + 60);
         initImage();
+    }
+
+    public void setStrategy(Strategy strategy)
+    {
+        this.strategy = strategy;
     }
 
     private void initImage()
@@ -38,12 +46,6 @@ public class NonPlayerHelicopter extends Helicopter
         {
             e.printStackTrace();
         }
-    }
-
-    private void startMoving()
-    {
-        Random rand = new Random();
-        setSpeed(rand.nextInt(20) + 5);
     }
 
     @Override
@@ -71,6 +73,8 @@ public class NonPlayerHelicopter extends Helicopter
     @Override
     public void move()
     {
+        // TODO: 4/15/21 invoke strategy here
+        strategy.invokeStrategy(this);
         super.move();
     }
 
@@ -79,6 +83,4 @@ public class NonPlayerHelicopter extends Helicopter
     {
         setHeading(getHeading() + 30);
     }
-
-    // TODO: 4/10/21 strategies
 }

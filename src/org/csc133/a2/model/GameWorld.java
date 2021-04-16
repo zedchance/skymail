@@ -1,6 +1,8 @@
 package org.csc133.a2.model;
 
 import com.codename1.ui.Dialog;
+import org.csc133.a2.model.strategy.AttackStrategy;
+import org.csc133.a2.model.strategy.Strategy;
 import org.csc133.a2.view.MapView;
 
 import java.util.HashMap;
