@@ -40,7 +40,7 @@ public class Game extends Form implements Runnable
     private void handleViews()
     {
         add(BorderLayout.NORTH, new GlassCockpit(gw));
-        add(BorderLayout.CENTER, new MapView(gw));
+        add(BorderLayout.CENTER, new MapView(gw.getWorld()));
         add(BorderLayout.SOUTH, new ButtonControls(gw));
         // TODO add commands in overflow menu
     }
