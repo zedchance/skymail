@@ -3,9 +3,7 @@ package org.csc133.a2.model;
 import com.codename1.ui.Dialog;
 import org.csc133.a2.view.MapView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -16,7 +14,7 @@ public class GameWorld
     private final int TOTAL_CHECKPOINTS = 9;
     private final Random rand = new Random();
 
-    private final List<GameObject> world = new ArrayList<>();
+    private final GameObjectCollection world = new GameObjectCollection();
     private Helicopter player;
     private int clock = 0;
     private int lives = 3;
@@ -47,7 +45,7 @@ public class GameWorld
         world.add(player);
     }
 
-    public List<GameObject> getWorld()
+    public GameObjectCollection getWorld()
     {
         return world;
     }
@@ -235,7 +233,10 @@ public class GameWorld
     {
         for (int i = 0; i < 3; i++)
         {
-            world.add(new NonPlayerHelicopter());
+            Strategy strat = new AttackStrategy();
+            NonPlayerHelicopter nph = new NonPlayerHelicopter();
+            nph.setStrategy(strat);
+            world.add(nph);
         }
     }
 
