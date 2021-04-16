@@ -206,12 +206,12 @@ public class Helicopter extends Movable implements ISteerable
 
     /**
      * Helicopters take damage when colliding with other objects
-     * equal to their current speed + 1
+     * equal to their (current speed / 2) + 1
      */
     public void collide()
     {
         // TODO take in another Helicopter as parameter, use their speed as a factor to damage taken
-        takeDamage(getSpeed() + 1);
+        takeDamage((getSpeed() / 2) + 1);
     }
 
     /**
