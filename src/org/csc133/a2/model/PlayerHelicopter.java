@@ -17,4 +17,10 @@ public class PlayerHelicopter
         }
         return player;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Player " + super.toString();
+    }
 }

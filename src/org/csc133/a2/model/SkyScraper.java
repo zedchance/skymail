@@ -62,6 +62,11 @@ public class SkyScraper extends Fixed
         System.out.println("SkyScrapers cannot change color once created.");
     }
 
+    public int getSequenceNumber()
+    {
+        return sequenceNumber;
+    }
+
     @Override
     public void draw(Graphics g, Point containerOrigin)
     {

@@ -73,7 +73,6 @@ public class NonPlayerHelicopter extends Helicopter
     @Override
     public void move()
     {
-        // TODO: 4/15/21 invoke strategy here
         strategy.invokeStrategy(this);
         super.move();
     }
@@ -81,6 +80,12 @@ public class NonPlayerHelicopter extends Helicopter
     @Override
     public void wallStrategy()
     {
-        setHeading(getHeading() + 30);
+        setStickAngle(0);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "NPH " + super.toString();
     }
 }

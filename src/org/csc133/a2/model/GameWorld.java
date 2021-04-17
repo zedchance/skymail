@@ -2,6 +2,8 @@ package org.csc133.a2.model;
 
 import com.codename1.ui.Dialog;
 import org.csc133.a2.model.strategy.AttackStrategy;
+import org.csc133.a2.model.strategy.CircleStrategy;
+import org.csc133.a2.model.strategy.FlyToSkyScraperStrategy;
 import org.csc133.a2.model.strategy.Strategy;
 import org.csc133.a2.view.MapView;
 
@@ -32,16 +34,16 @@ public class GameWorld
         player = PlayerHelicopter.getPlayer();
         player.setLocation(new DoublePoint(startX, startY));
         player.resetHelicopter();
-        placeSkyScrapers(startX, startY);
+        spawnSkyScrapers(startX, startY);
 
         // refuel blimps
-        placeBlimps(2);
+        spawnBlimps(2);
 
         // 2 birds
-        placeBirds(2);
+        spawnBirds(2);
 
         // 2 non player helos
-        placeNonPlayerHelicopters();
+        spawnNonPlayerHelicopters();
 
         // place player last to draw on top
         world.add(player);
@@ -174,7 +176,7 @@ public class GameWorld
                 if (!blimp.isEmpty())
                 {
                     blimp.transferFuel(player);
-                    if (blimp.isEmpty()) placeBlimps(1);
+                    if (blimp.isEmpty()) spawnBlimps(1);
                     break;
                 }
             }
@@ -196,7 +198,7 @@ public class GameWorld
                 Bird bird = (Bird) obj;
                 player.collideWithBird();
                 world.remove(bird);
-                placeBirds(1);
+                spawnBirds(1);
                 break;
             }
         }
@@ -231,18 +233,26 @@ public class GameWorld
         return lives == 0;
     }
 
-    private void placeNonPlayerHelicopters()
+    private void spawnNonPlayerHelicopters()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            Strategy strat = new AttackStrategy();
-            NonPlayerHelicopter nph = new NonPlayerHelicopter();
-            nph.setStrategy(strat);
-            world.add(nph);
-        }
+        Strategy circleStrategy = new CircleStrategy();
+        NonPlayerHelicopter nph1 = new NonPlayerHelicopter();
+        nph1.setStrategy(circleStrategy);
+        world.add(nph1);
+
+        Strategy attackStrategy = new AttackStrategy();
+        NonPlayerHelicopter nph2 = new NonPlayerHelicopter();
+        nph2.setStrategy(attackStrategy);
+        nph2.setStickAngle(0);
+        world.add(nph2);
+
+        Strategy flyToSkyScraperStrategy = new FlyToSkyScraperStrategy(world);
+        NonPlayerHelicopter nph3 = new NonPlayerHelicopter();
+        nph3.setStrategy(flyToSkyScraperStrategy);
+        world.add(nph3);
     }
 
-    private void placeSkyScrapers(int startX, int startY)
+    private void spawnSkyScrapers(int startX, int startY)
     {
         // first sky scraper is at helo's start location
         world.add(new SkyScraper(startX, startY, 1));
@@ -256,7 +266,7 @@ public class GameWorld
         }
     }
 
-    private void placeBlimps(int amount)
+    private void spawnBlimps(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -264,7 +274,7 @@ public class GameWorld
         }
     }
 
-    private void placeBirds(int amount)
+    private void spawnBirds(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
