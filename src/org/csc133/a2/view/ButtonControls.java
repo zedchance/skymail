@@ -1,9 +1,14 @@
 package org.csc133.a2.view;
 
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.layouts.GridLayout;
 import org.csc133.a2.model.GameWorld;
+import org.csc133.a2.model.command.AccelerateCommand;
+import org.csc133.a2.model.command.BrakeCommand;
+import org.csc133.a2.model.command.LeftCommand;
+import org.csc133.a2.model.command.RightCommand;
 
 public class ButtonControls extends Container
 {
@@ -27,10 +32,17 @@ public class ButtonControls extends Container
 
     private void addListeners(GameWorld gw)
     {
-        leftButton.addActionListener(evt -> gw.left());
-        rightButton.addActionListener(evt -> gw.right());
-        upButton.addActionListener(evt -> gw.accelerate());
-        downButton.addActionListener(evt -> gw.brake());
+        Command leftCommand = new LeftCommand(gw);
+        leftButton.addActionListener(leftCommand);
+
+        Command rightCommand = new RightCommand(gw);
+        rightButton.addActionListener(rightCommand);
+
+        Command accelerateCommand = new AccelerateCommand(gw);
+        upButton.addActionListener(accelerateCommand);
+
+        Command brakeCommand = new BrakeCommand(gw);
+        downButton.addActionListener(brakeCommand);
     }
 
     private void addButtons()
