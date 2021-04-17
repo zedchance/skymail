@@ -91,8 +91,9 @@ public abstract class Movable extends GameObject implements IWallStrategy
     public void move()
     {
         double theta = 90 - heading;
-        double deltaX = Math.cos(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
-        double deltaY = Math.sin(Math.toRadians(theta)) * speed / Game.REFRESH_RATE;
+        double speed = getSpeed();
+        double deltaX = Math.cos(Math.toRadians(theta)) * (speed / 2) / Game.REFRESH_RATE;
+        double deltaY = Math.sin(Math.toRadians(theta)) * (speed / 2) / Game.REFRESH_RATE;
         double newX = getX() + deltaX;
         double newY = getY() + deltaY;
         DoublePoint newLocation = new DoublePoint(newX, newY);

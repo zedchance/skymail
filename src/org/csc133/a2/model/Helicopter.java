@@ -36,7 +36,7 @@ public class Helicopter extends Movable implements ISteerable
      */
     public Helicopter()
     {
-        this(0, 10, 100, 0.05, 0, 0);
+        this(0, 10, 100, 0.01, 0, 0);
         Random rand = new Random();
         setSpeed(rand.nextInt(2) + 1);
     }
