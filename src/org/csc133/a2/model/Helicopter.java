@@ -104,11 +104,6 @@ public class Helicopter extends Movable implements ISteerable
         return lastSkyscraperReached;
     }
 
-    public int getMaximumSpeed()
-    {
-        return maximumSpeed;
-    }
-
     public void setStickAngle(int stickAngle)
     {
         this.stickAngle = stickAngle;
@@ -300,9 +295,10 @@ public class Helicopter extends Movable implements ISteerable
     @Override
     public void move()
     {
-        // TODO this isn't obeying the A1 rules for stick angle / heading anymore
+        // TODO: 4/17/21 fix the stick angle and heading difference to obey rules
         setHeading(stickAngle);
 
+        // check if able to move
         if (!isFuelEmpty() && !isDestroyed())
         {
             calculateMaximumSpeed();
@@ -368,7 +364,7 @@ public class Helicopter extends Movable implements ISteerable
     }
 
     @Override
-    public void wallStrategy()
+    public void wallBehavior()
     {
         takeDamage(10);
         setSpeed(0);

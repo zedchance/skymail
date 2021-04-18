@@ -20,6 +20,7 @@ public class GameWorld
 
     private final GameObjectCollection world = new GameObjectCollection();
     private Helicopter player;
+    private NonPlayerHelicopter nph3;
     private int clock = 0;
     private int lives = 3;
 
@@ -42,7 +43,7 @@ public class GameWorld
         // 2 birds
         spawnBirds(2);
 
-        // 2 non player helos
+        // 3 non player helos
         spawnNonPlayerHelicopters();
 
         // place player last to draw on top
@@ -86,6 +87,10 @@ public class GameWorld
         {
             exit();
         }
+        else if (nph3.getLastSkyscraperReached() == TOTAL_CHECKPOINTS)
+        {
+            exit();
+        }
     }
 
     public void exit()
@@ -98,6 +103,10 @@ public class GameWorld
         else if (player.getLastSkyscraperReached() == TOTAL_CHECKPOINTS)
         {
             endOfGameDisplay += "You have completed all checkpoints!\n";
+        }
+        else if (nph3.getLastSkyscraperReached() == TOTAL_CHECKPOINTS)
+        {
+            endOfGameDisplay += "The opponent helicopter has completed all checkpoints before you!\n";
         }
         endOfGameDisplay += "Exiting after " + clock + " ticks";
 
@@ -247,7 +256,7 @@ public class GameWorld
         world.add(nph2);
 
         Strategy flyToSkyScraperStrategy = new FlyToSkyScraperStrategy(world);
-        NonPlayerHelicopter nph3 = new NonPlayerHelicopter();
+        nph3 = new NonPlayerHelicopter();
         nph3.setStrategy(flyToSkyScraperStrategy);
         world.add(nph3);
     }

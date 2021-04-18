@@ -1,15 +1,13 @@
 package org.csc133.a2.model;
 
-import com.codename1.ui.geom.Point;
 import org.csc133.a2.controller.Game;
 import org.csc133.a2.view.MapView;
 
-import java.util.Map;
 
 /**
  * Objects in game that have a movable position
  */
-public abstract class Movable extends GameObject implements IWallStrategy
+public abstract class Movable extends GameObject implements IWallBehavior
 {
     private int heading;
     private int speed;
@@ -90,6 +88,7 @@ public abstract class Movable extends GameObject implements IWallStrategy
      */
     public void move()
     {
+        // calculate new location
         double theta = 90 - heading;
         double speed = getSpeed();
         double deltaX = Math.cos(Math.toRadians(theta)) * (speed / 2) / Game.REFRESH_RATE;
@@ -97,11 +96,13 @@ public abstract class Movable extends GameObject implements IWallStrategy
         double newX = getX() + deltaX;
         double newY = getY() + deltaY;
         DoublePoint newLocation = new DoublePoint(newX, newY);
+
         // check if the object is contacting the wall
         if (checkIfOnWall(newLocation))
         {
-            wallStrategy();
+            wallBehavior();
         }
+
         // set new location, and check if moving out of bounds
         setLocation(checkIfMovingOutOfBounds(newLocation));
     }

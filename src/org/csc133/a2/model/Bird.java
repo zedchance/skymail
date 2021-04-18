@@ -102,7 +102,7 @@ public class Bird extends Movable
     }
 
     @Override
-    public void wallStrategy()
+    public void wallBehavior()
     {
         setHeading(getHeading() + 30);
     }

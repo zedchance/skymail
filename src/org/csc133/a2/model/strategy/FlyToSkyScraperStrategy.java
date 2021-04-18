@@ -5,7 +5,7 @@ import org.csc133.a2.model.*;
 
 public class FlyToSkyScraperStrategy implements Strategy
 {
-    private GameObjectCollection world;
+    private final GameObjectCollection world;
 
     public FlyToSkyScraperStrategy(GameObjectCollection world)
     {
@@ -15,10 +15,11 @@ public class FlyToSkyScraperStrategy implements Strategy
     @Override
     public void invokeStrategy(Helicopter helo)
     {
-        SkyScraper target = null;
-        int currentSkyScraper = helo.getLastSkyscraperReached();
+        // TODO: 4/16/21 target becomes null when nph finishes entire flight path
 
         // loop and find the next target
+        SkyScraper target = null;
+        int currentSkyScraper = helo.getLastSkyscraperReached();
         for (GameObject item : world)
         {
             if (item instanceof SkyScraper)
@@ -31,8 +32,7 @@ public class FlyToSkyScraperStrategy implements Strategy
             }
         }
 
-        // fly toward target
-        helo.setSpeed(1);
+        // calculate new heading
         double currentX = helo.getX();
         double currentY = helo.getY();
         double targetX = target.getX();
@@ -40,10 +40,15 @@ public class FlyToSkyScraperStrategy implements Strategy
         double deltaX = currentX - targetX;
         double deltaY = currentY - targetY;
         double targetHeading = Math.toDegrees(MathUtil.atan2(deltaY, deltaX));
+        System.out.println("helo.getHeading() = " + helo.getHeading());
+        System.out.println("targetHeading = " + Math.floorMod((int) ((int) 90 - targetHeading), 360));
+
+        // turn toward target
+        helo.setSpeed(1);
         helo.setStickAngle((int) (90 - targetHeading));
 
         // check if at target
-        final int COLLISION_PAD = 10;
+        final int COLLISION_PAD = target.getSize();
         if (helo.getX() >= target.getX() - COLLISION_PAD && helo.getX() <= target.getX() + COLLISION_PAD &&
                 helo.getY() >= target.getY() - COLLISION_PAD && helo.getY() <= target.getY() + COLLISION_PAD)
         {

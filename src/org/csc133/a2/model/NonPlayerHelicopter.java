@@ -78,7 +78,7 @@ public class NonPlayerHelicopter extends Helicopter
     }
 
     @Override
-    public void wallStrategy()
+    public void wallBehavior()
     {
         setStickAngle(0);
     }
