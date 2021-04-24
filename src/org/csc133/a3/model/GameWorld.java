@@ -221,12 +221,21 @@ public class GameWorld
      */
     public int tick()
     {
-        for (GameObject gameObject : world)
+        for (GameObject thisObject : world)
         {
-            if (gameObject instanceof Movable)
+            if (thisObject instanceof Movable)
             {
-                Movable mObj = (Movable) gameObject;
+                Movable mObj = (Movable) thisObject;
                 mObj.move();
+            }
+            // detect collision
+            for (GameObject thatObject : world)
+            {
+                if (thisObject.collidesWith(thatObject))
+                {
+                    System.out.println("COLLISION: " + thisObject + " -> " + thatObject);
+                    thisObject.handleCollision(thatObject);
+                }
             }
         }
         return ++clock;
@@ -244,6 +253,7 @@ public class GameWorld
 
     private void spawnNonPlayerHelicopters()
     {
+        // TODO: 4/23/21 allow change of strategies with a button
         Strategy circleStrategy = new CircleStrategy();
         NonPlayerHelicopter nph1 = new NonPlayerHelicopter();
         nph1.setStrategy(circleStrategy);

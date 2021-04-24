@@ -369,4 +369,10 @@ public class Helicopter extends Movable implements ISteerable
         takeDamage(10);
         setSpeed(0);
     }
+
+    @Override
+    public void handleCollision(GameObject otherObject)
+    {
+
+    }
 }

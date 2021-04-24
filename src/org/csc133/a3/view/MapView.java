@@ -62,7 +62,7 @@ public class MapView extends Container
         for (GameObject item : world)
         {
             item.draw(g, originOfMap);
-            System.out.println(item);
+//            System.out.println(item);
         }
     }
 }

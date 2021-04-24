@@ -3,13 +3,14 @@ package org.csc133.a3.model;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
+import com.codename1.ui.geom.Rectangle;
 
 import java.util.Random;
 
 /**
  * All objects in game inherit from GameObject
  */
-public abstract class GameObject implements IDrawable
+public abstract class GameObject implements IDrawable, ICollider
 {
     private int size;
     private DoublePoint location;
@@ -103,5 +104,17 @@ public abstract class GameObject implements IDrawable
                 ", y=" + getY() +
                 ", color=" + color +
                 '}';
+    }
+
+    private Rectangle getBoundingRectangle()
+    {
+        return new Rectangle((int) getX(), (int) getY(), getSize(), getSize());
+    }
+
+    @Override
+    public boolean collidesWith(GameObject otherObject)
+    {
+        if (this == otherObject) return false;
+        return this.getBoundingRectangle().intersects(otherObject.getBoundingRectangle());
     }
 }

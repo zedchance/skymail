@@ -106,4 +106,10 @@ public class Bird extends Movable
     {
         setHeading(getHeading() + 30);
     }
+
+    @Override
+    public void handleCollision(GameObject otherObject)
+    {
+
+    }
 }
