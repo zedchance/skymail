@@ -88,4 +88,10 @@ public class NonPlayerHelicopter extends Helicopter
     {
         return "NPH " + super.toString();
     }
+
+    @Override
+    public void handleCollision(GameObject otherObject, GameWorld gw)
+    {
+        // TODO: 4/24/21 nph's collisions
+    }
 }

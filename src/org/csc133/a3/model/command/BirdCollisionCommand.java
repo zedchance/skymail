@@ -2,6 +2,7 @@ package org.csc133.a3.model.command;
 
 import com.codename1.ui.Command;
 import com.codename1.ui.events.ActionEvent;
+import org.csc133.a3.model.Bird;
 import org.csc133.a3.model.GameWorld;
 
 public class BirdCollisionCommand extends Command
@@ -17,6 +18,7 @@ public class BirdCollisionCommand extends Command
     @Override
     public void actionPerformed(ActionEvent evt)
     {
-        gw.birdCollision();
+        // FIXME: 4/24/21 TEMP
+        gw.birdCollision(new Bird());
     }
 }

@@ -174,21 +174,12 @@ public class GameWorld
     /**
      * Refuel the player's Helicopter
      */
-    public void refuel()
+    public void refuel(RefuelingBlimp blimp)
     {
-        // TODO check if this is the closest blimp, for now its breaking after the first blimp
-        for (GameObject obj : world)
+        if (!blimp.isEmpty())
         {
-            if (obj instanceof RefuelingBlimp)
-            {
-                RefuelingBlimp blimp = (RefuelingBlimp) obj;
-                if (!blimp.isEmpty())
-                {
-                    blimp.transferFuel(player);
-                    if (blimp.isEmpty()) spawnBlimps(1);
-                    break;
-                }
-            }
+            blimp.transferFuel(player);
+            if (blimp.isEmpty()) spawnBlimps(1);
         }
     }
 
@@ -197,20 +188,13 @@ public class GameWorld
      * the bird is removed from the world, and a new
      * is added.
      */
-    public void birdCollision()
+    public void birdCollision(Bird bird)
     {
-        // TODO this collides with the first bird in the list, check for closest
-        for (GameObject obj : world)
-        {
-            if (obj instanceof Bird)
-            {
-                Bird bird = (Bird) obj;
-                player.collideWithBird();
-                world.remove(bird);
-                spawnBirds(1);
-                break;
-            }
-        }
+        player.collideWithBird();
+        /* FIXME: 4/24/21 throwing concurrent modification exception when removing from world while
+         *   still iterating over the world during collision detection */
+//        world.remove(bird);
+//        spawnBirds(1);
     }
 
     /**
@@ -233,8 +217,10 @@ public class GameWorld
             {
                 if (thisObject.collidesWith(thatObject))
                 {
-                    System.out.println("COLLISION: " + thisObject + " -> " + thatObject);
-                    thisObject.handleCollision(thatObject);
+                    System.out.println("COLLISION: " + thisObject.getClass().getSimpleName()
+                                               + " -> "
+                                               + thatObject.getClass().getSimpleName());
+                    thisObject.handleCollision(thatObject, this);
                 }
             }
         }

@@ -108,8 +108,10 @@ public class Bird extends Movable
     }
 
     @Override
-    public void handleCollision(GameObject otherObject)
+    public void handleCollision(GameObject otherObject, GameWorld gw)
     {
-
+        // birds don't collide with skyscrapers or blimps
+        if (otherObject instanceof Fixed) return;
+        gw.birdCollision(this);
     }
 }

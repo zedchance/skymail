@@ -105,10 +105,4 @@ public class RefuelingBlimp extends Fixed
                 String.format("location=(%5.1f, %5.1f)", getX(), getY()) +
                 " capacity=" + capacity;
     }
-
-    @Override
-    public void handleCollision(GameObject otherObject)
-    {
-
-    }
 }

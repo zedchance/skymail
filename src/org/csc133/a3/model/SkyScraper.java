@@ -90,10 +90,4 @@ public class SkyScraper extends Fixed
         return "SkyScraper " + sequenceNumber + "\t" +
                 String.format("location=(%5.1f, %5.1f)", getX(), getY());
     }
-
-    @Override
-    public void handleCollision(GameObject otherObject)
-    {
-
-    }
 }

@@ -40,8 +40,6 @@ public class FlyToSkyScraperStrategy implements Strategy
         double deltaX = currentX - targetX;
         double deltaY = currentY - targetY;
         double targetHeading = Math.toDegrees(MathUtil.atan2(deltaY, deltaX));
-        System.out.println("helo.getHeading() = " + helo.getHeading());
-        System.out.println("targetHeading = " + Math.floorMod((int) ((int) 90 - targetHeading), 360));
 
         // turn toward target
         helo.setSpeed(1);

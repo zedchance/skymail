@@ -371,8 +371,17 @@ public class Helicopter extends Movable implements ISteerable
     }
 
     @Override
-    public void handleCollision(GameObject otherObject)
+    public void handleCollision(GameObject otherObject, GameWorld gw)
     {
-
+        if (otherObject instanceof SkyScraper)
+        {
+            SkyScraper s = (SkyScraper) otherObject;
+            gw.landOnSkyScraperCheckpoint(s.getSequenceNumber());
+        }
+        else if (otherObject instanceof RefuelingBlimp)
+        {
+            RefuelingBlimp r = (RefuelingBlimp) otherObject;
+            gw.refuel(r);
+        }
     }
 }

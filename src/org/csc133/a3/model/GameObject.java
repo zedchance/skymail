@@ -5,13 +5,17 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.geom.Rectangle;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
+import java.util.Vector;
 
 /**
  * All objects in game inherit from GameObject
  */
 public abstract class GameObject implements IDrawable, ICollider
 {
+    private final HashSet<GameObject> collisionSet = new HashSet<>();
     private int size;
     private DoublePoint location;
     private int color;
@@ -114,7 +118,33 @@ public abstract class GameObject implements IDrawable, ICollider
     @Override
     public boolean collidesWith(GameObject otherObject)
     {
-        if (this == otherObject) return false;
-        return this.getBoundingRectangle().intersects(otherObject.getBoundingRectangle());
+        if (this == otherObject || otherObject == null) return false;
+        if (this.getBoundingRectangle().intersects(otherObject.getBoundingRectangle()))
+        {
+            // initial collision
+            if (!collisionSet.contains(otherObject))
+            {
+                collisionSet.add(otherObject);
+                otherObject.collisionSet.add(this);
+                return true;
+            }
+        }
+        else
+        {
+            // done colliding
+            if (collisionSet.contains(otherObject))
+            {
+                collisionSet.remove(otherObject);
+                otherObject.collisionSet.remove(this);
+            }
+        }
+        // already collided
+        return false;
+    }
+
+    @Override
+    public void handleCollision(GameObject otherObject, GameWorld gw)
+    {
+        // by default nothing happens on collision
     }
 }
