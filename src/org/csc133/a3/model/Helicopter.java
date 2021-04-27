@@ -201,12 +201,11 @@ public class Helicopter extends Movable implements ISteerable
 
     /**
      * Helicopters take damage when colliding with other objects
-     * equal to their (current speed / 2) + 1
+     * equal to an eight of the sum of their speeds + 1
      */
-    public void collide()
+    public void collide(Helicopter otherHelicopter)
     {
-        // TODO take in another Helicopter as parameter, use their speed as a factor to damage taken
-        takeDamage((getSpeed() / 2) + 1);
+        takeDamage(((getSpeed() / 8) + (otherHelicopter.getSpeed() / 8) / 8) + 1);
     }
 
     /**
@@ -382,6 +381,17 @@ public class Helicopter extends Movable implements ISteerable
         {
             RefuelingBlimp r = (RefuelingBlimp) otherObject;
             gw.refuel(r);
+        }
+        else if (otherObject instanceof NonPlayerHelicopter)
+        {
+            NonPlayerHelicopter nph = (NonPlayerHelicopter) otherObject;
+            // TODO: 4/26/21 this feels too circular, consider refactor
+            gw.helicopterCollision(this);
+        }
+        else if (otherObject instanceof Bird)
+        {
+            // helos only take 1 damage when they hit a bird
+            takeDamage(1);
         }
     }
 }

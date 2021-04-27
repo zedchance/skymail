@@ -19,7 +19,9 @@ public class GameWorld
     private final Random rand = new Random();
 
     private final GameObjectCollection world = new GameObjectCollection();
-    private Helicopter player;
+    private final GameObjectCollection toBeSpawned = new GameObjectCollection();
+    private final GameObjectCollection toBeDespawned = new GameObjectCollection();
+    private final Helicopter player = PlayerHelicopter.getPlayer();
     private NonPlayerHelicopter nph3;
     private int clock = 0;
     private int lives = 3;
@@ -32,9 +34,9 @@ public class GameWorld
         world.clear();
 
         // player starts at first SkyScraper, only one PlayerHelicopter can exist at once
-        player = PlayerHelicopter.getPlayer();
         player.setLocation(new DoublePoint(startX, startY));
         player.resetHelicopter();
+        player.landAtSkyScraper(1);
         spawnSkyScrapers(startX, startY);
 
         // refuel blimps
@@ -48,11 +50,19 @@ public class GameWorld
 
         // place player last to draw on top
         world.add(player);
+
+        // spawn everything
+        handleSpawns();
     }
 
     public GameObjectCollection getWorld()
     {
         return world;
+    }
+
+    public Helicopter getPlayer()
+    {
+        return player;
     }
 
     /**
@@ -152,10 +162,9 @@ public class GameWorld
     /**
      * Simulate a collision with another Helicopter
      */
-    public void helicopterCollision()
+    public void helicopterCollision(Helicopter otherHelicopter)
     {
-        // TODO actually collide with another helo object
-        player.collide();
+        player.collide(otherHelicopter);
     }
 
     public void landOnSkyScraperCheckpoint(int n)
@@ -191,10 +200,8 @@ public class GameWorld
     public void birdCollision(Bird bird)
     {
         player.collideWithBird();
-        /* FIXME: 4/24/21 throwing concurrent modification exception when removing from world while
-         *   still iterating over the world during collision detection */
-//        world.remove(bird);
-//        spawnBirds(1);
+        toBeDespawned.add(bird);
+        spawnBirds(1);
     }
 
     /**
@@ -221,10 +228,27 @@ public class GameWorld
                                                + " -> "
                                                + thatObject.getClass().getSimpleName());
                     thisObject.handleCollision(thatObject, this);
+                    thatObject.handleCollision(thisObject, this);
                 }
             }
         }
+        handleSpawns();
         return ++clock;
+    }
+
+    /**
+     * Spawns new objects to world,
+     * despawns old objects from world.
+     */
+    private void handleSpawns()
+    {
+        // spawn new objects
+        world.addAll(toBeSpawned);
+        toBeSpawned.clear();
+
+        // despawn objects
+        world.removeAll(toBeDespawned);
+        toBeDespawned.clear();
     }
 
     /**
@@ -243,31 +267,31 @@ public class GameWorld
         Strategy circleStrategy = new CircleStrategy();
         NonPlayerHelicopter nph1 = new NonPlayerHelicopter();
         nph1.setStrategy(circleStrategy);
-        world.add(nph1);
+        toBeSpawned.add(nph1);
 
         Strategy attackStrategy = new AttackStrategy();
         NonPlayerHelicopter nph2 = new NonPlayerHelicopter();
         nph2.setStrategy(attackStrategy);
         nph2.setStickAngle(0);
-        world.add(nph2);
+        toBeSpawned.add(nph2);
 
         Strategy flyToSkyScraperStrategy = new FlyToSkyScraperStrategy(world);
         nph3 = new NonPlayerHelicopter();
         nph3.setStrategy(flyToSkyScraperStrategy);
-        world.add(nph3);
+        toBeSpawned.add(nph3);
     }
 
     private void spawnSkyScrapers(int startX, int startY)
     {
         // first sky scraper is at helo's start location
-        world.add(new SkyScraper(startX, startY, 1));
+        toBeSpawned.add(new SkyScraper(startX, startY, 1));
 
         // the rest of the checkpoints to reach
         for (int i = 2; i <= TOTAL_CHECKPOINTS; i++)
         {
             int randX = rand.nextInt(MapView.mapWidth);
             int randY = rand.nextInt(MapView.mapHeight);
-            world.add(new SkyScraper(randX, randY, i));
+            toBeSpawned.add(new SkyScraper(randX, randY, i));
         }
     }
 
@@ -275,7 +299,7 @@ public class GameWorld
     {
         for (int i = 0; i < amount; i++)
         {
-            world.add(new RefuelingBlimp());
+            toBeSpawned.add(new RefuelingBlimp());
         }
     }
 
@@ -283,7 +307,7 @@ public class GameWorld
     {
         for (int i = 0; i < amount; i++)
         {
-            world.add(new Bird());
+            toBeSpawned.add(new Bird());
         }
     }
 }

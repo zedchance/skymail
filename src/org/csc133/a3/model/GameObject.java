@@ -7,8 +7,6 @@ import com.codename1.ui.geom.Rectangle;
 
 import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
-import java.util.Vector;
 
 /**
  * All objects in game inherit from GameObject
