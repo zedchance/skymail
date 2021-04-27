@@ -6,19 +6,19 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.Point;
 import com.codename1.ui.layouts.BorderLayout;
 import org.csc133.a3.model.GameObject;
-import org.csc133.a3.model.GameObjectCollection;
+import org.csc133.a3.model.GameWorld;
 
 public class MapView extends Container
 {
     public static final int WALL_PAD = 40;
     public static int mapWidth;
     public static int mapHeight;
-    private GameObjectCollection world;
+    private GameWorld gw;
 
-    public MapView(GameObjectCollection world)
+    public MapView(GameWorld gw)
     {
         super(new BorderLayout());
-        this.world = world;
+        this.gw = gw;
     }
 
     public void start()
@@ -59,10 +59,12 @@ public class MapView extends Container
 
         // draw all world objects
         Point originOfMap = new Point(getX(), getY());
-        for (GameObject item : world)
+        for (GameObject item : gw.getWorld())
         {
             item.draw(g, originOfMap);
 //            System.out.println(item);
         }
+        // always draw player on top
+        gw.getPlayer().draw(g, originOfMap);
     }
 }
