@@ -7,7 +7,10 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.util.UITimer;
 import org.csc133.a3.model.GameWorld;
-import org.csc133.a3.model.command.*;
+import org.csc133.a3.model.command.AccelerateCommand;
+import org.csc133.a3.model.command.BrakeCommand;
+import org.csc133.a3.model.command.LeftCommand;
+import org.csc133.a3.model.command.RightCommand;
 import org.csc133.a3.view.ButtonControls;
 import org.csc133.a3.view.GlassCockpit;
 import org.csc133.a3.view.MapView;
@@ -61,17 +64,6 @@ public class Game extends Form implements Runnable
 
         Command rightCommand = new RightCommand(gw);
         addKeyListener('r', rightCommand);
-
-        Command helicopterCollisionCommand = new HelicopterCollisionCommand(gw);
-        addKeyListener('c', helicopterCollisionCommand);
-
-        Command refuelCommand = new RefuelCommand(gw);
-        addKeyListener('e', refuelCommand);
-
-        Command birdCollisionCommand = new BirdCollisionCommand(gw);
-        addKeyListener('g', birdCollisionCommand);
-
-        // TODO 's' key for skyscraper collision, with Dialog
 
         // prompt for exit
         addKeyListener('x', this::askToExit);
