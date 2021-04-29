@@ -36,7 +36,7 @@ public class Helicopter extends Movable implements ISteerable
      */
     public Helicopter()
     {
-        this(0, 10, 100, 0.01, 0, 0);
+        this(0, 10, 100, 0.03, 0, 0);
         Random rand = new Random();
         setSpeed(rand.nextInt(2) + 1);
     }
@@ -205,7 +205,7 @@ public class Helicopter extends Movable implements ISteerable
      */
     public void collide(Helicopter otherHelicopter)
     {
-        takeDamage(((getSpeed() / 8) + (otherHelicopter.getSpeed() / 8) / 8) + 1);
+        takeDamage(((getSpeed() / 10) + (otherHelicopter.getSpeed() / 10) / 10) + 1);
     }
 
     /**
@@ -384,7 +384,6 @@ public class Helicopter extends Movable implements ISteerable
         }
         else if (otherObject instanceof NonPlayerHelicopter)
         {
-            NonPlayerHelicopter nph = (NonPlayerHelicopter) otherObject;
             // TODO: 4/26/21 this feels too circular, consider refactor
             gw.helicopterCollision(this);
         }
