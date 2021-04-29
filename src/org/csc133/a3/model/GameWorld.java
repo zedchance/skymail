@@ -37,21 +37,15 @@ public class GameWorld
         player.setLocation(new DoublePoint(startX, startY));
         player.resetHelicopter();
         player.landAtSkyScraper(1);
-        spawnSkyScrapers(startX, startY);
 
-        // refuel blimps
-        spawnBlimps(2);
-
-        // 2 birds
-        spawnBirds(2);
-
-        // 3 non player helos
-        spawnNonPlayerHelicopters();
-
-        // place player last to draw on top
+        // player is first item in world
         world.add(player);
 
-        // spawn everything
+        // add initial objects to be spawned
+        spawnSkyScrapers(startX, startY);
+        spawnBlimps(2);
+        spawnBirds(2);
+        spawnNonPlayerHelicopters();
         handleSpawns();
     }
 
@@ -106,7 +100,7 @@ public class GameWorld
     public void exit()
     {
         String endOfGameDisplay = "";
-        if (lives == 0)
+        if (isGameOver())
         {
             endOfGameDisplay += "You have run out of lives!\n";
         }
@@ -224,7 +218,7 @@ public class GameWorld
             {
                 if (thisObject.collidesWith(thatObject))
                 {
-                    System.out.println("COLLISION: " + thisObject.getClass().getSimpleName()
+                    System.err.println("COLLISION: " + thisObject.getClass().getSimpleName()
                                                + " -> "
                                                + thatObject.getClass().getSimpleName());
                     thisObject.handleCollision(thatObject, this);
@@ -263,6 +257,7 @@ public class GameWorld
 
     private void spawnNonPlayerHelicopters()
     {
+        // TODO: 4/27/21 spawn n amount of NPH with a random strategy each, despawn on death
         // TODO: 4/23/21 allow change of strategies with a button
         Strategy circleStrategy = new CircleStrategy();
         NonPlayerHelicopter nph1 = new NonPlayerHelicopter();
