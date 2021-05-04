@@ -280,8 +280,10 @@ public class Helicopter extends Movable implements ISteerable
     {
         damageLevel = 0;
         fuelLevel = 100;
+        lastSkyscraperReached = 0;
         setSpeed(0);
         setHeading(0);
+        setStickAngle(0);
     }
 
     /**
