@@ -17,14 +17,20 @@ public class GameWorld
 {
     private final int TOTAL_CHECKPOINTS = 9;
     private final Random rand = new Random();
-
     private final GameObjectCollection world = new GameObjectCollection();
     private final GameObjectCollection toBeSpawned = new GameObjectCollection();
     private final GameObjectCollection toBeDespawned = new GameObjectCollection();
     private final Helicopter player = PlayerHelicopter.getPlayer();
+
     private NonPlayerHelicopter nph3;
     private int clock = 0;
     private int lives = 3;
+
+    private Sound crashSound;
+    private Sound refuelSound;
+    private Sound successfulLandingSound;
+    private Sound unsuccessfulLandingSound;
+    private BGSound bgMusic;
 
     public void init()
     {
@@ -47,6 +53,15 @@ public class GameWorld
         spawnBirds(2);
         spawnNonPlayerHelicopters();
         handleSpawns();
+    }
+
+    public void initSounds()
+    {
+        crashSound = new Sound("crash.mp3");
+        refuelSound = new Sound("refuel.mp3");
+        successfulLandingSound = new Sound("bells.mp3");
+        unsuccessfulLandingSound = new Sound("ding.mp3");
+        bgMusic = new BGSound("funk.mp3");
     }
 
     public GameObjectCollection getWorld()
@@ -158,7 +173,9 @@ public class GameWorld
      */
     public void helicopterCollision(Helicopter otherHelicopter)
     {
+        // FIXME: 5/3/21 nph helos taking damage is damaging the player also
         player.collide(otherHelicopter);
+        crashSound.play();
     }
 
     public void landOnSkyScraperCheckpoint(int n)
@@ -167,10 +184,12 @@ public class GameWorld
         if (player.landAtSkyScraper(n))
         {
             System.out.printf("Landing successful, you have reached SkyScraper %d\n", n);
+            successfulLandingSound.play();
         }
         else
         {
             System.out.println("You cannot land here, you must reach the SkyScrapers in order.");
+            unsuccessfulLandingSound.play();
         }
     }
 
@@ -182,6 +201,7 @@ public class GameWorld
         if (!blimp.isEmpty())
         {
             blimp.transferFuel(player);
+            refuelSound.play();
             if (blimp.isEmpty()) spawnBlimps(1);
         }
     }
@@ -194,6 +214,7 @@ public class GameWorld
     public void birdCollision(Bird bird)
     {
         player.collideWithBird();
+        crashSound.play(1000);
         toBeDespawned.add(bird);
         spawnBirds(1);
     }
