@@ -20,7 +20,9 @@ public class Helicopter extends Movable implements ISteerable
     private double fuelConsumptionRate;
     private int damageLevel;
     private int lastSkyscraperReached;
+    private float bladeAngle;
     private Image heloImage;
+    private Image bladeImage;
 
     /**
      * By default, Helicopters have these properties:
@@ -72,6 +74,7 @@ public class Helicopter extends Movable implements ISteerable
         this.fuelConsumptionRate = fuelConsumptionRate;
         this.damageLevel = damageLevel;
         this.lastSkyscraperReached = lastSkyscraperReached;
+        this.bladeAngle = 0;
         setColor(ColorUtil.rgb(255, 0, 0));
         setSize(100);
         initImage();
@@ -81,7 +84,8 @@ public class Helicopter extends Movable implements ISteerable
     {
         try
         {
-            heloImage = Image.createImage("/helo.png").scaled(getSize(), getSize());
+            heloImage = Image.createImage("/helo_no_blade.png").scaled(getSize(), getSize());
+            bladeImage = Image.createImage("/blade.png").scaled(getSize(), getSize());
         }
         catch (IOException e)
         {
@@ -340,13 +344,18 @@ public class Helicopter extends Movable implements ISteerable
         int centerX = x + (getSize() / 2);
         int centerY = y + (getSize() / 2);
 
-        // rotate graphics plane
+        // helo body
         float amountToRotate = (float) Math.toRadians(getHeading());
         g.rotateRadians(-1 * amountToRotate, centerX, centerY);
-
         g.drawImage(heloImage, x, y);
-
         g.rotateRadians(amountToRotate, centerX, centerY);
+
+        // helo blade
+        bladeAngle = Math.floorMod((int) ++bladeAngle, 360);
+        float bladeAmountToRotate = (float) Math.toRadians(bladeAngle);
+        g.rotateRadians(bladeAmountToRotate, centerX, centerY);
+        g.drawImage(bladeImage, x, y);
+        g.rotateRadians(-1 * bladeAmountToRotate, centerX, centerY);
 
         // TODO: 4/13/21 draw image with color
     }

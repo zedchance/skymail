@@ -13,7 +13,9 @@ import java.util.Random;
 public class NonPlayerHelicopter extends Helicopter
 {
     private Image nonPlayerHeloImage;
+    private Image bladeImage;
     private Strategy strategy;
+    private float bladeAngle;
 
     public NonPlayerHelicopter()
     {
@@ -21,6 +23,7 @@ public class NonPlayerHelicopter extends Helicopter
         Random rand = new Random();
         int startX = rand.nextInt(MapView.mapWidth);
         int startY = rand.nextInt(MapView.mapHeight);
+        bladeAngle = 0;
         setLocation(new DoublePoint(startX, startY));
         setSpeed(1);
         // TODO: 4/10/21 fix stick angle and heading difference
@@ -40,7 +43,8 @@ public class NonPlayerHelicopter extends Helicopter
     {
         try
         {
-            nonPlayerHeloImage = Image.createImage("/npc_helo.png").scaled(getSize(), getSize());
+            nonPlayerHeloImage = Image.createImage("/npc_helo_no_blade.png").scaled(getSize(), getSize());
+            bladeImage = Image.createImage("/blade.png").scaled(getSize(), getSize());
         }
         catch (IOException e)
         {
@@ -59,13 +63,18 @@ public class NonPlayerHelicopter extends Helicopter
         int centerX = x + (getSize() / 2);
         int centerY = y + (getSize() / 2);
 
-        // rotate graphics plane
+        // helo body
         float amountToRotate = (float) Math.toRadians(getHeading());
         g.rotateRadians(-1 * amountToRotate, centerX, centerY);
-
         g.drawImage(nonPlayerHeloImage, x, y);
-
         g.rotateRadians(amountToRotate, centerX, centerY);
+
+        // helo blade
+        bladeAngle = Math.floorMod((int) ++bladeAngle, 360);
+        float bladeAmountToRotate = (float) Math.toRadians(bladeAngle);
+        g.rotateRadians(bladeAmountToRotate, centerX, centerY);
+        g.drawImage(bladeImage, x, y);
+        g.rotateRadians(-1 * bladeAmountToRotate, centerX, centerY);
 
         // TODO: 4/13/21 draw image with color
     }
