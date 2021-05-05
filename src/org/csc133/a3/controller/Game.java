@@ -40,7 +40,8 @@ public class Game extends Form implements Runnable
 
         // timer continually calls run method
         UITimer.timer(REFRESH_RATE, true, this, this);
-        gw.initSounds();
+        this.show();
+        new Thread(gw::initSounds).start();
     }
 
     private void handleViews()

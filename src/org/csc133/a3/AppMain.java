@@ -1,14 +1,14 @@
 package org.csc133.a3;
 
 
-import static com.codename1.ui.CN.*;
-
-import com.codename1.ui.Form;
-import com.codename1.ui.Dialog;
-import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Form;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.util.Resources;
 import org.csc133.a3.controller.Game;
+
+import static com.codename1.ui.CN.*;
 
 
 /**
@@ -53,7 +53,7 @@ public class AppMain
             current.show();
             return;
         }
-        new Game().show();
+        new Game();
     }
 
     public void stop()
