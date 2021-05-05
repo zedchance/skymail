@@ -228,10 +228,8 @@ public class GameWorld
     /**
      * Advance game clock by 1 tick, moving any movable objects to
      * their new location.
-     *
-     * @return the current clock tick as an int
      */
-    public int tick()
+    public void tick()
     {
         for (GameObject thisObject : world)
         {
@@ -254,7 +252,7 @@ public class GameWorld
             }
         }
         handleSpawns();
-        return ++clock;
+        ++clock;
     }
 
     /**
