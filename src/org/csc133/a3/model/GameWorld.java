@@ -54,7 +54,8 @@ public class GameWorld
         world.add(player);
 
         // add initial objects to be spawned
-        spawnSkyScrapers(startX, startY);
+        toBeSpawned.add(new HomeBase());
+        spawnSkyScrapers();
         spawnBlimps(2);
         spawnBirds(2);
         spawnNonPlayerHelicopters();
@@ -301,13 +302,10 @@ public class GameWorld
         toBeSpawned.add(nph3);
     }
 
-    private void spawnSkyScrapers(int startX, int startY)
+    private void spawnSkyScrapers()
     {
-        // first sky scraper is at helo's start location
-        toBeSpawned.add(new SkyScraper(startX, startY, 1));
-
         // the rest of the checkpoints to reach
-        for (int i = 2; i <= TOTAL_CHECKPOINTS; i++)
+        for (int i = 1; i <= TOTAL_CHECKPOINTS; i++)
         {
             int randX = rand.nextInt(MapView.mapWidth);
             int randY = rand.nextInt(MapView.mapHeight);
