@@ -70,7 +70,8 @@ public class NonPlayerHelicopter extends Helicopter
         g.rotateRadians(amountToRotate, centerX, centerY);
 
         // helo blade
-        bladeAngle = Math.floorMod((int) ++bladeAngle, 360);
+        bladeAngle = bladeAngle + 10;
+        bladeAngle = Math.floorMod((int) bladeAngle, 360);
         float bladeAmountToRotate = (float) Math.toRadians(bladeAngle);
         g.rotateRadians(bladeAmountToRotate, centerX, centerY);
         g.drawImage(bladeImage, x, y);
