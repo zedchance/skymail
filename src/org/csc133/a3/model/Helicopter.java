@@ -213,12 +213,12 @@ public class Helicopter extends Movable implements ISteerable
     }
 
     /**
-     * Helicopters take damage equal to 1/5 of current speed + 1
+     * Helicopters take damage equal to 1/10 of current speed + 1
      * when colliding with a Bird
      */
     public void collideWithBird()
     {
-        takeDamage(getSpeed() / 5 + 1);
+        takeDamage(getSpeed() / 10 + 1);
     }
 
     /**
@@ -398,12 +398,8 @@ public class Helicopter extends Movable implements ISteerable
         else if (otherObject instanceof NonPlayerHelicopter)
         {
             // TODO: 4/26/21 this feels too circular, consider refactor
-            gw.helicopterCollision(this);
-        }
-        else if (otherObject instanceof Bird)
-        {
-            // helos only take 1 damage when they hit a bird
-            takeDamage(1);
+            Helicopter h = (Helicopter) otherObject;
+            gw.helicopterCollision(this, h);
         }
     }
 }

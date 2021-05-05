@@ -178,10 +178,9 @@ public class GameWorld
     /**
      * Simulate a collision with another Helicopter
      */
-    public void helicopterCollision(Helicopter otherHelicopter)
+    public void helicopterCollision(Helicopter thisHelicopter, Helicopter otherHelicopter)
     {
-        // FIXME: 5/3/21 nph helos taking damage is damaging the player also
-        player.collide(otherHelicopter);
+        thisHelicopter.collide(otherHelicopter);
         // crashSound.play();
     }
 
@@ -218,9 +217,9 @@ public class GameWorld
      * the bird is removed from the world, and a new
      * is added.
      */
-    public void birdCollision(Bird bird)
+    public void birdCollision(Helicopter helo, Bird bird)
     {
-        player.collideWithBird();
+        helo.collideWithBird();
         // crashSound.play(1000);
         toBeDespawned.add(bird);
         spawnBirds(1);
