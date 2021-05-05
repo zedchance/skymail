@@ -16,6 +16,8 @@ game over and the player loses. If the player can successfully land at each sky 
 adequate fuel and damage levels, the player wins. If the player wins, the elapsed time that it took to win is
 essentially the score at the end of the game.
 
+# How to play
+
 # Controller
 
 ## Game

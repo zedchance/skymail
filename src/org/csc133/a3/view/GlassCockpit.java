@@ -76,10 +76,25 @@ public class GlassCockpit extends Container
     {
         HashMap<String, Double> dashElements = gw.getDashElements();
         fuelDash.setValue(dashElements.get("fuel"));
-        damageDash.setValue(dashElements.get("damage"));
         livesDash.setValue(dashElements.get("lives"));
         lastCheckpointReachedDash.setValue(dashElements.get("last"));
         headingDash.setValue(dashElements.get("heading"));
+
+        // take care of damage level's led color
+        double damageLevel = dashElements.get("damage");
+        if (damageLevel < 50)
+        {
+            damageDash.setLedColor(ColorUtil.GREEN);
+        }
+        else if (damageLevel < 85)
+        {
+            damageDash.setLedColor(ColorUtil.YELLOW);
+        }
+        else
+        {
+            damageDash.setLedColor(ColorUtil.rgb(255, 0, 0));
+        }
+        damageDash.setValue(damageLevel);
         return false;
     }
 }
