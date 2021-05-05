@@ -26,11 +26,17 @@ public class GameWorld
     private int clock = 0;
     private int lives = 3;
 
-    private Sound crashSound;
-    private Sound refuelSound;
-    private Sound successfulLandingSound;
-    private Sound unsuccessfulLandingSound;
-    private BGSound bgMusic;
+    /*
+    NOTE: Sounds have been deactivated due to CN1's inconsistencies with firing up
+    the simulator. View README for a more detailed explanation as to why I have decided
+    to do this. I am leaving the code in but commenting it out to display that I have
+    implemented the sounds.
+     */
+    // private Sound crashSound;
+    // private Sound refuelSound;
+    // private Sound successfulLandingSound;
+    // private Sound unsuccessfulLandingSound;
+    // private BGSound bgMusic;
 
     public void init()
     {
@@ -57,11 +63,11 @@ public class GameWorld
 
     public void initSounds()
     {
-        crashSound = new Sound("crash.mp3");
-        refuelSound = new Sound("refuel.mp3");
-        successfulLandingSound = new Sound("bells.mp3");
-        unsuccessfulLandingSound = new Sound("ding.mp3");
-        bgMusic = new BGSound("funk.mp3");
+        // crashSound = new Sound("crash.mp3");
+        // refuelSound = new Sound("refuel.mp3");
+        // successfulLandingSound = new Sound("bells.mp3");
+        // unsuccessfulLandingSound = new Sound("ding.mp3");
+        // bgMusic = new BGSound("funk.mp3");
     }
 
     public GameObjectCollection getWorld()
@@ -175,7 +181,7 @@ public class GameWorld
     {
         // FIXME: 5/3/21 nph helos taking damage is damaging the player also
         player.collide(otherHelicopter);
-        crashSound.play();
+        // crashSound.play();
     }
 
     public void landOnSkyScraperCheckpoint(int n)
@@ -184,12 +190,12 @@ public class GameWorld
         if (player.landAtSkyScraper(n))
         {
             System.out.printf("Landing successful, you have reached SkyScraper %d\n", n);
-            successfulLandingSound.play();
+            // successfulLandingSound.play();
         }
         else
         {
             System.out.println("You cannot land here, you must reach the SkyScrapers in order.");
-            unsuccessfulLandingSound.play();
+            // unsuccessfulLandingSound.play();
         }
     }
 
@@ -201,7 +207,7 @@ public class GameWorld
         if (!blimp.isEmpty())
         {
             blimp.transferFuel(player);
-            refuelSound.play();
+            // refuelSound.play();
             if (blimp.isEmpty()) spawnBlimps(1);
         }
     }
@@ -214,7 +220,7 @@ public class GameWorld
     public void birdCollision(Bird bird)
     {
         player.collideWithBird();
-        crashSound.play(1000);
+        // crashSound.play(1000);
         toBeDespawned.add(bird);
         spawnBirds(1);
     }
