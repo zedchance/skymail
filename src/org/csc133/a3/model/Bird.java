@@ -15,7 +15,9 @@ import java.util.Random;
 public class Bird extends Movable
 {
     private int headingChangeCounter = 0;
-    Image birdImage;
+    private Image[] birdSprites = new Image[3];
+    private int currentSprite;
+    private int spriteWaitTime;
 
     /**
      * By default, Bird's have these properties:
@@ -36,6 +38,8 @@ public class Bird extends Movable
         super.setColor(ColorUtil.rgb(100, 100, 0));
         setSize(rand.nextInt(100) + 50);
         initImage();
+        currentSprite = 0;
+        spriteWaitTime = 0;
     }
 
     @Override
@@ -48,7 +52,9 @@ public class Bird extends Movable
     {
         try
         {
-            birdImage = Image.createImage("/bird.png").scaled(getSize(), getSize());
+            birdSprites[0] = Image.createImage("/bird1.png").scaled(getSize(), getSize());
+            birdSprites[1] = Image.createImage("/bird2.png").scaled(getSize(), getSize());
+            birdSprites[2] = Image.createImage("/bird3.png").scaled(getSize(), getSize());
         }
         catch (IOException e)
         {
@@ -71,7 +77,13 @@ public class Bird extends Movable
         float amountToRotate = (float) Math.toRadians(getHeading());
         g.rotateRadians(-1 * amountToRotate, centerX, centerY);
 
-        g.drawImage(birdImage, x, y);
+        // bird changes sprite every 30 draws
+        spriteWaitTime = ++spriteWaitTime % 30;
+        if (spriteWaitTime == 0)
+        {
+            currentSprite = ++currentSprite % 3;
+        }
+        g.drawImage(birdSprites[currentSprite], x, y);
 
         g.rotateRadians(amountToRotate, centerX, centerY);
     }
