@@ -352,7 +352,7 @@ public class Helicopter extends Movable implements ISteerable
 
         // helo blade
         // TODO: 5/5/21 blade speed should start at 0 and spin up during takeoff
-        bladeAngle = bladeAngle + 5;
+        bladeAngle = bladeAngle + (getSpeed() / 10) + 1;
         bladeAngle = Math.floorMod((int) bladeAngle, 360);
         float bladeAmountToRotate = (float) Math.toRadians(bladeAngle);
         g.rotateRadians(bladeAmountToRotate, centerX, centerY);
