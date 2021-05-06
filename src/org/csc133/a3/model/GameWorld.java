@@ -48,7 +48,6 @@ public class GameWorld
         // player starts at first SkyScraper, only one PlayerHelicopter can exist at once
         player.setLocation(new DoublePoint(startX, startY));
         player.resetHelicopter();
-        player.landAtSkyScraper(1);
 
         // player is first item in world
         world.add(player);
