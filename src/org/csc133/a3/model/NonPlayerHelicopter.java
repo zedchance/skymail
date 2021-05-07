@@ -67,7 +67,7 @@ public class NonPlayerHelicopter extends Helicopter
         float amountToRotate = (float) Math.toRadians(getHeading());
         g.rotateRadians(-1 * amountToRotate, centerX, centerY);
         g.drawImage(nonPlayerHeloImage, x, y);
-        g.rotateRadians(amountToRotate, centerX, centerY);
+        g.resetAffine();
 
         // helo blade
         bladeAngle = bladeAngle + 10;
@@ -75,7 +75,7 @@ public class NonPlayerHelicopter extends Helicopter
         float bladeAmountToRotate = (float) Math.toRadians(bladeAngle);
         g.rotateRadians(bladeAmountToRotate, centerX, centerY);
         g.drawImage(bladeImage, x, y);
-        g.rotateRadians(-1 * bladeAmountToRotate, centerX, centerY);
+        g.resetAffine();
 
         // TODO: 4/13/21 draw image with color
     }

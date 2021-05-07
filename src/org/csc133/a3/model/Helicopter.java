@@ -348,7 +348,7 @@ public class Helicopter extends Movable implements ISteerable
         float amountToRotate = (float) Math.toRadians(getHeading());
         g.rotateRadians(-1 * amountToRotate, centerX, centerY);
         g.drawImage(heloImage, x, y);
-        g.rotateRadians(amountToRotate, centerX, centerY);
+        g.resetAffine();
 
         // helo blade
         // TODO: 5/5/21 blade speed should start at 0 and spin up during takeoff
@@ -357,7 +357,7 @@ public class Helicopter extends Movable implements ISteerable
         float bladeAmountToRotate = (float) Math.toRadians(bladeAngle);
         g.rotateRadians(bladeAmountToRotate, centerX, centerY);
         g.drawImage(bladeImage, x, y);
-        g.rotateRadians(-1 * bladeAmountToRotate, centerX, centerY);
+        g.resetAffine();
 
         // TODO: 4/13/21 draw image with color
     }

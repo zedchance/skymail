@@ -84,8 +84,7 @@ public class Bird extends Movable
             currentSprite = ++currentSprite % 3;
         }
         g.drawImage(birdSprites[currentSprite], x, y);
-
-        g.rotateRadians(amountToRotate, centerX, centerY);
+        g.resetAffine();
     }
 
     /**
