@@ -123,6 +123,8 @@ public class Bird extends Movable
     {
         // birds don't collide with skyscrapers or blimps
         if (otherObject instanceof Fixed) return;
+        // birds don't collide with other birds
+        if (otherObject instanceof Bird) return;
         Helicopter helo = (Helicopter) otherObject;
         gw.birdCollision(helo, this);
     }
