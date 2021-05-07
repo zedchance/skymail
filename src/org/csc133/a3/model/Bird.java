@@ -78,7 +78,7 @@ public class Bird extends Movable
         g.rotateRadians(-1 * amountToRotate, centerX, centerY);
 
         // bird changes sprite every 30 draws
-        spriteWaitTime = ++spriteWaitTime % 30;
+        spriteWaitTime = ++spriteWaitTime % 15;
         if (spriteWaitTime == 0)
         {
             currentSprite = ++currentSprite % 3;
