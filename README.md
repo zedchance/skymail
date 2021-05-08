@@ -18,6 +18,22 @@ essentially the score at the end of the game.
 
 # How to play
 
+Use the flight controls below to control the helicopter.
+
+Keybind | Description
+--- | ---
+`a` or up arrow | accelerate
+`b` or down arrow | decelerate
+`l` or left arrow | turn left
+`r` or right arrow | turn right
+
+Fly over sky scrapers to land at them. You must land at each SkyScraper in order.
+
+Fly over refueling blimps to refuel your helicopter.
+
+If your helicopter becomes too damaged, you will lose a life and the game will restart. If you lose all 3 lives, it is
+game over.
+
 # Controller
 
 ## Game
