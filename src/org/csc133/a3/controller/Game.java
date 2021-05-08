@@ -7,10 +7,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.util.UITimer;
 import org.csc133.a3.model.GameWorld;
-import org.csc133.a3.model.command.AccelerateCommand;
-import org.csc133.a3.model.command.BrakeCommand;
-import org.csc133.a3.model.command.LeftCommand;
-import org.csc133.a3.model.command.RightCommand;
+import org.csc133.a3.model.command.*;
 import org.csc133.a3.view.ButtonControls;
 import org.csc133.a3.view.GlassCockpit;
 import org.csc133.a3.view.MapView;
@@ -33,42 +30,45 @@ public class Game extends Form implements Runnable
         gw = new GameWorld();
 
         // map and cockpit views
-        handleViews();
+        setupViews();
 
-        // setup key listeners
-        handleKeys();
+        // setup key listeners and overflow commands
+        setupCommands();
 
         // timer continually calls run method
         UITimer.timer(REFRESH_RATE, true, this, this);
+
+        // show main Game form
         this.show();
+
+        // init sounds after form is shown
         new Thread(gw::initSounds).start();
     }
 
-    private void handleViews()
+    private void setupViews()
     {
         add(BorderLayout.NORTH, new GlassCockpit(gw));
         add(BorderLayout.CENTER, new MapView(gw));
         add(BorderLayout.SOUTH, new ButtonControls(gw));
-        // TODO add commands in overflow menu
     }
 
-    private void handleKeys()
+    private void setupCommands()
     {
-        // key commands
+        // commands
         Command accelerateCommand = new AccelerateCommand(gw);
-        addKeyListener('a', accelerateCommand);
-
         Command brakeCommand = new BrakeCommand(gw);
-        addKeyListener('b', brakeCommand);
-
         Command leftCommand = new LeftCommand(gw);
-        addKeyListener('l', leftCommand);
-
         Command rightCommand = new RightCommand(gw);
-        addKeyListener('r', rightCommand);
+        Command exitCommand = new ExitCommand(gw);
+        Command aboutCommand = new AboutCommand();
+        Command versionCommand = new VersionCommand();
 
-        // prompt for exit
-        addKeyListener('x', this::askToExit);
+        // key commands
+        addKeyListener('a', accelerateCommand);
+        addKeyListener('b', brakeCommand);
+        addKeyListener('l', leftCommand);
+        addKeyListener('r', rightCommand);
+        addKeyListener('x', exitCommand);
 
         // arrow keys for flight
         final int LEFT = 2;
@@ -79,6 +79,11 @@ public class Game extends Form implements Runnable
         addGameKeyListener(RIGHT, rightCommand);
         addGameKeyListener(UP, accelerateCommand);
         addGameKeyListener(DOWN, brakeCommand);
+
+        // overflow menu commands
+        getToolbar().addCommandToOverflowMenu(exitCommand);
+        getToolbar().addCommandToOverflowMenu(aboutCommand);
+        getToolbar().addCommandToOverflowMenu(versionCommand);
     }
 
     private void askToExit(ActionEvent evt)
