@@ -1,9 +1,7 @@
 package org.csc133.a3.controller;
 
 import com.codename1.ui.Command;
-import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
-import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.util.UITimer;
 import org.csc133.a3.model.GameWorld;
@@ -84,14 +82,6 @@ public class Game extends Form implements Runnable
         getToolbar().addCommandToOverflowMenu(exitCommand);
         getToolbar().addCommandToOverflowMenu(aboutCommand);
         getToolbar().addCommandToOverflowMenu(versionCommand);
-    }
-
-    private void askToExit(ActionEvent evt)
-    {
-        if (Dialog.show("Exit?", "Are you sure you want to exit?", "Yes", "No"))
-        {
-            gw.exit();
-        }
     }
 
     @Override
