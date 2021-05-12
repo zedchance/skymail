@@ -242,9 +242,6 @@ public class GameWorld
             {
                 if (thisObject.collidesWith(thatObject))
                 {
-                    System.err.println("COLLISION: " + thisObject.getClass().getSimpleName()
-                                               + " -> "
-                                               + thatObject.getClass().getSimpleName());
                     thisObject.handleCollision(thatObject, this);
                     thatObject.handleCollision(thisObject, this);
                 }
