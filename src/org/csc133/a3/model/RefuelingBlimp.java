@@ -30,8 +30,8 @@ public class RefuelingBlimp extends Fixed
         setSize(rand.nextInt(150) + 50);
         this.capacity = getSize();
         this.setColor(ColorUtil.blue(this.capacity));
-        int startX = rand.nextInt(MapView.mapWidth) + 50;
-        int startY = rand.nextInt(MapView.mapHeight) + 50;
+        int startX = rand.nextInt(MapView.mapWidth) + MapView.WALL_PAD;
+        int startY = rand.nextInt(MapView.mapHeight) + MapView.WALL_PAD;
         setLocation(new DoublePoint(startX, startY));
         initImage();
     }

@@ -304,8 +304,8 @@ public class GameWorld
         // the rest of the checkpoints to reach
         for (int i = 1; i <= TOTAL_CHECKPOINTS; i++)
         {
-            int randX = rand.nextInt(MapView.mapWidth);
-            int randY = rand.nextInt(MapView.mapHeight);
+            int randX = rand.nextInt(MapView.mapWidth) + MapView.WALL_PAD;
+            int randY = rand.nextInt(MapView.mapHeight) + MapView.WALL_PAD;
             toBeSpawned.add(new SkyScraper(randX, randY, i));
         }
     }
