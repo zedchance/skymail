@@ -6,6 +6,9 @@ import com.codename1.ui.Display;
 
 import java.io.IOException;
 
+/**
+ * Sound has the ability to play a mp3 file, used for collisions
+ */
 public class Sound
 {
     private Media m;

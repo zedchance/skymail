@@ -108,11 +108,24 @@ public abstract class GameObject implements IDrawable, ICollider
                 '}';
     }
 
+    /**
+     * Returns a bounding Rectangle for the object, used to check collision.
+     *
+     * @return Rectangle of the object size, centered at the object's location
+     */
     private Rectangle getBoundingRectangle()
     {
         return new Rectangle((int) getX(), (int) getY(), getSize(), getSize());
     }
 
+    /**
+     * Checks if this collides with another object using bounding rectangles.
+     * Objects that do collide are kept track of in the collision set so multiple
+     * collisions don't occur.
+     *
+     * @param otherObject object to check collision with
+     * @return true if object collide
+     */
     @Override
     public boolean collidesWith(GameObject otherObject)
     {

@@ -6,6 +6,10 @@ import com.codename1.ui.geom.Point;
 
 import java.io.IOException;
 
+/**
+ * HomeBase is the Player's spawn point, stylized like a SkyScraper,
+ * but drawn with a different color.
+ */
 public class HomeBase extends Fixed implements IDrawable
 {
     private Image homeBaseImage;

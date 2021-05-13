@@ -10,6 +10,9 @@ import org.csc133.a3.view.MapView;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * NonPlayerHelicopter is the computer controlled extension of the Helicopter class
+ */
 public class NonPlayerHelicopter extends Helicopter
 {
     private Image nonPlayerHeloImage;

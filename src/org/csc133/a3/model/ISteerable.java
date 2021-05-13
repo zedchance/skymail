@@ -1,5 +1,8 @@
 package org.csc133.a3.model;
 
+/**
+ * Objects that implement ISteerable can have their heading changed.
+ */
 public interface ISteerable
 {
     /**

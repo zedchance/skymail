@@ -1,5 +1,8 @@
 package org.csc133.a3.model;
 
+/**
+ * PlayerHelicopter is the player controlled Helicopter
+ */
 public class PlayerHelicopter
 {
     private static Helicopter player;

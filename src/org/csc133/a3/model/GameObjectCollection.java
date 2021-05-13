@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * A data structure to hold GameObjects
+ */
 public class GameObjectCollection implements Collection<GameObject>
 {
     private final List<GameObject> world = new ArrayList<>();
