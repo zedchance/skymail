@@ -6,7 +6,7 @@ Spring 2021.
 # The object of the game
 
 The player controls a helicopter and attempts to fly to each sky scraper in order, while maintaining a balance between
-fuel and damage. Other helicopters compete against the player and attempt to do the same, or do directly damage the
+fuel and damage. Other helicopters compete against the player and attempt to do the same, or do direct damage the
 player. The player must navigate between other moving objects such as birds, and must make decisions on when to deviate
 from the flight path to refuel.
 
@@ -46,8 +46,8 @@ views: `GlassCockpit` in the north, `MapView` in the center, and a `ButtonContro
 ## Game's run method
 
 `Game` implements Java's built in `Runnable` interface. The CN1 `UITimer` class controls when the `run()` method is
-called, and is continually being refreshed every 15 ms. On the very iteration of this being called, the objects in the
-world are spawned, and the reason for this is to let the views called their `laidOut()` method so the objects can be
+called, and is continually being refreshed every 15 ms. On the very first iteration of this being called, the objects in
+the world are spawned, and the reason for this is to let the views call their `laidOut()` method so the objects can be
 spawned randomly with the `MapView`'s width and height as the bounds. The `run()` method checks if the world needs to be
 reset, and if the game is over. If the game is over, the `GameWorld`'s `exit()` method is called, and if not then
 the `GameWorld`'s `tick()` method is called.
@@ -58,20 +58,21 @@ the `GameWorld`'s `tick()` method is called.
 
 `GameWorld` handles all the objects in the world, and the interactions that these objects have with one another.
 `GameWorld` "has-a" `GameObjectCollection`, which is a data structure containing all the objects in the world. When the
-world is initialized, the objects are spawned and added to the collection. The starting `SkyScraper` and the
+world is initialized, the objects are spawned and added to the collection. The starting `HomeBase` and the
 player's `Helicopter` are both spawned at an x,y location of (100, 100). The rest of the `SkyScraper`s are spawned
 randomly within the bounds of the map. 2 `RefuelingBlimp`s are spawned in random locations, and 2 `Bird`s are spawned in
 random locations, with random heading and speed. 3 `NonPlayerHelicopter`s are spawned in random locations as well.
 The `GameWorld` exposes the world so that the views can observe the changes happening to the world.
 `GameWorld` loops through the world and calls each `Movable` objects `move()` method for each tick in the game (
-controlled by the `UITimer` described above).
+controlled by the `UITimer` described above). After each `Movable` object has moved, a set of nested loops checks if
+there are any collisions between 2 objects. When 2 objects collide, their respective `handleCollision()` method is
+called.
 
 ### Commands
 
 `GameWorld` is exposed to the commands that are bound to the key listeners created in `Game`. Each command calls methods
 that interact with the world, most of which having to do with the player's helicopter. These commands consist of
-accelerating, braking, turning left/right, refueling, and simulating collisions. Currently, the collisions still need to
-be simulated as no automatic collisions detection is occuring.
+accelerating, braking, turning left/right, refueling, and handling collisions.
 
 These commands all implement an `actionPerformed()` method, as is defined by CN1's `Command` interface.
 
@@ -143,13 +144,18 @@ the order in which the player must reach them. If the player attempts to land at
 request is denied. If the player lands at the correct sky scraper, the player's last reached sky scraper attributed is
 incremented.
 
+### HomeBase
+
+The `HomeBase` is the starting location of the player. This object has no gameplay mechanics other than being the spawn
+point for the player. The `HomeBase` is similar looking to the `SkyScraper` except that it is a different color.
+
 ### RefuelingBlimp
 
 The `RefuelingBlimp` is a fixed object that allows the player's helicopter to refuel. When the player is low on fuel,
 colliding with a `RefuelingBlimp` can refuel the helicopter and allow the player to continue flying.
 
 The `RefuelingBlimp` has a randomly generated fuel capacity, as a proportion of the size of the blimp. When
-a `RefuelingBlimp` has unloaded all of its fuel, a new blimp is randomly spawned in the world.
+a `RefuelingBlimp` has unloaded all of its fuel, a new blimp is spawned in a random location in the world.
 
 # View
 
@@ -182,4 +188,52 @@ map, and if objects reach this point they respond according to the object's wall
 
 # Assets
 
-The assets in game are images that represent each images. These images 
+## Images
+
+The assets in game are images that represent each object. These images were created in PhotoShop using basic shape
+tools.
+
+### The Helicopter image
+
+The Helicopter is made up of 2 images, the fuselage and the blade. Each time that a Helicopter is drawn, the fuselage is
+drawn, and the blade is drawn on top. The blade rotates respective to the current speed that the Helicopter is
+traveling.
+
+### SkyScrapers and HomeBase images
+
+Both of these images are static images. The sky scraper is drawn with a number in the top left corner to indicate the
+sequence number. The home base image is simply a green version of the sky scraper, without a sequence number.
+
+### RefuelingBlimp image
+
+The blimp is a static image made up of concentric ellipses. A number is drawn in the center of the blimp to indicate how
+much fuel the blimp has.
+
+### Bird images
+
+The birds are drawn using 3 sprites. These images are cut out images of a Red Tailed Hawk that I have personally taken.
+They are drawn in succession to emulate the bird flapping its wings as it flies.
+
+## Sounds
+
+> Note: CN1 has some inconsistencies with the timing during simulator start up.
+> Sometimes, sounds will not fully instantiate and will be null.
+> To combat this, I catch any null pointer exception so the gameplay isn't interrupted.
+> This means that there are inconsistencies during gameplay, where sometimes certain sounds
+> will not play on collision. Sometimes this is the background music, and sometimes it is
+> collision sounds.
+>
+> When the simulator starts up I instantiate the sounds in a separate thread.
+> I do this so that the simulator fully fires up and gameplay is possible even if the sounds are null.
+> Before I changed it to instantiate in a separate thread, the simulator would often start up to a black screen and the
+> game would be unplayable.
+
+The sounds are mp3 clips that are played during collisions between objects. When a helicopter collides with another
+helicopter, a crashing collision sound is played. When a helicopter collides with a bird, a shorter collision sound is
+played. When the player collides with a refueling blimp, a drill noise is played to indicate the fuel transfer. When the
+player flies over the next sky scraper in its flight path, a bell is dinged to indicate the landing was successful, or
+an alarm sound is played to indicate the landing was not successful.
+
+The background music is played at the start of a game in a separate thread.
+
+These sounds were obtained via the website https://soundscrate.com
