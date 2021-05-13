@@ -26,17 +26,11 @@ public class GameWorld
     private int clock = 0;
     private int lives = 3;
 
-    /*
-    NOTE: Sounds have been deactivated due to CN1's inconsistencies with firing up
-    the simulator. View README for a more detailed explanation as to why I have decided
-    to do this. I am leaving the code in but commenting it out to display that I have
-    implemented the sounds.
-     */
-    // private Sound crashSound;
-    // private Sound refuelSound;
-    // private Sound successfulLandingSound;
-    // private Sound unsuccessfulLandingSound;
-    // private BGSound bgMusic;
+    private Sound crashSound;
+    private Sound refuelSound;
+    private Sound successfulLandingSound;
+    private Sound unsuccessfulLandingSound;
+    private BGSound bgMusic;
 
     public void init()
     {
@@ -63,11 +57,19 @@ public class GameWorld
 
     public void initSounds()
     {
-        // crashSound = new Sound("crash.mp3");
-        // refuelSound = new Sound("refuel.mp3");
-        // successfulLandingSound = new Sound("bells.mp3");
-        // unsuccessfulLandingSound = new Sound("ding.mp3");
-        // bgMusic = new BGSound("funk.mp3");
+        // attempt to reinstantiate if any are null
+        while (crashSound == null ||
+                refuelSound == null ||
+                successfulLandingSound == null ||
+                unsuccessfulLandingSound == null ||
+                bgMusic == null)
+        {
+            crashSound = new Sound("crash.mp3");
+            refuelSound = new Sound("refuel.mp3");
+            successfulLandingSound = new Sound("bells.mp3");
+            unsuccessfulLandingSound = new Sound("ding.mp3");
+            bgMusic = new BGSound("funk.mp3");
+        }
     }
 
     public GameObjectCollection getWorld()
@@ -180,7 +182,7 @@ public class GameWorld
     public void helicopterCollision(Helicopter thisHelicopter, Helicopter otherHelicopter)
     {
         thisHelicopter.collide(otherHelicopter);
-        // crashSound.play();
+        tryToPlaySound(crashSound, 500);
     }
 
     public void landOnSkyScraperCheckpoint(int n)
@@ -189,12 +191,12 @@ public class GameWorld
         if (player.landAtSkyScraper(n))
         {
             System.out.printf("Landing successful, you have reached SkyScraper %d\n", n);
-            // successfulLandingSound.play();
+            tryToPlaySound(successfulLandingSound);
         }
         else
         {
             System.out.println("You cannot land here, you must reach the SkyScrapers in order.");
-            // unsuccessfulLandingSound.play();
+            tryToPlaySound(unsuccessfulLandingSound);
         }
     }
 
@@ -206,7 +208,7 @@ public class GameWorld
         if (!blimp.isEmpty())
         {
             blimp.transferFuel(player);
-            // refuelSound.play();
+            tryToPlaySound(refuelSound);
             if (blimp.isEmpty()) spawnBlimps(1);
         }
     }
@@ -219,7 +221,7 @@ public class GameWorld
     public void birdCollision(Helicopter helo, Bird bird)
     {
         helo.collideWithBird();
-        // crashSound.play(1000);
+        tryToPlaySound(crashSound, 1000);
         toBeDespawned.add(bird);
         spawnBirds(1);
     }
@@ -321,6 +323,23 @@ public class GameWorld
         for (int i = 0; i < amount; i++)
         {
             toBeSpawned.add(new Bird());
+        }
+    }
+
+    private void tryToPlaySound(Sound s)
+    {
+        tryToPlaySound(s, 0);
+    }
+
+    private void tryToPlaySound(Sound s, int startTime)
+    {
+        try
+        {
+            s.play(startTime);
+        }
+        catch (NullPointerException e)
+        {
+            // see README on why s may be null
         }
     }
 }
