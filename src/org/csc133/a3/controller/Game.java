@@ -38,6 +38,9 @@ public class Game extends Form implements Runnable
 
         // show main Game form
         this.show();
+
+        // init sounds when world is spawned, after Game is shown
+        new Thread(gw::initSounds).start();
     }
 
     private void setupViews()
@@ -102,8 +105,6 @@ public class Game extends Form implements Runnable
     {
         if (!isSpawned)
         {
-            // init sounds when world is spawned, after Game is shown
-            new Thread(gw::initSounds).start();
             gw.init();
             isSpawned = true;
         }
