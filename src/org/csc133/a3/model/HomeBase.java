@@ -10,7 +10,7 @@ import java.io.IOException;
  * HomeBase is the Player's spawn point, stylized like a SkyScraper,
  * but drawn with a different color.
  */
-public class HomeBase extends Fixed implements IDrawable
+public class HomeBase extends Fixed
 {
     private Image homeBaseImage;
 
