@@ -3,6 +3,8 @@
 A graphical game where you play as a Helicopter flying between sky scrapers delivering mail. Created for CS133 during
 Spring 2021.
 
+![screenshot.png](screenshot.png)
+
 # The object of the game
 
 The player controls a helicopter and attempts to fly to each sky scraper in order, while maintaining a balance between
